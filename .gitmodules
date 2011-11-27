@@ -1,0 +1,3 @@
+[submodule "lib/rekapi"]
+	path = lib/rekapi
+	url = git@github.com:jeremyckahn/rekapi.git
