@@ -18,12 +18,21 @@
   $ = jQuery;
 
   gk.prototype.controlsCreate = function () {
-    var controlEl
-        ,$canvas;
+    var $controls
+        ,$canvas
+        ,$play
+        ,$pause
+        ,$stop
+        ,$timeline;
 
     $canvas = $(this.canvas);
-    controlEl = $(Mustache.to_html(CONTROL_TEMPLATE));
-    $canvas.after(controlEl);
+    $controls = $(Mustache.to_html(CONTROL_TEMPLATE));
+    $play =     $controls.find('.rekapi-controls-play');
+    $pause =    $controls.find('.rekapi-controls-pause');
+    $stop =     $controls.find('.rekapi-controls-stop');
+    $timeline = $controls.find('.rekapi-controls-timeline');
+    $timeline.slider();
+    $canvas.after($controls);
 
     return this;
   };
