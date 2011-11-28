@@ -13,7 +13,8 @@
       float: left;
     }
 
-    .rekapi-controls-play {
+    .rekapi-controls-play,
+    .rekapi-controls-pause {
       margin-right: 6px;
     }
 
