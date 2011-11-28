@@ -1,0 +1,24 @@
+.rekapi-controls-wrapper {
+  /* overflow: auto here makes the scrubber partially disappear.*/
+  padding-bottom: 18px;
+}
+
+  .rekapi-controls {
+    float: left;
+  }
+
+    .rekapi-controls-button {
+      background: #ccc;
+      display: block;
+      float: left;
+    }
+
+    .rekapi-controls-play {
+      margin-right: 6px;
+    }
+
+    .rekapi-controls-timeline {
+      float: left;
+      margin: 0px 12px;
+      /*width: 200px;*/
+    }
