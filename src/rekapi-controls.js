@@ -18,13 +18,15 @@
   $ = jQuery;
 
   gk.prototype.controlsCreate = function () {
-    var $controls
+    var self
+        ,$controls
         ,$canvas
         ,$play
         ,$pause
         ,$stop
         ,$timeline;
 
+    self = this;
     $canvas = $(this.canvas);
     $controls = $(Mustache.to_html(CONTROL_TEMPLATE));
     $play =     $controls.find('.rekapi-controls-play');
@@ -33,6 +35,18 @@
     $timeline = $controls.find('.rekapi-controls-timeline');
     $timeline.slider();
     $canvas.after($controls);
+
+    $play.on('click', function (evt) {
+      self.play();
+    });
+
+    $pause.on('click', function (evt) {
+      self.pause();
+    });
+
+    $stop.on('click', function (evt) {
+      self.stop(true);
+    });
 
     return this;
   };
