@@ -131,12 +131,12 @@
         this.kapi, timeSinceStart, -1);
     animationLength = this.kapi._animationLength;
     loopCompletionPercent = 100 * (currentLoopPosition / animationLength);
-    this.$timeline.slider('option', 'value', loopCompletionPercent);
+    this.$timeline.slider('value', loopCompletionPercent);
   };
 
 
   RekapiControls.prototype.resetScrubber = function () {
-    this.$timeline.slider('option', 'value', 0);
+    this.$timeline.slider('value', 0);
   };
 
   global.RekapiControls = RekapiControls;
