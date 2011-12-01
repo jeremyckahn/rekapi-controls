@@ -18,8 +18,11 @@
       margin-right: 6px;
     }
 
+    .rekapi-controls-stop {
+      margin-left: 6px;
+    }
+
     .rekapi-controls-timeline {
       float: left;
       margin: 0px 12px;
-      /*width: 200px;*/
     }
