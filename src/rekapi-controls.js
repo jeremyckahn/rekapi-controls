@@ -47,7 +47,7 @@
 
     // Update the reference to the element in the DOM
     $controls = $canvas.next();
-    kapi._$controls = $controls;
+    this.$container = $controls;
     $play =     $controls.find('.rekapi-controls-play');
     $pause =    $controls.find('.rekapi-controls-pause');
     $stop =     $controls.find('.rekapi-controls-stop');
@@ -59,24 +59,25 @@
 
     $play.on('click', function (evt) {
       evt.preventDefault();
-      kapi
-        .play();
+      kapi.play();
     });
 
     $pause.on('click', function (evt) {
       evt.preventDefault();
-      kapi
-        .pause();
+      kapi.pause();
     });
 
     $stop.on('click', function (evt) {
       evt.preventDefault();
-      kapi
-        .stop(true);
+      kapi.stop(true);
     });
 
     kapi.bind('onPlayStateChange', function () {
       self.updatePlayState();
+    });
+
+    kapi.bind('onFrameRender', function () {
+      self.updateScrubber();
     });
 
     return kapi;
@@ -89,8 +90,8 @@
         ,$pause
 
     kapi = this.kapi;
-    $play = kapi._$controls.find('.rekapi-controls-play');
-    $pause = kapi._$controls.find('.rekapi-controls-pause');
+    $play = this.$container.find('.rekapi-controls-play');
+    $pause = this.$container.find('.rekapi-controls-pause');
 
     if (kapi.isPlaying()) {
       $play.css({
@@ -113,7 +114,7 @@
 
 
   RekapiControls.prototype.updateScrubber = function () {
-
+    
   };
 
   global.RekapiControls = RekapiControls;
