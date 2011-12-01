@@ -77,6 +77,10 @@
       self.updatePlayState();
     });
 
+    kapi.bind('onStop', function () {
+      self.resetScrubber();
+    });
+
     kapi.bind('onFrameRender', function () {
       self.updateScrubber();
     });
@@ -128,5 +132,11 @@
     this.$timeline.slider('option', 'value', loopCompletionPercent);
   };
 
+
+  RekapiControls.prototype.resetScrubber = function () {
+    this.$timeline.slider('option', 'value', 0);
+  };
+
   global.RekapiControls = RekapiControls;
+
 } (this));
