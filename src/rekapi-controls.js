@@ -52,7 +52,9 @@
     $pause =    $container.find('.rekapi-controls-pause');
     $stop =     $container.find('.rekapi-controls-stop');
     $timeline = $container.find('.rekapi-controls-timeline');
-    $timeline.slider();
+    $timeline.slider({
+      'step': 0.1
+    });
     this.$timeline = $timeline;
     $container.width(kapi.canvas_width());
     this.updatePlayState();
