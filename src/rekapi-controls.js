@@ -53,6 +53,7 @@
     $stop =     $container.find('.rekapi-controls-stop');
     $timeline = $container.find('.rekapi-controls-timeline');
     $timeline.slider();
+    this.$timeline = $timeline;
     $container.width(kapi.canvas_width());
     this.updatePlayState();
     $timeline.width(computeTimelineWidth(kapi, $container));
@@ -80,7 +81,7 @@
       self.updateScrubber();
     });
 
-    return kapi;
+    return this;
   };
 
 
@@ -114,7 +115,17 @@
 
 
   RekapiControls.prototype.updateScrubber = function () {
-    
+    var animationLength
+        ,timeSinceStart
+        ,currentLoopPosition
+        ,loopCompletionPercent;
+
+    timeSinceStart = Kapi.util.calculateTimeSinceStart(this.kapi);
+    currentLoopPosition = Kapi.util.calculateLoopPosition(
+        this.kapi, timeSinceStart, -1);
+    animationLength = this.kapi._animationLength;
+    loopCompletionPercent = 100 * (currentLoopPosition / animationLength);
+    this.$timeline.slider('option', 'value', loopCompletionPercent);
   };
 
   global.RekapiControls = RekapiControls;
