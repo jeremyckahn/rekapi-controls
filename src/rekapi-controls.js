@@ -30,7 +30,7 @@
     return kapi.canvas_width() - $controls.find('.rekapi-controls').width();
   }
 
-  gk.prototype.controlsCreate = function () {
+  function RekapiControls (kapi) {
     var self
         ,$canvas
         ,$controls
@@ -40,55 +40,67 @@
         ,$timeline;
 
     self = this;
-    $canvas = $(this.canvas);
+    this.kapi = kapi;
+    $canvas = $(kapi.canvas);
     $controls = $(CONTROL_TEMPLATE);
     $canvas.after($controls);
 
     // Update the reference to the element in the DOM
     $controls = $canvas.next();
-    this._$controls = $controls;
+    kapi._$controls = $controls;
     $play =     $controls.find('.rekapi-controls-play');
     $pause =    $controls.find('.rekapi-controls-pause');
     $stop =     $controls.find('.rekapi-controls-stop');
     $timeline = $controls.find('.rekapi-controls-timeline');
     $timeline.slider();
-    $controls.width(this.canvas_width());
+    $controls.width(kapi.canvas_width());
     this.controlsUpdatePlayState();
-    $timeline.width(computeTimelineWidth(this, $controls));
+    $timeline.width(computeTimelineWidth(kapi, $controls));
 
     $play.on('click', function (evt) {
+      
+      self.controlsUpdatePlayState();
+      
       evt.preventDefault();
-      self
-        .play()
-        .controlsUpdatePlayState();
+      kapi
+        .play();
+
     });
 
     $pause.on('click', function (evt) {
+      
+      self.controlsUpdatePlayState();
+      
       evt.preventDefault();
-      self
-        .pause()
-        .controlsUpdatePlayState();
+      kapi
+        .pause();
+
     });
 
     $stop.on('click', function (evt) {
+      
+      self.controlsUpdatePlayState();
+      
       evt.preventDefault();
-      self
-        .stop(true)
-        .controlsUpdatePlayState();
+      kapi
+        .stop(true);
+
     });
 
-    return this;
+    return kapi;
   };
 
 
-  gk.prototype.controlsUpdatePlayState = function () {
-    var $play
+  RekapiControls.prototype.controlsUpdatePlayState = function () {
+    var kapi
+        ,$play
         ,$pause
 
-    $play = this._$controls.find('.rekapi-controls-play');
-    $pause = this._$controls.find('.rekapi-controls-pause');
+    kapi = this.kapi;
+    $play = kapi._$controls.find('.rekapi-controls-play');
+    $pause = kapi._$controls.find('.rekapi-controls-pause');
 
-    if (this.isPlaying()) {
+    if (kapi.isPlaying()) {
       $play.css({
         'display': 'none'
       });
@@ -106,6 +118,8 @@
       });
     }
 
-    return this;
-  };
+    return kapi;
+  }
+
+  global.RekapiControls = RekapiControls;
 } (this));
