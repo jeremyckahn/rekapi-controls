@@ -58,33 +58,25 @@
     $timeline.width(computeTimelineWidth(kapi, $controls));
 
     $play.on('click', function (evt) {
-      
-      self.controlsUpdatePlayState();
-      
       evt.preventDefault();
       kapi
         .play();
-
     });
 
     $pause.on('click', function (evt) {
-      
-      self.controlsUpdatePlayState();
-      
       evt.preventDefault();
       kapi
         .pause();
-
     });
 
     $stop.on('click', function (evt) {
-      
-      self.controlsUpdatePlayState();
-      
       evt.preventDefault();
       kapi
         .stop(true);
+    });
 
+    kapi.bind('onPlayStateChange', function () {
+      self.controlsUpdatePlayState();
     });
 
     return kapi;
