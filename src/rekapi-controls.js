@@ -18,8 +18,8 @@
         ,'</div>'
       ].join('');
 
-  if (!jQuery || !Kapi || !Mustache) {
-    throw 'Rekapi, jQuery, and Mustache are needed for Rekapi Controls.';
+  if (!jQuery || !Kapi) {
+    throw 'Rekapi, ans jQuery are needed for Rekapi Controls.';
   }
 
   gk = global.Kapi;
@@ -41,7 +41,7 @@
 
     self = this;
     $canvas = $(this.canvas);
-    $controls = $(Mustache.to_html(CONTROL_TEMPLATE));
+    $controls = $(CONTROL_TEMPLATE);
     $canvas.after($controls);
 
     // Update the reference to the element in the DOM
