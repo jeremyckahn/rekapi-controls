@@ -87,6 +87,11 @@
       self.updateScrubber();
     });
 
+    $timeline.bind('slide', function (evt, ui) {
+      kapi.pause();
+      self.syncAnimationToScrubber();
+    });
+
     return this;
   };
 
@@ -138,6 +143,19 @@
   RekapiControls.prototype.resetScrubber = function () {
     this.$timeline.slider('value', 0);
   };
+
+  
+  RekapiControls.prototype.syncAnimationToScrubber = function () {
+    var scrubberPosition
+        ,desiredAnimationPosition;
+
+    scrubberPosition = this.$timeline.slider('value');
+    desiredAnimationPosition = parseInt(
+        (scrubberPosition / 100) * this.kapi._animationLength);
+    this.kapi.render(desiredAnimationPosition);
+    this.kapi._loopTimestamp = Tweenable.util.now() - desiredAnimationPosition;
+    this.kapi._pausedAtTime = Tweenable.util.now();
+  }
 
   global.RekapiControls = RekapiControls;
 
