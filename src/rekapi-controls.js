@@ -31,11 +31,6 @@
   }
 
 
-  function percentStringToNumber (percentString) {
-    return +(percentString.match(/.*(?=%)/)[0]);
-  }
-
-
   function RekapiControls (kapi) {
     var self
         ,$canvas
