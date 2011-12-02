@@ -30,6 +30,12 @@
     return kapi.canvas_width() - $container.find('.rekapi-controls').width();
   }
 
+
+  function percentStringToNumber (percentString) {
+    return +(percentString.match(/.*(?=%)/)[0]);
+  }
+
+
   function RekapiControls (kapi) {
     var self
         ,$canvas
@@ -56,6 +62,7 @@
       'step': 0.1
     });
     this.$timeline = $timeline;
+    this.$timelineHandle = $timeline.find('.ui-slider-handle');
     $container.width(kapi.canvas_width());
     this.updatePlayState();
     $timeline.width(computeTimelineWidth(kapi, $container));
@@ -89,7 +96,7 @@
 
     $timeline.bind('slide', function (evt, ui) {
       kapi.pause();
-      self.syncAnimationToScrubber();
+      self.syncAnimationToPercent(ui.value);
     });
 
     return this;
@@ -144,18 +151,30 @@
     this.$timeline.slider('value', 0);
   };
 
-  
-  RekapiControls.prototype.syncAnimationToScrubber = function () {
-    var scrubberPosition
-        ,desiredAnimationPosition;
 
-    scrubberPosition = this.$timeline.slider('value');
-    desiredAnimationPosition = parseInt(
-        (scrubberPosition / 100) * this.kapi._animationLength);
-    this.kapi.render(desiredAnimationPosition);
-    this.kapi._loopTimestamp = Tweenable.util.now() - desiredAnimationPosition;
-    this.kapi._pausedAtTime = Tweenable.util.now();
+  RekapiControls.prototype.syncAnimationToScrubber = function () {
+    this.syncAnimationToPercent(this.$timeline.slider('value'));
   }
+
+
+  RekapiControls.prototype.syncAnimationToPercent = function (percent) {
+    var desiredMillisecond;
+
+    desiredMillisecond = parseInt(
+        (percent / 100) * this.kapi._animationLength);
+    this.syncAnimationToMillisecond(desiredMillisecond);
+  };
+
+
+  RekapiControls.prototype.syncAnimationToMillisecond =
+    function (millisecond) {
+    var now;
+
+    now = Tweenable.util.now();
+    this.kapi.render(millisecond);
+    this.kapi._loopTimestamp = now - millisecond;
+    this.kapi._pausedAtTime = now;
+  };
 
   global.RekapiControls = RekapiControls;
 
