@@ -80,7 +80,7 @@
   }
 
 
-  function RekapiControls (kapi) {
+  function RekapiScrubber (kapi) {
     var self
         ,$canvas
         ,$container
@@ -110,7 +110,7 @@
   };
 
 
-  RekapiControls.prototype.updatePlayState = function () {
+  RekapiScrubber.prototype.updatePlayState = function () {
     var kapi
         ,$play
         ,$pause
@@ -139,7 +139,7 @@
   };
 
 
-  RekapiControls.prototype.updateScrubber = function () {
+  RekapiScrubber.prototype.updateScrubber = function () {
     var animationLength
         ,timeSinceStart
         ,currentLoopPosition
@@ -154,17 +154,17 @@
   };
 
 
-  RekapiControls.prototype.resetScrubber = function () {
+  RekapiScrubber.prototype.resetScrubber = function () {
     this.$timeline.slider('value', 0);
   };
 
 
-  RekapiControls.prototype.syncAnimationToScrubber = function () {
+  RekapiScrubber.prototype.syncAnimationToScrubber = function () {
     this.syncAnimationToPercent(this.$timeline.slider('value'));
   }
 
 
-  RekapiControls.prototype.syncAnimationToPercent = function (percent) {
+  RekapiScrubber.prototype.syncAnimationToPercent = function (percent) {
     var desiredMillisecond;
 
     desiredMillisecond = parseInt(
@@ -173,7 +173,7 @@
   };
 
 
-  RekapiControls.prototype.syncAnimationToMillisecond =
+  RekapiScrubber.prototype.syncAnimationToMillisecond =
     function (millisecond) {
     var now;
 
@@ -183,6 +183,6 @@
     this.kapi._pausedAtTime = now;
   };
 
-  global.RekapiControls = RekapiControls;
+  global.RekapiScrubber = RekapiScrubber;
 
 } (this));

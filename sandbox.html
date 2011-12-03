@@ -31,16 +31,16 @@
         state.y || 50,
         state.radius || 50,
         0,
-        Math.PI*2, 
+        Math.PI*2,
         true);
       canvas_context.fillStyle = state.color || '#f0f';
       canvas_context.fill();
       canvas_context.closePath();
     }
   });
-  
+
   kapi.addActor(actor);
-  
+
   actor
     .keyframe(0, {
       x: 50
@@ -67,9 +67,9 @@
   kapi
     .play();
 
-  var controls = new RekapiControls(kapi);
+  var controls = new RekapiScrubber(kapi);
   console.log(kapi, controls);
-  
+
   </script>
 </body>
 </html>
