@@ -1,32 +1,32 @@
-.rekapi-controls-wrapper {
+.rekapi-scrubber-wrapper {
   /* overflow: auto here makes the scrubber partially disappear.*/
   padding-bottom: 18px;
 }
 
-  .rekapi-controls {
+  .rekapi-scrubber {
     float: left;
   }
 
-    .rekapi-controls-button {
+    .rekapi-scrubber-button {
       background: #ccc;
       display: block;
       float: left;
     }
 
-    .rekapi-controls-play,
-    .rekapi-controls-pause {
+    .rekapi-scrubber-play,
+    .rekapi-scrubber-pause {
       margin-right: 6px;
     }
 
-    .rekapi-controls-stop {
+    .rekapi-scrubber-stop {
       margin-left: 6px;
     }
 
-    .rekapi-controls-timeline {
+    .rekapi-scrubber-timeline {
       float: left;
       margin: 0px 12px;
     }
 
-    .rekapi-controls-timeline .ui-slider-handle {
+    .rekapi-scrubber-timeline .ui-slider-handle {
       outline: none;
     }

@@ -2,16 +2,16 @@
   var gk,
       $
       CONTROL_TEMPLATE = [
-        '<div class="rekapi-controls-wrapper">'
-          ,'<div class="rekapi-controls">'
-            ,'<a class="rekapi-controls-button rekapi-controls-play ui-corner-all" href="#">'
+        '<div class="rekapi-scrubber-wrapper">'
+          ,'<div class="rekapi-scrubber">'
+            ,'<a class="rekapi-scrubber-button rekapi-scrubber-play ui-corner-all" href="#">'
               ,'<span class="ui-icon ui-icon-play"></span>'
             ,'</a>'
-            ,'<a class="rekapi-controls-button rekapi-controls-pause ui-corner-all" href="#">'
+            ,'<a class="rekapi-scrubber-button rekapi-scrubber-pause ui-corner-all" href="#">'
               ,'<span class="ui-icon ui-icon-pause"></span>'
             ,'</a>'
-            ,'<div class="rekapi-controls-timeline"></div>'
-            ,'<a class="rekapi-controls-button rekapi-controls-stop ui-corner-all" href="#">'
+            ,'<div class="rekapi-scrubber-timeline"></div>'
+            ,'<a class="rekapi-scrubber-button rekapi-scrubber-stop ui-corner-all" href="#">'
               ,'<span class="ui-icon ui-icon-stop"></span>'
             ,'</a>'
           ,'</div>'
@@ -33,7 +33,7 @@
    * @returns {number}
    */
   function computeTimelineWidth (kapi, $container) {
-    return kapi.canvas_width() - $container.find('.rekapi-controls').width();
+    return kapi.canvas_width() - $container.find('.rekapi-scrubber').width();
   }
 
 
@@ -51,9 +51,9 @@
         ,$timeline;
 
     kapi = rekapiScrubber.kapi;
-    $play =     rekapiScrubber.$container.find('.rekapi-controls-play');
-    $pause =    rekapiScrubber.$container.find('.rekapi-controls-pause');
-    $stop =     rekapiScrubber.$container.find('.rekapi-controls-stop');
+    $play =     rekapiScrubber.$container.find('.rekapi-scrubber-play');
+    $pause =    rekapiScrubber.$container.find('.rekapi-scrubber-pause');
+    $stop =     rekapiScrubber.$container.find('.rekapi-scrubber-stop');
     $timeline = rekapiScrubber.$timeline;
 
     $play.on('click', function (evt) {
@@ -110,7 +110,7 @@
     // Update the reference to the element in the DOM
     $container = $canvas.next();
     this.$container = $container;
-    $timeline = $container.find('.rekapi-controls-timeline');
+    $timeline = $container.find('.rekapi-scrubber-timeline');
     $timeline.slider({
       'step': 0.1
     });
@@ -135,8 +135,8 @@
         ,$pause
 
     kapi = this.kapi;
-    $play = this.$container.find('.rekapi-controls-play');
-    $pause = this.$container.find('.rekapi-controls-pause');
+    $play = this.$container.find('.rekapi-scrubber-play');
+    $pause = this.$container.find('.rekapi-scrubber-pause');
 
     if (kapi.isPlaying()) {
       $play.css({
