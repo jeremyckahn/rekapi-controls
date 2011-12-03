@@ -31,36 +31,20 @@
   }
 
 
-  function RekapiControls (kapi) {
-    var self
+  function bindControlsToDOM (controls) {
+    var kapi
         ,$canvas
         ,$container
         ,$play
         ,$pause
         ,$stop
-        ,$timeline;
+        ,$timeline
 
-    self = this;
-    this.kapi = kapi;
-    $canvas = $(kapi.canvas);
-    $container = $(CONTROL_TEMPLATE);
-    $canvas.after($container);
-
-    // Update the reference to the element in the DOM
-    $container = $canvas.next();
-    this.$container = $container;
-    $play =     $container.find('.rekapi-controls-play');
-    $pause =    $container.find('.rekapi-controls-pause');
-    $stop =     $container.find('.rekapi-controls-stop');
-    $timeline = $container.find('.rekapi-controls-timeline');
-    $timeline.slider({
-      'step': 0.1
-    });
-    this.$timeline = $timeline;
-    this.$timelineHandle = $timeline.find('.ui-slider-handle');
-    $container.width(kapi.canvas_width());
-    this.updatePlayState();
-    $timeline.width(computeTimelineWidth(kapi, $container));
+    kapi = controls.kapi;
+    $play =     controls.$container.find('.rekapi-controls-play');
+    $pause =    controls.$container.find('.rekapi-controls-pause');
+    $stop =     controls.$container.find('.rekapi-controls-stop');
+    $timeline = controls.$timeline;
 
     $play.on('click', function (evt) {
       evt.preventDefault();
@@ -78,21 +62,49 @@
     });
 
     kapi.bind('onPlayStateChange', function () {
-      self.updatePlayState();
+      controls.updatePlayState();
     });
 
     kapi.bind('onStop', function () {
-      self.resetScrubber();
+      controls.resetScrubber();
     });
 
     kapi.bind('onFrameRender', function () {
-      self.updateScrubber();
+      controls.updateScrubber();
     });
 
     $timeline.bind('slide', function (evt, ui) {
       kapi.pause();
-      self.syncAnimationToPercent(ui.value);
+      controls.syncAnimationToPercent(ui.value);
     });
+  }
+
+
+  function RekapiControls (kapi) {
+    var self
+        ,$canvas
+        ,$container
+        ,$timeline;
+
+    self = this;
+    this.kapi = kapi;
+    $canvas = $(kapi.canvas);
+    $container = $(CONTROL_TEMPLATE);
+    $canvas.after($container);
+
+    // Update the reference to the element in the DOM
+    $container = $canvas.next();
+    this.$container = $container;
+    $timeline = $container.find('.rekapi-controls-timeline');
+    $timeline.slider({
+      'step': 0.1
+    });
+    this.$timeline = $timeline;
+    this.$timelineHandle = $timeline.find('.ui-slider-handle');
+    $container.width(kapi.canvas_width());
+    this.updatePlayState();
+    $timeline.width(computeTimelineWidth(kapi, $container));
+    bindControlsToDOM(this);
 
     return this;
   };
