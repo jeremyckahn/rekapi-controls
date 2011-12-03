@@ -8,6 +8,7 @@ cat \
 echo "Built jQuery UI dependency bundle.  Gzipped size:"
 echo `cat lib/rekapi-controls.jquery-ui.js | gzip -9f | wc -c` "bytes"
 
+
 cat \
   lib/rekapi/lib/underscore/underscore-min.js \
   lib/rekapi/lib/shifty/builds/shifty.min.js \
@@ -23,3 +24,10 @@ cat \
   lib/rekapi/lib/shifty/shifty.js \
   lib/rekapi/dist/rekapi.js \
   > lib/rekapi-controls.rekapi-bundle.dev.js
+
+
+cat \
+  css/jquery.ui.core.css \
+  css/jquery.ui.theme.css \
+  css/jquery.ui.slider.css \
+  > css/rekapi-controls.jquery-ui-bundle.css
