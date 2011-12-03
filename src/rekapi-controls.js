@@ -26,25 +26,35 @@
   $ = jQuery;
 
 
+  /**
+   * Calculate how wide (in pixels) the timeline DOM element should be.
+   * @param {Kapi} kapi
+   * @param {jQuery} $container
+   * @returns {number}
+   */
   function computeTimelineWidth (kapi, $container) {
     return kapi.canvas_width() - $container.find('.rekapi-controls').width();
   }
 
 
-  function bindControlsToDOM (controls) {
+  /**
+   * Bind all interaction events for a RekapiScrubber.
+   * @param {RekapiScrubber} rekapiScrubber
+   */
+  function bindControlsToDOM (rekapiScrubber) {
     var kapi
         ,$canvas
         ,$container
         ,$play
         ,$pause
         ,$stop
-        ,$timeline
+        ,$timeline;
 
-    kapi = controls.kapi;
-    $play =     controls.$container.find('.rekapi-controls-play');
-    $pause =    controls.$container.find('.rekapi-controls-pause');
-    $stop =     controls.$container.find('.rekapi-controls-stop');
-    $timeline = controls.$timeline;
+    kapi = rekapiScrubber.kapi;
+    $play =     rekapiScrubber.$container.find('.rekapi-controls-play');
+    $pause =    rekapiScrubber.$container.find('.rekapi-controls-pause');
+    $stop =     rekapiScrubber.$container.find('.rekapi-controls-stop');
+    $timeline = rekapiScrubber.$timeline;
 
     $play.on('click', function (evt) {
       evt.preventDefault();
@@ -62,24 +72,29 @@
     });
 
     kapi.bind('onPlayStateChange', function () {
-      controls.updatePlayState();
+      rekapiScrubber.syncPlayStateButtons();
     });
 
     kapi.bind('onStop', function () {
-      controls.resetScrubber();
+      rekapiScrubber.resetScrubber();
     });
 
     kapi.bind('onFrameRender', function () {
-      controls.updateScrubber();
+      rekapiScrubber.updateScrubber();
     });
 
     $timeline.bind('slide', function (evt, ui) {
       kapi.pause();
-      controls.syncAnimationToPercent(ui.value);
+      rekapiScrubber.syncAnimationToPercent(ui.value);
     });
   }
 
 
+  /**
+   * Creates a scrubber to control a Kapi instance interactively.
+   * @param {Kapi} kapi
+   * @returns {RekapiScrubber}
+   */
   function RekapiScrubber (kapi) {
     var self
         ,$canvas
@@ -102,7 +117,7 @@
     this.$timeline = $timeline;
     this.$timelineHandle = $timeline.find('.ui-slider-handle');
     $container.width(kapi.canvas_width());
-    this.updatePlayState();
+    this.syncPlayStateButtons();
     $timeline.width(computeTimelineWidth(kapi, $container));
     bindControlsToDOM(this);
 
@@ -110,7 +125,11 @@
   };
 
 
-  RekapiScrubber.prototype.updatePlayState = function () {
+  /**
+   * Syncs the play, pause and stop buttons to the Kapi's internal state.
+   * @returns {RekapiScrubber}
+   */
+  RekapiScrubber.prototype.syncPlayStateButtons = function () {
     var kapi
         ,$play
         ,$pause
@@ -136,6 +155,8 @@
         'display': 'none'
       });
     }
+
+    return this;
   };
 
 
