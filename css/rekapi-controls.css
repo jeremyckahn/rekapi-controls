@@ -26,3 +26,7 @@
       float: left;
       margin: 0px 12px;
     }
+
+    .rekapi-controls-timeline .ui-slider-handle {
+      outline: none;
+    }
