@@ -1,7 +1,7 @@
 ;(function (global) {
   var gk,
       $
-      CONTROL_TEMPLATE = [
+      SCRUBBER_TEMPLATE = [
         '<div class="rekapi-scrubber-wrapper">'
           ,'<div class="rekapi-scrubber">'
             ,'<a class="rekapi-scrubber-button rekapi-scrubber-play ui-corner-all" href="#">'
@@ -104,7 +104,7 @@
     self = this;
     this.kapi = kapi;
     $canvas = $(kapi.canvas);
-    $container = $(CONTROL_TEMPLATE);
+    $container = $(SCRUBBER_TEMPLATE);
     $canvas.after($container);
 
     // Update the reference to the element in the DOM
