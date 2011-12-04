@@ -37,6 +37,23 @@ else
      > $out
 fi
 
+in=dist/rekapi-controls.jquery-ui.js
+out=dist/rekapi-controls.jquery-ui.min.js
+
+# If a local path to the Closure compiler was specified, use that.
+if [ $2 ]; then
+  java -jar ${2} --js=$in --js_output_file=$out
+else
+  # Otherwise curl out to Google's.
+  curl -s \
+    -d compilation_level=SIMPLE_OPTIMIZATIONS \
+    -d output_format=text \
+    -d output_info=compiled_code \
+    --data-urlencode "js_code@${in}" \
+    http://closure-compiler.appspot.com/compile \
+     > $out
+fi
+
 cat /tmp/rekapi-controls.header.js /tmp/rekapi-controls.compiled.js > dist/rekapi-controls.min.js
 
 echo 'Happy day!  Rekapi Controls were built.  The file size, minified and gzipped, is:'
