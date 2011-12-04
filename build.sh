@@ -3,7 +3,7 @@
 # Call this script like this:
 # $: sh build.sh version_number [local_path_to_compiler]
 
-sh build-deps.js
+sh build-deps.sh
 
 echo \
 "/**
