@@ -36,28 +36,1114 @@ For instructions on how to use Shifty, please consult the README: https://github
 
 MIT Lincense.  This code free to use, modify, distribute and enjoy.
 */
-(function(d){function a(a,b){for(var c in a)a.hasOwnProperty(c)&&b(a,c)}function i(o,b){a(b,function(a,b){o[b]=a[b]});return o}function l(o,b){a(b,function(a,b){"undefined"===typeof o[b]&&(o[b]=a[b])});return o}function e(a,b,c){var f,a=(a-b.timestamp)/b.duration;for(f in c.current)c.current.hasOwnProperty(f)&&b.to.hasOwnProperty(f)&&(c.current[f]=j(b.originalState[f],b.to[f],g[b.easing[f]],a));return c.current}function j(a,b,c,f){return a+(b-a)*c(f)}function h(a,b,c,f){var g;for(g=0;g<b[a].length;g++)b[a][g].apply(c,
-f)}function k(b,c,f){a(d.Tweenable.prototype.filter,function(a,g){a[g][b]&&a[g][b].apply(c,f)})}function n(a,b){var c;c=f();c<a.timestamp+a.duration&&b.isTweening?(b.loopId=setTimeout(function(){n(a,b)},1E3/a.owner.fps),k("beforeTween",a.owner,[b.current,a.originalState,a.to]),e(c,a,b),k("afterTween",a.owner,[b.current,a.originalState,a.to]),a.hook.step&&h("step",a.hook,a.owner,[b.current]),a.step.call(b.current)):a.owner.stop(!0)}function m(b,f){var g;g={};"string"===typeof f?a(b,function(a,b){g[b]=
-f}):a(b,function(a,b){g[b]||(g[b]=f[b]||c)});return g}function b(a){a=a||{};this._hook={};this._tweenParams={owner:this,hook:this._hook,data:{}};this._state={};this._state.current=a.initialState||{};this.fps=a.fps||30;this.easing=a.easing||c;this.duration=a.duration||500;return this}var f,c="linear",g;f="function"===typeof SHIFTY_DEBUG_NOW?SHIFTY_DEBUG_NOW:function(){return+new Date};b.prototype.tween=function(a,b,c,g,d){var e,h;if(!this._state.isTweening)return e=this._tweenParams,h=this._state,
-this._state.loopId=0,this._state.pausedAtTime=null,b?(e.step=function(){},e.to=b||{},e.duration=c||this.duration,e.callback=g||function(){},e.easing=d||this.easing,h.current=a||{}):(e.step=a.step||function(){},e.callback=a.callback||function(){},e.to=a.to||a.target||{},e.duration=a.duration||this.duration,e.easing=a.easing||this.easing,h.current=a.from||{}),e.timestamp=f(),l(h.current,e.to),l(e.to,h.current),e.easing=m(h.current,e.easing),k("tweenCreated",e.owner,[h.current,e.originalState,e.to]),
-e.originalState=i({},h.current),h.isTweening=!0,this.resume(),a.start&&a.start(),this};b.prototype.to=function(a,b,c,f){"undefined"===typeof b?(a.from=this.get(),this.tween(a)):this.tween(this.get(),a,b,c,f);return this};b.prototype.get=function(){return this._state.current};b.prototype.set=function(a){this._state.current=a||{};return this};b.prototype.stop=function(a){clearTimeout(this._state.loopId);this._state.isTweening=!1;a&&(i(this._state.current,this._tweenParams.to),k("afterTweenEnd",this,
-[this._state.current,this._tweenParams.originalState,this._tweenParams.to]),this._tweenParams.callback.call(this._state.current));return this};b.prototype.pause=function(){clearTimeout(this._state.loopId);this._state.pausedAtTime=f();this._state.isPaused=!0;return this};b.prototype.resume=function(){this._state.isPaused&&(this._tweenParams.timestamp+=f()-this._state.pausedAtTime);n(this._tweenParams,this._state);return this};b.prototype.hookAdd=function(a,b){this._hook.hasOwnProperty(a)||(this._hook[a]=
-[]);this._hook[a].push(b)};b.prototype.hookRemove=function(a,b){var c;if(this._hook.hasOwnProperty(a))if(b)for(c=this._hook[a].length;0<=c;c++)this._hook[a][c]===b&&this._hook[a].splice(c,1);else this._hook[a]=[]};b.prototype.filter={};b.util={now:f,each:a,tweenProps:e,tweenProp:j,applyFilter:k,simpleCopy:i,weakCopy:l,composeEasingObject:m};g=b.prototype.formula={linear:function(a){return a}};if("undefined"===typeof d.Tweenable)d.Tweenable=b})(this);
-(function(d){d.Tweenable.util.simpleCopy(d.Tweenable.prototype.formula,{easeInQuad:function(a){return Math.pow(a,2)},easeOutQuad:function(a){return-(Math.pow(a-1,2)-1)},easeInOutQuad:function(a){return 1>(a/=0.5)?0.5*Math.pow(a,2):-0.5*((a-=2)*a-2)},easeInCubic:function(a){return Math.pow(a,3)},easeOutCubic:function(a){return Math.pow(a-1,3)+1},easeInOutCubic:function(a){return 1>(a/=0.5)?0.5*Math.pow(a,3):0.5*(Math.pow(a-2,3)+2)},easeInQuart:function(a){return Math.pow(a,4)},easeOutQuart:function(a){return-(Math.pow(a-
-1,4)-1)},easeInOutQuart:function(a){return 1>(a/=0.5)?0.5*Math.pow(a,4):-0.5*((a-=2)*Math.pow(a,3)-2)},easeInQuint:function(a){return Math.pow(a,5)},easeOutQuint:function(a){return Math.pow(a-1,5)+1},easeInOutQuint:function(a){return 1>(a/=0.5)?0.5*Math.pow(a,5):0.5*(Math.pow(a-2,5)+2)},easeInSine:function(a){return-Math.cos(a*(Math.PI/2))+1},easeOutSine:function(a){return Math.sin(a*(Math.PI/2))},easeInOutSine:function(a){return-0.5*(Math.cos(Math.PI*a)-1)},easeInExpo:function(a){return 0==a?0:Math.pow(2,
-10*(a-1))},easeOutExpo:function(a){return 1==a?1:-Math.pow(2,-10*a)+1},easeInOutExpo:function(a){return 0==a?0:1==a?1:1>(a/=0.5)?0.5*Math.pow(2,10*(a-1)):0.5*(-Math.pow(2,-10*--a)+2)},easeInCirc:function(a){return-(Math.sqrt(1-a*a)-1)},easeOutCirc:function(a){return Math.sqrt(1-Math.pow(a-1,2))},easeInOutCirc:function(a){return 1>(a/=0.5)?-0.5*(Math.sqrt(1-a*a)-1):0.5*(Math.sqrt(1-(a-=2)*a)+1)},easeOutBounce:function(a){return a<1/2.75?7.5625*a*a:a<2/2.75?7.5625*(a-=1.5/2.75)*a+0.75:a<2.5/2.75?7.5625*
-(a-=2.25/2.75)*a+0.9375:7.5625*(a-=2.625/2.75)*a+0.984375},easeInBack:function(a){return a*a*(2.70158*a-1.70158)},easeOutBack:function(a){return(a-=1)*a*(2.70158*a+1.70158)+1},easeInOutBack:function(a){var d=1.70158;return 1>(a/=0.5)?0.5*a*a*(((d*=1.525)+1)*a-d):0.5*((a-=2)*a*(((d*=1.525)+1)*a+d)+2)},elastic:function(a){return-1*Math.pow(4,-8*a)*Math.sin((6*a-1)*2*Math.PI/2)+1},swingFromTo:function(a){var d=1.70158;return 1>(a/=0.5)?0.5*a*a*(((d*=1.525)+1)*a-d):0.5*((a-=2)*a*(((d*=1.525)+1)*a+d)+
-2)},swingFrom:function(a){return a*a*(2.70158*a-1.70158)},swingTo:function(a){return(a-=1)*a*(2.70158*a+1.70158)+1},bounce:function(a){return a<1/2.75?7.5625*a*a:a<2/2.75?7.5625*(a-=1.5/2.75)*a+0.75:a<2.5/2.75?7.5625*(a-=2.25/2.75)*a+0.9375:7.5625*(a-=2.625/2.75)*a+0.984375},bouncePast:function(a){return a<1/2.75?7.5625*a*a:a<2/2.75?2-(7.5625*(a-=1.5/2.75)*a+0.75):a<2.5/2.75?2-(7.5625*(a-=2.25/2.75)*a+0.9375):2-(7.5625*(a-=2.625/2.75)*a+0.984375)},easeFromTo:function(a){return 1>(a/=0.5)?0.5*Math.pow(a,
-4):-0.5*((a-=2)*Math.pow(a,3)-2)},easeFrom:function(a){return Math.pow(a,4)},easeTo:function(a){return Math.pow(a,0.25)}})})(this);
-(function(d){function a(a,e){return function(){a();e.shift();if(e.length)e[0]();else e.running=!1}}function i(a,e,d,h,k,n){return function(){d?a.tween(e,d,h,k,n):(e.callback=k,e.from?a.tween(e):a.to(e))}}d.Tweenable.prototype.queue=function(d,e,j,h,k){if(!this._tweenQueue)this._tweenQueue=[];h=h||d.callback||function(){};h=a(h,this._tweenQueue);this._tweenQueue.push(i(this,d,e,j,h,k));return this};d.Tweenable.prototype.queueStart=function(){if(!this._tweenQueue.running&&0<this._tweenQueue.length)this._tweenQueue[0](),
-this._tweenQueue.running=!0;return this};d.Tweenable.prototype.queueShift=function(){this._tweenQueue.shift();return this};d.Tweenable.prototype.queuePop=function(){this._tweenQueue.pop();return this};d.Tweenable.prototype.queueEmpty=function(){this._tweenQueue.length=0;return this};d.Tweenable.prototype.queueLength=function(){return this._tweenQueue.length}})(this);
-(function(d){function a(a){return parseInt(a,16)}function i(b){d.Tweenable.util.each(b,function(b,c){if("string"===typeof b[c]&&(h.test(b[c])||k.test(b[c]))){var g;g=b[c];g=g.replace(/#/g,"");3===g.length&&(g=g.split(""),g=g[0]+g[0]+g[1]+g[1]+g[2]+g[2]);g=[a(g.substr(0,2)),a(g.substr(2,2)),a(g.substr(4,2))];b[c]="rgb("+g[0]+","+g[1]+","+g[2]+")"}})}function l(a){var f;f=[];d.Tweenable.util.each(a,function(a,b){"string"===typeof a[b]&&(h.test(a[b])||k.test(a[b])||n.test(a[b]))&&f.push(b)});return f}
-function e(a,f){var c,d,e;d=f.length;for(c=0;c<d;c++)e=a[f[c]].match(/(\d+)/g),a["__r__"+f[c]]=+e[0],a["__g__"+f[c]]=+e[1],a["__b__"+f[c]]=+e[2],delete a[f[c]]}function j(a,f){var c,d;d=f.length;for(c=0;c<d;c++)a[f[c]]="rgb("+parseInt(a["__r__"+f[c]],10)+","+parseInt(a["__g__"+f[c]],10)+","+parseInt(a["__b__"+f[c]],10)+")",delete a["__r__"+f[c]],delete a["__g__"+f[c]],delete a["__b__"+f[c]]}var h=/^#([0-9]|[a-f]){3}$/i,k=/^#([0-9]|[a-f]){6}$/i,n=/^rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)\s*$/i,m;if(d.Tweenable)d.Tweenable.prototype.filter.color=
-{tweenCreated:function(a,f,c){i(a);i(f);i(c)},beforeTween:function(a,f,c){m=l(f);e(a,m);e(f,m);e(c,m);var a=this._tweenParams.easing,f=m,d;d=f.length;for(c=0;c<d;c++)a["__r__"+f[c]]=a[f[c]],a["__g__"+f[c]]=a[f[c]],a["__b__"+f[c]]=a[f[c]]},afterTween:function(a,f,c){j(a,m);j(f,m);j(c,m);var a=this._tweenParams.easing,f=m,d;d=f.length;for(c=0;c<d;c++)delete a["__r__"+f[c]],delete a["__g__"+f[c]],delete a["__b__"+f[c]]}}})(this);
-(function(d){function a(a){var h;h={};d.Tweenable.util.each(a,function(a,b){"string"===typeof a[b]&&e.test(a[b])&&(h[b]={suffix:a[b].match(e)[0]})});return h}function i(a,e){d.Tweenable.util.each(e,function(d,b){a[b]=+a[b].replace(j,"")})}function l(a,e){d.Tweenable.util.each(e,function(d,b){a[b]+=d[b].suffix})}var e=/(px|em|%|pc|pt|mm|cm|in|ex)/i,j=/([a-z]|%)/gi,h;d.Tweenable.prototype.filter.token={beforeTween:function(d,e,j){h=a(e);i(d,h);i(e,h);i(j,h)},afterTween:function(a,d,e){l(a,h);l(d,h);
-l(e,h)}}})(this);
-(function(d){if(d.Tweenable)d.Tweenable.util.interpolate=function(a,i,l,e){var j;if(a&&a.from)i=a.to,l=a.position,e=a.easing,a=a.from;j=new Tweenable;j._tweenParams.easing=e;e=d.Tweenable.util.simpleCopy({},a);d.Tweenable.util.applyFilter("tweenCreated",j,[e,a,i]);d.Tweenable.util.applyFilter("beforeTween",j,[e,a,i]);var h=a,k=i,n;n=Tweenable.util.composeEasingObject(h,j._tweenParams.easing);e=d.Tweenable.util.tweenProps(l,{originalState:h,to:k,timestamp:0,duration:1,easing:n},{current:e});d.Tweenable.util.applyFilter("afterTween",
-j,[e,a,i]);return e},d.Tweenable.prototype.interpolate=function(a,i,l){a=d.Tweenable.util.interpolate(this.get(),a,i,l);this.set(a);return a}})(this);
+(function Shifty (global) {
+  
+  var now
+      ,DEFAULT_EASING = 'linear'
+      // Making an alias, because Tweenable.prototype.formula will get looked
+      // a lot, and this is way faster than resolving the symbol.
+      ,easing;
+
+  if (typeof SHIFTY_DEBUG_NOW === 'function') {
+    now = SHIFTY_DEBUG_NOW;
+  } else {
+    /**
+     * Get the current UNIX epoch time as an integer.  Exposed publicly as `Tweenable.util.now()`.
+     * @returns {Number} An integer representing the current timestamp.
+     */
+    now = function () {
+      return +new Date();
+    };
+  }
+  
+  /**
+   * Handy shortcut for doing a for-in loop.  Takes care of all of the `hasOwnProperty` wizardry for you.  This is also exposed publicly, you can access it as `Tweenable.util.each()`.
+   * @param {Object} obj The object to iterate through.
+   * @param {Function} func The function to pass the object and "own" property to.  This handler function receives the `obj` back as the first parameter, and a property name as the second.
+   */
+  function each (obj, func) {
+    var prop;
+    
+    for (prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        func(obj, prop);
+      }
+    }
+  }
+  
+  /**
+   * Does a basic copy of one Object's properties to another.  This is not a robust `extend` function, nor is it recusrsive.  It is only appropriate to use on objects that have primitive properties (Numbers, Strings, Boolean, etc.).  Exposed publicly as `Tweenable.util.simpleCopy()`
+   * @param {Object} targetObject The object to copy into
+   * @param {Object} srcObject The object to copy from
+   * @returns {Object} A reference to the augmented `targetObj` Object
+   */
+  function simpleCopy (targetObj, srcObj) {
+    each(srcObj, function (srcObj, prop) {
+      targetObj[prop] = srcObj[prop];
+    });
+    
+    return targetObj;
+  }
+  
+  /**
+   * Copies each property from `srcObj` onto `targetObj`, but only if the property to copy to `targetObj` is `undefined`.
+   */
+  function weakCopy (targetObj, srcObj) {
+    each(srcObj, function (srcObj, prop) {
+      if (typeof targetObj[prop] === 'undefined') {
+        targetObj[prop] = srcObj[prop];
+      }
+    });
+    
+    return targetObj;
+  }
+  
+  /**
+   * Calculates the interpolated tween values of an Object based on the current time.
+   * @param {Number} currentPosition The current position to evaluate the tween against.
+   * @param {Object} params A configuration Object containing the values that this function requires.  The required properties in this Object are:
+   *   @property {Object} originalState The original properties the Object is tweening from.
+   *   @property {Object} to The destination properties the Object is tweening to.
+   *   @property {Number} duration The length of the tween in milliseconds.
+   *   @property {Number} timestamp The UNIX epoch time at which the tween began.
+   *   @property {Object} easing An Object of strings.  This Object's keys correspond to the keys in `to`.
+   * @param {Object} state A configuration object containing current state data of the tween.  Required properties:
+   *   @property {Object} current The Object containing the current `Number` values of the tween.
+   */
+  function tweenProps (currentPosition, params, state) {
+    var prop,
+      normalizedPosition;
+    
+    normalizedPosition = (currentPosition - params.timestamp) / params.duration;
+    
+    for (prop in state.current) {
+      if (state.current.hasOwnProperty(prop) && params.to.hasOwnProperty(prop)) {
+        state.current[prop] = tweenProp(params.originalState[prop], params.to[prop], easing[params.easing[prop]], normalizedPosition);
+      }
+    }
+    
+    return state.current;
+  }
+
+  /**
+   * Tweens a single property.
+   * @param {number} from The origination value of the tween.
+   * @param {number} to The destination value of the tween.
+   * @param {Function} easingFunc The easing formula to apply to the tween.
+   * @param {number} position The normalized position (between 0.0 and 1.0) to
+   *    calculate the midpoint of 'from' and 'to' against.
+   * @returns {number} The tweened value.
+   */
+  function tweenProp (from, to, easingFunc, position) {
+    return from + (to - from) * easingFunc(position);
+  }
+  
+  /**
+   * Schedules an update.
+   * @param {Function} handler The function to execute
+   * @param {number} fps The fraction of a second in the update should occur.
+   * @returns {number} The id of the update.
+   */
+  function scheduleUpdate (handler, fps) {
+    return setTimeout(handler, 1000 / fps);
+  }
+  
+  /**
+   * Calls all of the functions bound to a specified hook on a `Tweenable` instance.
+   * @param {String} hookName The name of the hook to invoke the handlers of.
+   * @param {Object} hooks The object containing the hook Arrays.
+   * @param {Object} applyTo The `Tweenable` instance to call the hooks upon.
+   * @param {Array} args The arguments to pass to each function in the specified hook.
+   */
+  function invokeHook (hookName, hooks, applyTo, args) {
+    var i;
+    
+    for (i = 0; i < hooks[hookName].length; i++) {
+      hooks[hookName][i].apply(applyTo, args);
+    }
+  }
+  
+  /**
+   * Applies a Shifty filter to `Tweenable` instance.
+   * @param {String} filterName The name of the filter to apply.
+   * @param {Object} applyTo The `Tweenable` instance to call the filter upon.
+   * @param {Array} args The arguments to pass to the function in the specified filter.
+   */
+  function applyFilter (filterName, applyTo, args) {
+    each(global.Tweenable.prototype.filter, function (filters, name) {
+      if (filters[name][filterName]) {
+        filters[name][filterName].apply(applyTo, args);
+      }
+    });
+  }
+  
+  /**
+   * Handles the update logic for one step of a tween.
+   * @param {Object} params The configuration containing all of a tween's properties.  This requires all of the `params` @properties required for `tweenProps`, so see that.  It also requires:
+   *   @property {Object} owner The `Tweenable` instance that the tween this function is acting upon belongs to.
+   *   @property {Object} hook The Object containing all of the `hook`s that belong to `owner
+   * @param {Object} state The configuration Object containing all of the state properties for a `Tweenable` instance.  It requires all of the @properties listed for the `state` parameter of  `tweenProps`, so see that.  It also requires:
+   *   @property {Boolean} isTweening Whether or not this tween as actually running.
+   *   @property {Number} loopId The property that the latest `setTimeout` invokation ID stored in.
+   */
+  function timeoutHandler (params, state) {
+    var currentTime;
+    
+    currentTime = now();
+    
+    if (currentTime < params.timestamp + params.duration && state.isTweening) {
+      // The tween is still running, schedule an update
+      state.loopId = scheduleUpdate(function () {
+        timeoutHandler(params, state);
+      }, params.owner.fps);
+      
+      applyFilter('beforeTween', params.owner, [state.current, params.originalState, params.to]);
+      tweenProps (currentTime, params, state);
+      applyFilter('afterTween', params.owner, [state.current, params.originalState, params.to]);
+      
+      if (params.hook.step) {
+        invokeHook('step', params.hook, params.owner, [state.current]);
+      }
+      
+      params.step.call(state.current);
+      
+    } else {
+      // The duration of the tween has expired
+      params.owner.stop(true);
+    }
+  }
+
+  /**
+   * Creates a fully-usable easing Object from either a string or another easing Object.  If `easing` is an Object, then this function clones it and fills in the missing properties with "linear".
+   * @param {Object} fromTweenParams
+   * @param {Object|string} easing
+   */
+  function composeEasingObject (fromTweenParams, easing) {
+    var composedEasing;
+
+    composedEasing = {};
+
+    if (typeof easing === 'string') {
+      each(fromTweenParams, function (obj, prop) {
+        composedEasing[prop] = easing;
+      });
+    // else, it's an Object
+    } else {
+      each(fromTweenParams, function (obj, prop) {
+        if (!composedEasing[prop]) {
+          composedEasing[prop] = easing[prop] || DEFAULT_EASING;
+        }
+      });
+    }
+
+    return composedEasing;
+  }
+  
+  /**
+   * This is the `Tweenable` constructor.  Do this for fun tweeny goodness:
+   * @codestart
+   * var tweenableInst = new Tweenable({});
+   * @codeend
+   * 
+   * It accepts one parameter:
+   *
+   * @param {Object} options A configuration Object containing options for the `Tweenable` instance.  The following are valid:
+   *   @property {Object} initialState The state at which the first tween should begin at.
+   *   @property {Number} duration The default `duration` for each `tween` made by this instance.  Default is 500 milliseconds.
+   *   @property {Number} fps The frame rate (frames per second) at which the instance will update.  Default is 30.
+   *   @property {String} easing The name of the default easing formula (attached to `Tweenable.prototype.formula`) to use for each `tween` made for this instance.  Default is `linear`.
+   * returns {Object} `Tweenable` instance for chaining.
+   */
+  function Tweenable (options) {
+    options = options || {};
+    
+    this._hook = {};
+
+    this._tweenParams = {
+      'owner': this
+      ,'hook': this._hook
+      ,'data': {} // holds arbitrary data
+    };
+
+    this._state = {};
+    
+    // The state that the tween begins at.
+    this._state.current = options.initialState || {};
+
+    // The framerate at which Shifty updates.  This is exposed publicly as `tweenableInst.fps`.
+    this.fps = options.fps || 30;
+
+    // The default easing formula.  This is exposed publicly as `tweenableInst.easing`.
+    this.easing = options.easing || DEFAULT_EASING;
+
+    // The default `duration`.  This is exposed publicly as `tweenableInst.duration`.
+    this.duration = options.duration || 500;
+    
+    return this;
+  }
+  
+  /**
+   * Start a tween.  This method can be called two ways.  The shorthand way:
+   * 
+   *   tweenableInst.tween (from, to, [duration], [callback], [easing]);
+   *
+   * or the longhand way:
+   *
+   *   tweenableInst.tween ( {
+   *     from:       Object,
+   *     to:         Object,
+   *     duration:   Number,
+   *     callback:   Function,
+   *     easing:     String|Object,
+   *     step:       Function
+   *   });
+   *
+   * Regardless of how you invoke this method, the only required parameters are `from` and `to`.
+   *
+   * @param {Object} from The beginning state Object containing the properties to tween from.  NOTE:  The properties of this Object are modified over time (to reflect the values in `to`).
+   * @param {Object} to The target state Object containing the properties to tween to.
+   * @param {Number} duration The amount of time in milliseconds that the tween should run for.
+   * @param {Function} start The function to be invoked as soon as the this tween starts.  Mostly useful when used with the `queue` extension.
+   * @param {Function} callback The function to invoke as soon as this tween completes.  This function is given the tween's current state Object as the first parameter.
+   * @param {String|Object} easing This can either be a string specifying the easing formula to be used on every property of the tween, or an Object with values that are strings that specify an easing formula for a specific property.  Any properties that do not have an easing formula specified will use "linear".
+   * @param {Function} step A function to call for each step of the tween.  A "step" is defined as one update cycle (frame) of the tween.  Many update cycles occur to create the illusion of motion, so this function will likely be called quite a bit.
+   */
+  Tweenable.prototype.tween = function tween (from, to, duration, callback, easing) {
+
+    var self
+        ,params
+        ,state;
+
+    if (this._state.isTweening) {
+      return;
+    }
+    
+    self = this;
+    params = this._tweenParams;
+    state = this._state;
+    this._state.loopId = 0;
+    this._state.pausedAtTime = null;
+    
+    // Normalize some internal values depending on how `tweenableInst.tween` was invoked
+    if (to) {
+      // Assume the shorthand syntax is being used.
+      params.step = function () {};
+      params.to = to || {};
+      params.duration = duration || this.duration;
+      params.callback = callback || function () {};
+      params.easing = easing || this.easing;
+      state.current = from || {};
+    } else {
+      // If the second argument is not present, assume the longhand syntax is being used.
+      params.step = from.step || function () {};
+      params.callback = from.callback || function () {};
+      params.to = from.to || from.target || {};
+      params.duration = from.duration || this.duration;
+      params.easing = from.easing || this.easing;
+      state.current = from.from || {};
+    }
+    
+    params.timestamp = now();
+    
+    // Ensure that there is always something to tween to.
+    // Kinda dumb and wasteful, but makes this code way more flexible.
+    weakCopy(state.current, params.to);
+    weakCopy(params.to, state.current);
+
+    params.easing = composeEasingObject(state.current, params.easing);
+    applyFilter('tweenCreated', params.owner, [state.current, params.originalState, params.to]);
+    params.originalState = simpleCopy({}, state.current);
+    state.isTweening = true;
+    this.resume();
+
+    if (from.start) {
+      from.start();
+    }
+    
+    return this;
+  };
+
+  /**
+   * Convenience method for tweening from the current position.  This method functions identically to `tween()` (it's just a wrapper function), but implicitly passes the `Tweenable` instance's current state (what you get from `get()`) as the `from` parameter.  This supports both the longhand and shorthand syntax that `tween()` does, just omitting the `from` paramter in both cases.
+   * @param {Object} target If the other parameters are omitted, this Object should contain the longhand parameters outlined in `tween()`.  If at least one other formal parameter is specified, then this Object should contain the target values to tween to.
+   * @param {Number} duration Duration of the tween, in milliseconds.
+   * @param {Function} callback The callback function to pass along to `tween()`.
+   * @param {String|Object} easing The easing formula to use.
+   */
+  Tweenable.prototype.to = function to (target, duration, callback, easing) {
+    if (typeof duration === 'undefined') {
+      // Shorthand notation is being used
+      target.from = this.get();
+      this.tween(target);
+    } else {
+      // Longhand notation is being used
+      this.tween(this.get(), target, duration, callback, easing);
+    }
+    
+    return this;
+  };
+  
+  /**
+   * Returns a reference to the `Tweenable`'s current state (the `from` Object that wat passed to `tweenableInst.tween()`).
+   * @returns {Object}
+   */
+  Tweenable.prototype.get = function get () {
+    return this._state.current;
+  };
+
+  /**
+   * Force the `Tweenable` instance's current state.
+   * @param {Object} state The state the instance shall have.
+   */
+  Tweenable.prototype.set = function set (state) {
+    this._state.current = state || {};
+    
+    return this;
+  };
+
+  /**
+   * Stops and cancels a tween.
+   * @param {Boolean} gotoEnd If `false`, or omitted, the tween just stops at its current state, and the `callback` is not invoked.  If `true`, the tweened object's values are instantly set the the target "to" values, and the `callback` is invoked.
+   * @returns {Object} The `Tweenable` instance for chaining.
+   */
+  Tweenable.prototype.stop = function stop (gotoEnd) {
+    clearTimeout(this._state.loopId);
+    this._state.isTweening = false;
+    
+    if (gotoEnd) {
+      simpleCopy(this._state.current, this._tweenParams.to);
+      applyFilter('afterTweenEnd', this, [this._state.current, this._tweenParams.originalState, this._tweenParams.to]);
+      this._tweenParams.callback.call(this._state.current);
+    }
+    
+    return this;
+  };
+  
+  /**
+   * Pauses a tween.  A `pause`d tween can be resumed with `resume()`.
+   * @returns {Object} The `Tween` instance for chaining.
+   */
+  Tweenable.prototype.pause = function pause () {
+    clearTimeout(this._state.loopId);
+    this._state.pausedAtTime = now();
+    this._state.isPaused = true;
+    return this;
+  };
+  
+  /**
+   * Resumes a paused tween.  A tween must be `pause`d before is can be `resume`d.
+   * @returns {Object} The `Tweenable` instance for chaining.
+   */
+  Tweenable.prototype.resume = function resume () {
+    var self;
+    
+    self = this;
+
+    if (this._state.isPaused) {
+      this._tweenParams.timestamp += now() - this._state.pausedAtTime;
+    }
+    
+    timeoutHandler(self._tweenParams, self._state);
+    
+    return this;
+  };
+  
+  /**
+   * Add a hook to the `Tweenable` instance.  Hooks are functions that are invoked at key points in a `Tweenable` instance's lifecycle.  A hook that is related to the tweening process (like `step`), for example, will occur for every tween that is performed by the `Tweenable` instance.  You just have to set it once.  You can attach as many functions to any given hook as you like.  The available hooks are as follows:
+   *
+   *   - `step`:  Runs on every frame that a tween runs for.  Hook handler function receives a tween's `currentState` for a parameter.
+   *
+   * @param {String} hookName The name of the hook to attach `hookFunc` to.
+   * @param {Function} hookFunc The hook handler function.  This function will receive parameters based on what hook it is being attached to.
+   */
+  Tweenable.prototype.hookAdd = function hookAdd (hookName, hookFunc) {
+    if (!this._hook.hasOwnProperty(hookName)) {
+      this._hook[hookName] = [];
+    }
+    
+    this._hook[hookName].push(hookFunc);
+  };
+  
+  /**
+   * Unattach a function from a hook, or all functions.
+   *
+   * @param {String} hookName The hook to remove a function or functions from.
+   * @param {String|undefined} hookFunc The function to matched against and remove from the hook handler list.  If omitted, all functions are removed for the hook specified by `hookName`.
+   */
+  Tweenable.prototype.hookRemove = function hookRemove (hookName, hookFunc) {
+    var i;
+    
+    if (!this._hook.hasOwnProperty(hookName)) {
+      return;
+    }
+    
+    if (!hookFunc) {
+      this._hook[hookName] = [];
+      return;
+    }
+    
+    for (i = this._hook[hookName].length; i >= 0; i++) {
+      if (this._hook[hookName][i] === hookFunc) {
+        this._hook[hookName].splice(i, 1);
+      }
+    }
+  };
+  
+  /**
+   * Globally exposed static property to attach filters to.  Filters are used for transforming the properties of a tween at various points in a `Tweenable` instance's lifecycle.  Please consult the README for more info on this.
+   */
+  Tweenable.prototype.filter = {};
+  
+  /**
+   * Globally exposed static helper methods.  These methods are used internally and could be helpful in a global context as well.
+   */
+  Tweenable.util = {
+    'now': now
+    ,'each': each
+    ,'tweenProps': tweenProps
+    ,'tweenProp': tweenProp
+    ,'applyFilter': applyFilter
+    ,'simpleCopy': simpleCopy
+    ,'weakCopy': weakCopy
+    ,'composeEasingObject': composeEasingObject
+  };
+  
+  /**
+   * This object contains all of the tweens available to Shifty.  It is extendable - simply attach properties to the Tweenable.prototype.formula Object following the same format at `linear`.
+   */
+  easing = Tweenable.prototype.formula = {
+    linear: function (pos) {
+      return pos;
+    }
+  };
+
+  if (typeof global.Tweenable === 'undefined') {
+    // Make `Tweenable` globally accessible.
+    global.Tweenable = Tweenable;
+  }
+  
+} (this));
+/**
+Shifty Easing Formulas
+Adapted for Shifty by Jeremy Kahn - jeremyckahn@gmail.com
+  v0.1.0
+
+================================
+All equations are adapted from Thomas Fuchs' Scripty2: https://raw.github.com/madrobby/scripty2/master/src/effects/transitions/penner.js
+Based on Easing Equations (c) 2003 Robert Penner, all rights reserved. (http://www.robertpenner.com/)
+This work is subject to the terms in http://www.robertpenner.com/easing_terms_of_use.html
+================================
+
+For instructions on how to use Shifty, please consult the README: https://github.com/jeremyckahn/shifty/blob/master/README.md
+
+MIT Lincense.  This code free to use, modify, distribute and enjoy.
+
+*/
+
+(function (global) {
+  global.Tweenable.util.simpleCopy(global.Tweenable.prototype.formula, {
+    easeInQuad: function(pos){
+       return Math.pow(pos, 2);
+    },
+
+    easeOutQuad: function(pos){
+      return -(Math.pow((pos-1), 2) -1);
+    },
+
+    easeInOutQuad: function(pos){
+      if ((pos/=0.5) < 1) return 0.5*Math.pow(pos,2);
+      return -0.5 * ((pos-=2)*pos - 2);
+    },
+
+    easeInCubic: function(pos){
+      return Math.pow(pos, 3);
+    },
+
+    easeOutCubic: function(pos){
+      return (Math.pow((pos-1), 3) +1);
+    },
+
+    easeInOutCubic: function(pos){
+      if ((pos/=0.5) < 1) return 0.5*Math.pow(pos,3);
+      return 0.5 * (Math.pow((pos-2),3) + 2);
+    },
+
+    easeInQuart: function(pos){
+      return Math.pow(pos, 4);
+    },
+
+    easeOutQuart: function(pos){
+      return -(Math.pow((pos-1), 4) -1)
+    },
+
+    easeInOutQuart: function(pos){
+      if ((pos/=0.5) < 1) return 0.5*Math.pow(pos,4);
+      return -0.5 * ((pos-=2)*Math.pow(pos,3) - 2);
+    },
+
+    easeInQuint: function(pos){
+      return Math.pow(pos, 5);
+    },
+
+    easeOutQuint: function(pos){
+      return (Math.pow((pos-1), 5) +1);
+    },
+
+    easeInOutQuint: function(pos){
+      if ((pos/=0.5) < 1) return 0.5*Math.pow(pos,5);
+      return 0.5 * (Math.pow((pos-2),5) + 2);
+    },
+
+    easeInSine: function(pos){
+      return -Math.cos(pos * (Math.PI/2)) + 1;
+    },
+
+    easeOutSine: function(pos){
+      return Math.sin(pos * (Math.PI/2));
+    },
+
+    easeInOutSine: function(pos){
+      return (-.5 * (Math.cos(Math.PI*pos) -1));
+    },
+
+    easeInExpo: function(pos){
+      return (pos==0) ? 0 : Math.pow(2, 10 * (pos - 1));
+    },
+
+    easeOutExpo: function(pos){
+      return (pos==1) ? 1 : -Math.pow(2, -10 * pos) + 1;
+    },
+
+    easeInOutExpo: function(pos){
+      if(pos==0) return 0;
+      if(pos==1) return 1;
+      if((pos/=0.5) < 1) return 0.5 * Math.pow(2,10 * (pos-1));
+      return 0.5 * (-Math.pow(2, -10 * --pos) + 2);
+    },
+
+    easeInCirc: function(pos){
+      return -(Math.sqrt(1 - (pos*pos)) - 1);
+    },
+
+    easeOutCirc: function(pos){
+      return Math.sqrt(1 - Math.pow((pos-1), 2))
+    },
+
+    easeInOutCirc: function(pos){
+      if((pos/=0.5) < 1) return -0.5 * (Math.sqrt(1 - pos*pos) - 1);
+      return 0.5 * (Math.sqrt(1 - (pos-=2)*pos) + 1);
+    },
+
+    easeOutBounce: function(pos){
+      if ((pos) < (1/2.75)) {
+      return (7.5625*pos*pos);
+      } else if (pos < (2/2.75)) {
+      return (7.5625*(pos-=(1.5/2.75))*pos + .75);
+      } else if (pos < (2.5/2.75)) {
+      return (7.5625*(pos-=(2.25/2.75))*pos + .9375);
+      } else {
+      return (7.5625*(pos-=(2.625/2.75))*pos + .984375);
+      }
+    },
+
+    easeInBack: function(pos){
+      var s = 1.70158;
+      return (pos)*pos*((s+1)*pos - s);
+    },
+
+    easeOutBack: function(pos){
+      var s = 1.70158;
+      return (pos=pos-1)*pos*((s+1)*pos + s) + 1;
+    },
+
+    easeInOutBack: function(pos){
+      var s = 1.70158;
+      if((pos/=0.5) < 1) return 0.5*(pos*pos*(((s*=(1.525))+1)*pos -s));
+      return 0.5*((pos-=2)*pos*(((s*=(1.525))+1)*pos +s) +2);
+    },
+
+    elastic: function(pos) {
+      return -1 * Math.pow(4,-8*pos) * Math.sin((pos*6-1)*(2*Math.PI)/2) + 1;
+    },
+
+    swingFromTo: function(pos) {
+      var s = 1.70158;
+      return ((pos/=0.5) < 1) ? 0.5*(pos*pos*(((s*=(1.525))+1)*pos - s)) :
+      0.5*((pos-=2)*pos*(((s*=(1.525))+1)*pos + s) + 2);
+    },
+
+    swingFrom: function(pos) {
+      var s = 1.70158;
+      return pos*pos*((s+1)*pos - s);
+    },
+
+    swingTo: function(pos) {
+      var s = 1.70158;
+      return (pos-=1)*pos*((s+1)*pos + s) + 1;
+    },
+
+    bounce: function(pos) {
+      if (pos < (1/2.75)) {
+        return (7.5625*pos*pos);
+      } else if (pos < (2/2.75)) {
+        return (7.5625*(pos-=(1.5/2.75))*pos + .75);
+      } else if (pos < (2.5/2.75)) {
+        return (7.5625*(pos-=(2.25/2.75))*pos + .9375);
+      } else {
+        return (7.5625*(pos-=(2.625/2.75))*pos + .984375);
+      }
+    },
+
+    bouncePast: function(pos) {
+      if (pos < (1/2.75)) {
+        return (7.5625*pos*pos);
+      } else if (pos < (2/2.75)) {
+        return 2 - (7.5625*(pos-=(1.5/2.75))*pos + .75);
+      } else if (pos < (2.5/2.75)) {
+        return 2 - (7.5625*(pos-=(2.25/2.75))*pos + .9375);
+      } else {
+        return 2 - (7.5625*(pos-=(2.625/2.75))*pos + .984375);
+      }
+    },
+
+    easeFromTo: function(pos) {
+      if ((pos/=0.5) < 1) return 0.5*Math.pow(pos,4);
+      return -0.5 * ((pos-=2)*Math.pow(pos,3) - 2);
+    },
+
+    easeFrom: function(pos) {
+      return Math.pow(pos,4);
+    },
+
+    easeTo: function(pos) {
+      return Math.pow(pos,0.25);
+    }
+  });
+} (this));
+/*global setTimeout:true, clearTimeout:true */
+
+/**
+Shifty Queue Extension
+By Jeremy Kahn - jeremyckahn@gmail.com
+  v0.2.0
+
+Dependencies: shifty.core.js
+
+Tweeny and all official extensions are freely available under an MIT license.
+For instructions on how to use Tweeny and this extension, please consult the manual: https://github.com/jeremyckahn/shifty/blob/master/README.md
+For instructions on how to use this extension, please see: https://github.com/jeremyckahn/shifty/blob/master/doc/shifty.queue.md
+
+MIT Lincense.  This code free to use, modify, distribute and enjoy.
+
+*/
+
+(function shiftyQueue (global) {
+  
+  function iterateQueue (queue) {
+    queue.shift();
+
+    if (queue.length) {
+      queue[0]();
+    } else {
+      queue.running = false;
+    }
+  }
+  
+  function getWrappedCallback (callback, queue) {
+    return function () {
+      callback();
+      iterateQueue(queue);
+    };
+  }
+  
+  function tweenInit (context, from, to, duration, callback, easing) {
+    // Duck typing!  This method infers some info from the parameters above to determine which method to call,
+    // and what paramters to pass to it.
+    return function () {
+      if (to) {
+        // Shorthand notation was used, call `tween`
+        context.tween(from, to, duration, callback, easing);
+      } else {
+        // Longhand notation was used
+
+        // Ensure that that `wrappedCallback` (from `queue`) gets passed along.
+        from.callback = callback;
+
+        if (from.from) {
+          context.tween(from);
+        } else {
+          // `from` data was omitted, call `to`
+          context.to(from);
+        }
+      }
+    };
+  }
+
+  global.Tweenable.prototype.queue = function (from, to, duration, callback, easing) {
+    var wrappedCallback;
+      
+    if (!this._tweenQueue) {
+      this._tweenQueue = [];
+    }
+
+    // Make sure there is always an invokable callback
+    callback = callback || from.callback || function () {};
+    wrappedCallback = getWrappedCallback(callback, this._tweenQueue);
+    this._tweenQueue.push(tweenInit(this, from, to, duration, wrappedCallback, easing));
+
+    return this;
+  };
+  
+  global.Tweenable.prototype.queueStart = function () {
+    if (!this._tweenQueue.running && this._tweenQueue.length > 0) {
+      this._tweenQueue[0]();
+      this._tweenQueue.running = true;
+    }
+    
+    return this;
+  };
+
+  global.Tweenable.prototype.queueShift = function () {
+    this._tweenQueue.shift();
+    return this;
+  };
+  
+  global.Tweenable.prototype.queuePop = function () {
+    this._tweenQueue.pop();
+    return this;
+  };
+
+  global.Tweenable.prototype.queueEmpty = function () {
+    this._tweenQueue.length = 0;
+    return this;
+  };
+
+  global.Tweenable.prototype.queueLength = function () {
+    return this._tweenQueue.length;
+  };
+  
+}(this));
+/**
+Shifty Color Extension
+By Jeremy Kahn - jeremyckahn@gmail.com
+  v0.1.0
+
+For instructions on how to use Shifty, please consult the README: https://github.com/jeremyckahn/shifty/blob/master/README.md
+For instructions on how to use this extension, please see: https://github.com/jeremyckahn/shifty/blob/master/doc/shifty.color.md
+
+MIT Lincense.  This code free to use, modify, distribute and enjoy.
+
+*/
+
+(function shiftyColor (global) {
+  var R_SHORTHAND_HEX = /^#([0-9]|[a-f]){3}$/i,
+    R_LONGHAND_HEX = /^#([0-9]|[a-f]){6}$/i,
+    R_RGB = /^rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)\s*$/i,
+    savedRGBPropNames;
+  
+  if (!global.Tweenable) {
+    return;
+  }
+  
+  /**
+   * Convert a base-16 number to base-10.
+   * @param {Number|String} hex The value to convert
+   * @returns {Number} The base-10 equivalent of `hex`.
+   */
+  function hexToDec (hex) {
+    return parseInt(hex, 16);
+  }
+
+  /**
+   * Convert a hexadecimal string to an array with three items, one each for the red, blue, and green decimal values.
+   * @param {String} hex A hexadecimal string.
+   * @returns {Array} The converted Array of RGB values if `hex` is a valid string, or an Array of three 0's.
+   */
+  function hexToRGBArr (hex) {
+    
+    hex = hex.replace(/#/g, '');
+    
+    // If the string is a shorthand three digit hex notation, normalize it to the standard six digit notation
+    if (hex.length === 3) {
+      hex = hex.split('');
+      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    
+    return [hexToDec(hex.substr(0, 2)), hexToDec(hex.substr(2, 2)), hexToDec(hex.substr(4, 2))];
+  }
+  
+  function getRGBStringFromHex (str) {
+    var rgbArr,
+      convertedStr;
+    rgbArr = hexToRGBArr(str);
+    convertedStr = 'rgb(' + rgbArr[0] + ',' + rgbArr[1] + ',' + rgbArr[2] + ')';
+    
+    return convertedStr;
+  }
+  
+  function isColorString (str) {
+    return (typeof str === 'string') && (R_SHORTHAND_HEX.test(str) || R_LONGHAND_HEX.test(str) || R_RGB.test(str));
+  }
+  
+  function isHexString (str) {
+    return (typeof str === 'string') && (R_SHORTHAND_HEX.test(str) || R_LONGHAND_HEX.test(str));
+  }
+  
+  function convertHexStringPropsToRGB (obj) {
+    global.Tweenable.util.each(obj, function (obj, prop) {
+      if (isHexString(obj[prop])) {
+        obj[prop] = getRGBStringFromHex(obj[prop]);
+      }
+    });
+  }
+  
+  function getColorStringPropNames (obj) {
+    var list;
+    
+    list = [];
+    
+    global.Tweenable.util.each(obj, function (obj, prop) {
+      if (isColorString(obj[prop])) {
+        list.push(prop);
+      }
+    });
+    
+    return list;
+  }
+  
+  function rgbToArr (str) {
+    return str.match(/(\d+)/g);
+  }
+  
+  function splitRGBChunks (obj, rgbPropNames) {
+    var i,
+      limit,
+      rgbParts;
+      
+      limit = rgbPropNames.length;
+      
+      for (i = 0; i < limit; i++) {
+        rgbParts = rgbToArr(obj[rgbPropNames[i]]);
+        obj['__r__' + rgbPropNames[i]] = +rgbParts[0];
+        obj['__g__' + rgbPropNames[i]] = +rgbParts[1];
+        obj['__b__' + rgbPropNames[i]] = +rgbParts[2];
+        delete obj[rgbPropNames[i]];
+      }
+  }
+  
+  function joinRGBChunks (obj, rgbPropNames) {
+    var i,
+        limit;
+      
+    limit = rgbPropNames.length;
+    
+    for (i = 0; i < limit; i++) {
+      
+      obj[rgbPropNames[i]] = 'rgb(' + 
+        parseInt(obj['__r__' + rgbPropNames[i]], 10) + ',' + 
+        parseInt(obj['__g__' + rgbPropNames[i]], 10) + ',' + 
+        parseInt(obj['__b__' + rgbPropNames[i]], 10) + ')';
+      
+      delete obj['__r__' + rgbPropNames[i]];
+      delete obj['__g__' + rgbPropNames[i]];
+      delete obj['__b__' + rgbPropNames[i]];
+    }
+  }
+
+  function expandEasingObject (easingObject, rgbPropNames) {
+    var i,
+        limit;
+      
+    limit = rgbPropNames.length;
+    
+    for (i = 0; i < limit; i++) {
+      easingObject['__r__' + rgbPropNames[i]] = easingObject[rgbPropNames[i]];
+      easingObject['__g__' + rgbPropNames[i]] = easingObject[rgbPropNames[i]];
+      easingObject['__b__' + rgbPropNames[i]] = easingObject[rgbPropNames[i]];
+    }
+  }
+
+  function collapseEasingObject (easingObject, rgbPropNames) {
+    var i,
+        limit;
+      
+    limit = rgbPropNames.length;
+    
+    for (i = 0; i < limit; i++) {
+      delete easingObject['__r__' + rgbPropNames[i]];
+      delete easingObject['__g__' + rgbPropNames[i]];
+      delete easingObject['__b__' + rgbPropNames[i]];
+    }
+  }
+  
+  global.Tweenable.prototype.filter.color = {
+    'tweenCreated': function tweenCreated (currentState, fromState, toState) {
+      convertHexStringPropsToRGB(currentState);
+      convertHexStringPropsToRGB(fromState);
+      convertHexStringPropsToRGB(toState);
+    },
+    
+    'beforeTween': function beforeTween (currentState, fromState, toState) {
+      savedRGBPropNames = getColorStringPropNames(fromState);
+      
+      splitRGBChunks(currentState, savedRGBPropNames);
+      splitRGBChunks(fromState, savedRGBPropNames);
+      splitRGBChunks(toState, savedRGBPropNames);
+      expandEasingObject(this._tweenParams.easing, savedRGBPropNames);
+    },
+    
+    'afterTween': function afterTween (currentState, fromState, toState) {
+      joinRGBChunks(currentState, savedRGBPropNames);
+      joinRGBChunks(fromState, savedRGBPropNames);
+      joinRGBChunks(toState, savedRGBPropNames);
+      collapseEasingObject(this._tweenParams.easing, savedRGBPropNames);
+    }
+  };
+  
+}(this));
+/**
+Shifty CSS Unit Extension
+By Jeremy Kahn - jeremyckahn@gmail.com
+  v0.1.0
+
+For instructions on how to use Shifty, please consult the README: https://github.com/jeremyckahn/shifty/blob/master/README.md
+For instructions on how to use this extension, please see: https://github.com/jeremyckahn/shifty/blob/master/doc/shifty.css_units.md
+
+MIT Lincense.  This code free to use, modify, distribute and enjoy.
+
+*/
+
+(function shiftyCSSUnits (global) {
+  var R_CSS_UNITS = /(px|em|%|pc|pt|mm|cm|in|ex)/i,
+    R_QUICK_CSS_UNITS = /([a-z]|%)/gi,
+    savedTokenProps;
+  
+  function isValidString (str) {
+    return typeof str === 'string' && R_CSS_UNITS.test(str);
+  }
+  
+  function getTokenProps (obj) {
+    var collection;
+
+    collection = {};
+    
+    global.Tweenable.util.each(obj, function (obj, prop) {
+      if (isValidString(obj[prop])) {
+        collection[prop] = {
+          'suffix': obj[prop].match(R_CSS_UNITS)[0]
+        };
+      }
+    });
+    
+    return collection;
+  }
+  
+  function deTokenize (obj, tokenProps) {
+    global.Tweenable.util.each(tokenProps, function (collection, token) {
+      // Extract the value from the string
+      obj[token] = +(obj[token].replace(R_QUICK_CSS_UNITS, ''));
+    });
+  }
+  
+  function reTokenize (obj, tokenProps) {
+    global.Tweenable.util.each(tokenProps, function (collection, token) {
+      obj[token] = obj[token] + collection[token].suffix;
+    });
+  }
+  
+  global.Tweenable.prototype.filter.token = {
+    'beforeTween': function beforeTween (currentState, fromState, toState) {
+      savedTokenProps = getTokenProps(fromState);
+      
+      deTokenize(currentState, savedTokenProps);
+      deTokenize(fromState, savedTokenProps);
+      deTokenize(toState, savedTokenProps);
+    },
+    
+    'afterTween': function afterTween (currentState, fromState, toState) {
+      reTokenize(currentState, savedTokenProps);
+      reTokenize(fromState, savedTokenProps);
+      reTokenize(toState, savedTokenProps);
+    }
+  };
+  
+}(this));
+/*global setTimeout:true, clearTimeout:true */
+
+/**
+Shifty Interpolate Extension
+By Jeremy Kahn - jeremyckahn@gmail.com
+  v0.1.0
+
+Dependencies: shifty.core.js
+
+Tweeny and all official extensions are freely available under an MIT license.
+For instructions on how to use Tweeny and this extension, please consult the manual: https://github.com/jeremyckahn/shifty/blob/master/README.md
+For instructions on how to use this extension, please see: https://github.com/jeremyckahn/shifty/blob/master/doc/shifty.queue.md
+
+MIT Lincense.  This code free to use, modify, distribute and enjoy.
+
+*/
+
+(function shiftyInterpolate (global) {
+  
+  if (!global.Tweenable) {
+    return;
+  }
+  
+  function getInterpolatedValues (from, current, to, position, easing) {
+    var easingObject;
+
+    easingObject = Tweenable.util.composeEasingObject(from, easing);
+
+    return global.Tweenable.util.tweenProps(position, {
+      'originalState': from
+      ,'to': to
+      ,'timestamp': 0
+      ,'duration': 1
+      ,'easing': easingObject
+    }, {
+      'current': current
+    });
+  }
+
+  // This is the static utility version of the function.
+  global.Tweenable.util.interpolate = function (from, to, position, easing) {
+    var current
+        ,interpolatedValues
+        ,mockTweenable;
+    
+    // Function was passed a configuration object, extract the values
+    if (from && from.from) {
+      to = from.to;
+      position = from.position;
+      easing = from.easing;
+      from = from.from;
+    }
+
+    mockTweenable = new Tweenable();
+    mockTweenable._tweenParams.easing = easing;
+    current = global.Tweenable.util.simpleCopy({}, from);
+    
+    // Call any data type filters
+    global.Tweenable.util.applyFilter('tweenCreated', mockTweenable, [current, from, to]);
+    global.Tweenable.util.applyFilter('beforeTween', mockTweenable, [current, from, to]);
+    interpolatedValues = getInterpolatedValues (from, current, to, position, mockTweenable._tweenParams.easing);
+    global.Tweenable.util.applyFilter('afterTween', mockTweenable, [interpolatedValues, from, to]);
+    
+    return interpolatedValues;
+  };
+  
+  // This is the inheritable instance-method version of the function.
+  global.Tweenable.prototype.interpolate = function (to, position, easing) {
+    var interpolatedValues;
+    
+    interpolatedValues = global.Tweenable.util.interpolate(this.get(), to, position, easing);
+    this.set(interpolatedValues);
+    
+    return interpolatedValues;
+  };
+}(this));
 /**
  * Rekapi - Rewritten Kapi. v0.3.5
  *   By Jeremy Kahn - jeremyckahn@gmail.com
@@ -67,23 +1153,1205 @@ j,[e,a,i]);return e},d.Tweenable.prototype.interpolate=function(a,i,l){a=d.Tween
  * Dependencies: Underscore.js (https://github.com/documentcloud/underscore), Shifty.js (https://github.com/jeremyckahn/shifty)
  * MIT Lincense.  This code free to use, modify, distribute and enjoy.
  */
-(function(e){function j(b){return b.sort(function(b,a){return b-a})}function i(b,a){return Math.floor(a/b._animationLength)}function c(b){return l()-b._loopTimestamp}function h(b,a){return a>=b._timesToIterate&&-1!==b._timesToIterate}function a(b,a){h(b,a)&&(b.stop(),g(b,"onAnimationComplete"))}function k(b,a,d){return h(b,d)?b._animationLength:a%b._animationLength}function f(b){var d=c(b),f;f=i(b,d);d=k(b,d,f);a(b,f);b.render(d)}function m(b){b._loopId=setTimeout(function(){m(b);f(b)},1E3/b.config.fps)}
-function g(b,a){_.each(b._events[a],function(a){a(b)})}if(!_)throw"underscore.js is required for Kapi.";if(!Tweenable)throw"shifty.js is required for Kapi.";var d,n,l;n={fps:30,height:150,width:300};l=Tweenable.util.now;d=e.Kapi||function(b,a){this.canvas=b;this._contextType=null;this.canvas_setContext(b);this.config={};this._actors={};this._drawOrder=[];this._playState="stopped";this._events={onFrameRender:[],onAnimationComplete:[],onPlayStateChange:[],onPlay:[],onPause:[],onStop:[]};this._timesToIterate=
--1;this._animationLength=0;this._pausedAtTime=this._loopTimestamp=this._loopId=null;this._lastRenderedMillisecond=0;_.extend(this.config,a);_.defaults(this.config,n);_.each(["height","width"],function(b){this.config[b]&&(this["canvas_"+b](this.config[b]),delete this.config[b])},this);return this};d.prototype.addActor=function(b,a){if(!_.contains(this._actors,b))b.kapi=this,b.fps=this.framerate(),b.set(a||{}),this._actors[b.id]=b,this._drawOrder.push(b.id),b.setup();return this};d.prototype.getActor=
-function(b){return this._actors[b]};d.prototype.removeActor=function(b){delete this._actors[b.id];delete b.kapi;this._drawOrder=_.without(this._drawOrder,b.id);b.teardown();this.updateInternalState();return this};d.prototype.play=function(b){clearTimeout(this._loopId);this._loopTimestamp="paused"===this._playState?this._loopTimestamp+(l()-this._pausedAtTime):l();this._timesToIterate=b||-1;this._playState="playing";m(this);_.each(this._actors,function(b){b._state.isPaused&&b.resume()});g(this,"onPlayStateChange");
-g(this,"onPlay");return this};d.prototype.playFrom=function(b,a){this.play(a);this._loopTimestamp=l()-b;return this};d.prototype.playFromCurrent=function(b){return this.playFrom(this._lastRenderedMillisecond,b)};d.prototype.pause=function(){if("paused"===this._playState)return this;this._playState="paused";clearTimeout(this._loopId);this._pausedAtTime=l();_.each(this._actors,function(b){b._state.isTweening&&b.pause()});g(this,"onPlayStateChange");g(this,"onPause");return this};d.prototype.stop=function(b){this._playState=
-"stopped";clearTimeout(this._loopId);!0===b&&this.canvas_clear();_.each(this._actors,function(a){a.stop();!0===b&&a.hide()});g(this,"onPlayStateChange");g(this,"onStop");return this};d.prototype.isPlaying=function(){return"playing"===this._playState};d.prototype.animationLength=function(){return this._animationLength};d.prototype.actorCount=function(){return this._drawOrder.length};d.prototype.framerate=function(b){if(b)this.config.fps=b;return this.config.fps};d.prototype.render=function(b){this.calculateActorPositions(b);
-this.draw();this._lastRenderedMillisecond=b;g(this,"onFrameRender");return this};d.prototype.redraw=function(){this.render(this._lastRenderedMillisecond);return this};d.prototype.calculateActorPositions=function(b){var a,d;d=this._drawOrder.length;for(a=0;a<d;a++)this._actors[this._drawOrder[a]].calculatePosition(b);return this};d.prototype.draw=function(){var b,a,d,c;this.canvas_clear();a=this._drawOrder.length;c=this.canvas_getContext();for(b=0;b<a;b++)d=this._actors[this._drawOrder[b]],d.isShowing()&&
-d.draw(c,d.get());return this};d.prototype.updateInternalState=function(){var b;b=[0];_.each(this._drawOrder,function(a){b=b.concat(b,this._actors[a].keyframeList());b=_.uniq(b)},this);this._animationLength=Math.max.apply(Math,b);return this};d.prototype.moveActorToLayer=function(b,a){if(a<this._drawOrder.length)return this._drawOrder=_.without(this._drawOrder,b.id),this._drawOrder.splice(a,0,b.id),b};d.prototype.bind=function(b,a){if(this._events[b])return this._events[b].push(a),this};d.prototype.unbind=
-function(b,a){if(this._events[b])return this._events[b]=a?_.without(this._events[b],a):[],this};d.prototype.exportKeyframeData=function(){var b;b={};_.each(this._actors,function(a,d){var c;c=a.exportKeyframeData();b[d]={actor:a,keyframeList:c.keyframeList,keyframes:c.keyframes}});return b};d.util={};_.extend(d.util,{noop:function(){},sortNumerically:j,calculateLoopPosition:k,calculateTimeSinceStart:c});if("undefined"!==typeof KAPI_DEBUG&&!0===KAPI_DEBUG)d._private={sortNumerically:j,calculateLoopPosition:k,
-renderCurrentMillisecond:f,tick:m,determineCurrentLoopIteration:i,calculateTimeSinceStart:c,isAnimationComplete:h,updatePlayState:a};e.Kapi=d})(this);
-(function(e){function j(a,c){_.each(c,function(c,k){void 0===c||null===c?delete a[k]:a[k]=c})}function i(a,c){var f,i,g,d;f=a._keyframeList;i=a._keyframes;g={position:{},easing:{}};for(d=c;0<=d;d--)_.defaults(g.position,i[f[d]].position),_.defaults(g.easing,i[f[d]].easing);return g}var c,h;c=e.Kapi;h=0;c.Actor=function(a){a=a||{};this.constructor.call(this);_.extend(this,{_keyframes:{},_keyframeList:[],_data:{},_isShowing:!1,_isPersisting:!1,id:h++,setup:a.setup||c.util.noop,draw:a.draw||c.util.noop,
-teardown:a.teardown||c.util.noop});return this};e=function(){};e.prototype=Tweenable.prototype;c.Actor.prototype=new e;c.Actor.prototype.keyframe=function(a,k,f){var i;f||(f="linear");"string"===typeof f&&(i=f,f={},_.each(k,function(a,d){f[d]=i}));_.each(k,function(a,d){f[d]=f[d]||"linear"});this._keyframes[a]={position:k,easing:f};this._keyframeList.push(a);c.util.sortNumerically(this._keyframeList);this.kapi.updateInternalState();return this};c.Actor.prototype.liveCopy=function(a,c){var f;"undefined"===
-typeof c&&(c=_.last(this._keyframeList));this._keyframes.hasOwnProperty(c)&&(f=this._keyframes[c],this.keyframe(a,f.position,f.easing));return this};c.Actor.prototype.modifyKeyframe=function(a,c,f){a=this._keyframes[a];j(a.position,c);f&&j(a.easing,f);return this};c.Actor.prototype.removeKeyframe=function(a){if(-1!==this._keyframeList.indexOf(a))this._keyframeList=_.without(this._keyframeList,a),delete this._keyframes[a],this.kapi.updateInternalState();return this};c.Actor.prototype.removeAllKeyframes=
-function(){var a;a=this._keyframeList.slice(0);_.each(a,function(a){this.removeKeyframe(a)},this);return this};c.Actor.prototype.moveToLayer=function(a){return this.kapi.moveActorToLayer(this,a)};c.Actor.prototype.show=function(a){this._isShowing=!0;this._isPersisting=!!a;return this};c.Actor.prototype.hide=function(a){this._isShowing=!1;if(!0===a)this._isPersisting=!1;return this};c.Actor.prototype.isShowing=function(){return this._isShowing||this._isPersisting};c.Actor.prototype.calculatePosition=
-function(a){var c,f,e,g,d;c=this._keyframeList;f=_.first(c);e=_.last(c);this.hide();if(f<=a&&a<=e){this.show();f=this._keyframes;a:{d=this._keyframeList;g=d.length;for(e=1;e<g;e++)if(d[e]>=a){e-=1;break a}e=-1}g=c[e];d=c[e+1];a=(a-g)/(d-g);g=i(this,e);c=_.extend({},f[c[e+1]]);_.defaults(c.position,g.position);_.defaults(c.easing,g.easing);this.set(g.position).interpolate(c.position,a,c.easing)}return this};c.Actor.prototype.keyframeList=function(){return this._keyframeList};c.Actor.prototype.data=
-function(a){if(a)this._data=a;return this._data};c.Actor.prototype.exportKeyframeData=function(){return{keyframeList:this._keyframeList.slice(0),keyframes:_.extend({},this._keyframes)}};_.each(["tween","to"],function(a){c.Actor.prototype[a]=function(){this.show(!0);Tweenable.prototype[a].apply(this,arguments)}},this);_.extend(c.util,{composeKeyframe:i})})(this);
-(function(e){var j,i;j=e.Kapi;i=["transform","webkitTransform","MozTransform","oTransform","msTransform"];if(e.getComputedStyle)j.DOMActor=function(c){var h;h=new j.Actor({setup:function(){var a=this.kapi.canvas_getContext();"static"===e.getComputedStyle(a).getPropertyValue("position")&&(this.kapi.canvas_getContext().style.position="relative");"static"===e.getComputedStyle(c).getPropertyValue("position")&&(c.style.position="absolute")},draw:function(a,e){var f;f=!1;_.each(e,function(a,e){f=!0;"rotate"===
-e?_.each(i,function(d){c.style[d]="rotate("+a+"deg)"}):c.style[e]=a});c.style.display=f?"block":"none"}});h.show=function(a){j.Actor.prototype.show.call(this,a);c.style.display="block"};h.hide=function(a){j.Actor.prototype.hide.call(this,a);c.style.display="none"};return h}})(this);
-(function(e){function j(e,c,h,a){if("undefined"!==typeof a){e[h]=a;if(!e.style)e.style={};e.style[h]=a+"px"}return c===c.HTML_ELEMENT?e.style[h]:e[h]}e=e.Kapi;e.prototype.canvas_setContext=function(e){var c;this._canvas=e;c=e.nodeName;void 0===c?(this._context={},this._contextType="other"):"CANVAS"===c?(this._context=e.getContext("2d"),this._contextType="canvas"):(this._context=e,this._contextType="HTMLElement");return this.canvas_getContext()};e.prototype.canvas_getContext=function(){return this._context};
-e.prototype.canvas_height=function(e){return j(this.canvas,this._contextType,"height",e)};e.prototype.canvas_width=function(e){return j(this.canvas,this._contextType,"width",e)};e.prototype.canvas_style=function(e,c){"undefined"!==typeof c&&this.canvas.style&&(this.canvas.style[e]=c);return this.canvas.style[e]};e.prototype.canvas_clear=function(){"canvas"===this._contextType&&this.canvas_getContext().clearRect(0,0,this.canvas_width(),this.canvas_height());return this}})(this);
+;(function rekapiCore (global) {
+
+  if (!_) {
+    throw 'underscore.js is required for Kapi.';
+  }
+
+  if (!Tweenable) {
+    throw 'shifty.js is required for Kapi.';
+  }
+
+  var gk
+      ,defaultConfig
+      ,now
+      ,playState;
+
+
+  /**
+   * Sorts an array numerically, from smallest to largest.
+   * @param {Array} array The Array to sort.
+   * @returns {Array} The sorted Array.
+   */
+  function sortNumerically (array) {
+    return array.sort(function (a, b) {
+      return a - b;
+    });
+  }
+
+
+  /**
+   * Determines which iteration of the loop the animation is currently in.
+   * @param {Kapi} kapi
+   * @param {number} timeSinceStart
+   */
+  function determineCurrentLoopIteration (kapi, timeSinceStart) {
+    var currentIteration;
+
+    currentIteration = Math.floor((timeSinceStart) / kapi._animationLength);
+    return currentIteration;
+  }
+
+
+  /**
+   * Calculate how many milliseconds since the animation began.
+   * @param {Kapi} kapi
+   * @returns {number}
+   */
+  function calculateTimeSinceStart (kapi) {
+    var timeSinceStart;
+
+    timeSinceStart = now() - kapi._loopTimestamp;
+    return timeSinceStart;
+  }
+
+
+  /**
+   * Determines is the animation is complete or not.
+   * @param {Kapi} kapi
+   * @param {number} currentLoopIteration
+   */
+  function isAnimationComplete (kapi, currentLoopIteration) {
+    return currentLoopIteration >= kapi._timesToIterate
+        && kapi._timesToIterate !== -1;
+  }
+
+
+  /**
+   * Stops the animation if the animation is complete.
+   * @param {Kapi} kapi
+   * @param {number} currentLoopIteration
+   */
+  function updatePlayState (kapi, currentLoopIteration) {
+    if (isAnimationComplete(kapi, currentLoopIteration)) {
+      kapi.stop();
+      fireEvent(kapi, 'onAnimationComplete');
+    }
+  }
+
+
+  /**
+   * Calculate how far in the animation loop `kapi` is, in milliseconds, based
+   * on the current time.  Also overflows into a new loop if necessary.
+   * @param {Kapi} kapi
+   * @returns {number}
+   */
+  function calculateLoopPosition (kapi, forMillisecond, currentLoopIteration) {
+    var currentLoopPosition;
+
+    if (isAnimationComplete(kapi, currentLoopIteration)) {
+      currentLoopPosition = kapi._animationLength;
+    } else {
+      currentLoopPosition = forMillisecond % kapi._animationLength;
+    }
+
+    return currentLoopPosition;
+  }
+
+
+  /**
+   * Calculate the position and state for a given millisecond and render it.
+   * Also updates the state internally and accounts for how many loop
+   * iterations the animation runs for.
+   * @param {Kapi} kapi
+   * @param {number} forMillisecond The millisecond to render
+   */
+  function renderMillisecond (kapi, forMillisecond) {
+    var currentIteration
+        ,loopPosition;
+
+    currentIteration = determineCurrentLoopIteration(kapi, forMillisecond);
+    loopPosition = calculateLoopPosition(kapi, forMillisecond,
+        currentIteration);
+    updatePlayState(kapi, currentIteration);
+    kapi.render(loopPosition);
+  }
+
+
+  /**
+   * Calculate how far in the animation loop `kapi` is, in milliseconds, and
+   * render based on that time.
+   * @param {Kapi} kapi
+   */
+  function renderCurrentMillisecond (kapi) {
+    renderMillisecond(kapi, calculateTimeSinceStart(kapi));
+  }
+
+
+  /**
+   * This is the heartbeat of an animation.  Renders a frame and then calls
+   * itself based on the framerate of the supplied Kapi.
+   * @param {Kapi} kapi
+   */
+  function tick (kapi) {
+    kapi._loopId = setTimeout(function () {
+      // First, scedule the next update.  renderCurrentMillisecond can cancel
+      // the update if necessary.
+      tick(kapi);
+      renderCurrentMillisecond(kapi);
+    }, 1000 / kapi.config.fps);
+  }
+
+
+  function fireEvent (kapi, eventName) {
+    _.each(kapi._events[eventName], function (handler) {
+      handler(kapi);
+    });
+  }
+
+
+  /**
+   * Does nothing.  Absolutely nothing at all.
+   */
+  function noop () {
+    // NOOP!
+  }
+
+
+  defaultConfig = {
+    'fps': 30
+    ,'height': 150
+    ,'width': 300
+  };
+
+  playState = {
+    'STOPPED': 'stopped'
+    ,'PAUSED': 'paused'
+    ,'PLAYING': 'playing'
+  };
+
+  now = Tweenable.util.now;
+
+  /**
+   * @param {HTMLCanvas} canvas
+   * @param {Object} opt_config
+   * @returns {Kapi}
+   */
+  gk = global.Kapi || function Kapi (canvas, opt_config) {
+    this.canvas = canvas;
+    this._contextType = null;
+    this.canvas_setContext(canvas);
+    this.config = {};
+    this._actors = {};
+    this._drawOrder = [];
+    this._playState = playState.STOPPED;
+
+    this._events = {
+      'onFrameRender': []
+      ,'onAnimationComplete': []
+      ,'onPlayStateChange': []
+      ,'onPlay': []
+      ,'onPause': []
+      ,'onStop': []
+    };
+
+    // How many times to loop the animation before stopping.
+    this._timesToIterate = -1;
+
+    // Millisecond duration of the animation
+    this._animationLength = 0;
+
+    // The setTimeout ID of `tick`
+    this._loopId = null;
+
+    // The UNIX time at which the animation loop started
+    this._loopTimestamp = null;
+
+
+    // Used for maintaining position when the animation is paused.
+    this._pausedAtTime = null;
+
+    // The last millisecond position that was drawn
+    this._lastRenderedMillisecond = 0;
+
+    _.extend(this.config, opt_config);
+    _.defaults(this.config, defaultConfig);
+
+    // Apply the height and width if they were passed in the`config` Object.
+    // Also delete them from the internal config - we won't need them anymore.
+    _.each(['height', 'width'], function (dimension) {
+      if (this.config[dimension]) {
+        this['canvas_' + dimension](this.config[dimension]);
+        delete this.config[dimension];
+      }
+    }, this);
+
+    return this;
+  };
+
+
+  /**
+   * @param {Kapi.Actor} actor
+   * @param {Object} opt_initialState
+   * @returns {Kapi}
+   */
+  gk.prototype.addActor = function (actor, opt_initialState) {
+    // You can't add an actor more than once.
+    if (!_.contains(this._actors, actor)) {
+      actor.kapi = this;
+      actor.fps = this.framerate();
+      actor.set(opt_initialState || {});
+      this._actors[actor.id] = actor;
+      this._drawOrder.push(actor.id);
+      actor.setup();
+    }
+
+    return this;
+  };
+
+
+  /**
+   * @param {number} actorId
+   * @returns {Kapi.Actor}
+   */
+  gk.prototype.getActor = function (actorId) {
+    return this._actors[actorId];
+  };
+
+
+  /**
+   * @param {Kapi.Actor} actor
+   * @returns {Kapi}
+   */
+  gk.prototype.removeActor = function (actor) {
+    delete this._actors[actor.id];
+    delete actor.kapi;
+    this._drawOrder = _.without(this._drawOrder, actor.id);
+    actor.teardown();
+    this.updateInternalState();
+
+    return this;
+  };
+
+
+  /**
+   * @param {number} opt_howManyTimes
+   * @returns {Kapi}
+   */
+  gk.prototype.play = function (opt_howManyTimes) {
+    clearTimeout(this._loopId);
+
+    if (this._playState === playState.PAUSED) {
+      this._loopTimestamp += now() - this._pausedAtTime;
+    } else {
+      this._loopTimestamp = now();
+    }
+
+    this._timesToIterate = opt_howManyTimes || -1;
+    this._playState = playState.PLAYING;
+    tick(this);
+
+    // also resume any shifty tweens that are paused.
+    _.each(this._actors, function (actor) {
+      if (actor._state.isPaused ) {
+        actor.resume();
+      }
+    });
+
+    fireEvent(this, 'onPlayStateChange');
+    fireEvent(this, 'onPlay');
+
+    return this;
+  };
+
+
+  /**
+   * @param {number} millisecond
+   * @param {number} opt_howManyTimes
+   * @returns {Kapi}
+   */
+  gk.prototype.playFrom = function (millisecond, opt_howManyTimes) {
+    this.play(opt_howManyTimes);
+    this._loopTimestamp = now() - millisecond;
+
+    return this;
+  };
+
+
+  /**
+   * @param {number} opt_howManyTimes
+   * @returns {Kapi}
+   */
+  gk.prototype.playFromCurrent = function (opt_howManyTimes) {
+    return this.playFrom(this._lastRenderedMillisecond, opt_howManyTimes);
+  };
+
+
+  /**
+   * @returns {Kapi}
+   */
+  gk.prototype.pause = function () {
+    if (this._playState === playState.PAUSED) {
+      return this;
+    }
+
+    this._playState = playState.PAUSED;
+    clearTimeout(this._loopId);
+    this._pausedAtTime = now();
+
+    // also pause any shifty tweens that are running.
+    _.each(this._actors, function (actor) {
+      if (actor._state.isTweening) {
+        actor.pause();
+      }
+    });
+
+    fireEvent(this, 'onPlayStateChange');
+    fireEvent(this, 'onPause');
+
+    return this;
+  };
+
+
+  /**
+   * @param {boolean} alsoClear
+   * @returns {Kapi}
+   */
+  gk.prototype.stop = function (alsoClear) {
+    this._playState = playState.STOPPED;
+    clearTimeout(this._loopId);
+
+    if (alsoClear === true) {
+      this.canvas_clear();
+    }
+
+    // also kill any shifty tweens that are running.
+    _.each(this._actors, function (actor) {
+      actor.stop();
+
+      if (alsoClear === true) {
+        actor.hide();
+      }
+    });
+
+    fireEvent(this, 'onPlayStateChange');
+    fireEvent(this, 'onStop');
+
+    return this;
+  };
+
+
+  /**
+   * @returns {boolean}
+   */
+  gk.prototype.isPlaying = function () {
+    return this._playState === playState.PLAYING;
+  };
+
+
+  /**
+   * @returns {number}
+   */
+  gk.prototype.animationLength = function () {
+    return this._animationLength;
+  };
+
+
+  /**
+   * @returns {number}
+   */
+  gk.prototype.actorCount = function () {
+    return this._drawOrder.length;
+  };
+
+
+  /**
+   * @param {number} opt_newFramerate
+   * @returns {number}
+   */
+  gk.prototype.framerate = function (opt_newFramerate) {
+    if (opt_newFramerate) {
+      this.config.fps = opt_newFramerate;
+    }
+
+    return this.config.fps;
+  };
+
+
+  /**
+   * @param {number} millisecond
+   * @returns {Kapi}
+   */
+  gk.prototype.render = function (millisecond) {
+    this.calculateActorPositions(millisecond);
+    this.draw();
+    this._lastRenderedMillisecond = millisecond;
+    fireEvent(this, 'onFrameRender');
+
+    return this;
+  };
+
+
+  /**
+   * @returns {Kapi}
+   */
+  gk.prototype.redraw = function () {
+    this.render(this._lastRenderedMillisecond);
+
+    return this;
+  };
+
+
+  /**
+   * @param {number} millisecond
+   * @returns {Kapi}
+   */
+  gk.prototype.calculateActorPositions = function (millisecond) {
+    var i, len;
+
+    len = this._drawOrder.length;
+
+    for (i = 0; i < len; i++) {
+      this._actors[this._drawOrder[i]].calculatePosition(millisecond);
+    }
+
+    return this;
+  };
+
+
+  /**
+   * @returns {Kapi}
+   */
+  gk.prototype.draw = function () {
+    var i, len
+        ,currentActor
+        ,canvas_context;
+
+    this.canvas_clear();
+    len = this._drawOrder.length;
+    canvas_context = this.canvas_getContext();
+
+    for (i = 0; i < len; i++) {
+      currentActor = this._actors[this._drawOrder[i]];
+      if (currentActor.isShowing()) {
+        currentActor.draw(canvas_context, currentActor.get());
+      }
+    }
+
+    return this;
+  };
+
+
+  /**
+   * @returns {Kapi}
+   */
+  gk.prototype.updateInternalState = function () {
+    var allKeyframeLists;
+
+    allKeyframeLists = [0];
+
+    _.each(this._drawOrder, function (i) {
+      allKeyframeLists = allKeyframeLists.concat(allKeyframeLists,
+          this._actors[i].keyframeList());
+      allKeyframeLists = _.uniq(allKeyframeLists);
+    }, this);
+
+    this._animationLength = Math.max.apply(Math, allKeyframeLists);
+
+    return this;
+  };
+
+
+  /**
+   * @param {Kapi.Actor} actor
+   * @param {number} layer
+   * @returns {Kapi.Actor|undefined}
+   */
+  gk.prototype.moveActorToLayer = function (actor, layer) {
+    if (layer < this._drawOrder.length) {
+      this._drawOrder = _.without(this._drawOrder, actor.id);
+      this._drawOrder.splice(layer, 0, actor.id);
+
+      return actor;
+    }
+
+    return undefined;
+  };
+
+
+  /**
+   * @param {string} eventName
+   * @param {Function} handler
+   * @returns {Kapi}
+   */
+  gk.prototype.bind = function (eventName, handler) {
+    if (!this._events[eventName]) {
+      return;
+    }
+
+    this._events[eventName].push(handler);
+
+    return this;
+  };
+
+
+  /**
+   * @param {string} eventName
+   * @param {Function} opt_handler
+   * @returns {Kapi}
+   */
+  gk.prototype.unbind = function (eventName, opt_handler) {
+    if (!this._events[eventName]) {
+      return;
+    }
+
+    if (!opt_handler) {
+      this._events[eventName] = [];
+    } else {
+      this._events[eventName] = _.without(this._events[eventName],
+        opt_handler);
+    }
+
+    return this;
+  };
+
+
+  gk.prototype.exportKeyframeData = function () {
+    var exportedKeyframeData;
+
+    exportedKeyframeData = {};
+
+    _.each(this._actors, function (actor, actorId) {
+      var exportedActorKeyframeData;
+
+      exportedActorKeyframeData = actor.exportKeyframeData();
+      exportedKeyframeData[actorId] = {
+        'actor': actor
+        ,'keyframeList': exportedActorKeyframeData.keyframeList
+        ,'keyframes': exportedActorKeyframeData.keyframes
+      };
+    });
+
+    return exportedKeyframeData;
+  };
+
+
+  gk.util = {};
+
+  //TODO:  There are some duplicates in gk.util and gk._private, clean up the
+  // references in the tests.
+  _.extend(gk.util, {
+    'noop': noop
+    ,'sortNumerically': sortNumerically
+    ,'calculateLoopPosition': calculateLoopPosition
+    ,'calculateTimeSinceStart': calculateTimeSinceStart
+  });
+
+  // Some hooks for testing.
+  if (typeof KAPI_DEBUG !== 'undefined' && KAPI_DEBUG === true) {
+    gk._private = {
+      'sortNumerically': sortNumerically
+      ,'calculateLoopPosition': calculateLoopPosition
+      ,'renderCurrentMillisecond': renderCurrentMillisecond
+      ,'tick': tick
+      ,'determineCurrentLoopIteration': determineCurrentLoopIteration
+      ,'calculateTimeSinceStart': calculateTimeSinceStart
+      ,'isAnimationComplete': isAnimationComplete
+      ,'updatePlayState': updatePlayState
+    }
+  }
+
+  global.Kapi = gk;
+
+} (this));
+;(function rekapiActor (global) {
+
+  var DEFAULT_EASING = 'linear'
+      ,gk
+      ,actorCount
+      ,ActorMethods;
+
+  gk = global.Kapi;
+  actorCount = 0;
+
+
+  function getUniqueActorId () {
+    return actorCount++;
+  }
+
+
+  /**
+   * Finds the index of the keyframe that occurs for `millisecond`.
+   * @param {Kapi.Actor} actor The actor to find the keyframe during which
+   *    `millisecond` occurs.
+   * @param {number} millisecond
+   * @returns {number} The keyframe index for `millisecond`, or -1 if it was
+   *    not found.
+   */
+  //TODO:  Oh noes, this is a linear search!  Maybe optimize it?
+  function getKeyframeForMillisecond (actor, millisecond) {
+    var i, len
+        ,list;
+
+    list = actor._keyframeList;
+    len = list.length;
+
+    for (i = 1; i < len; i++) {
+      if (list[i] >= millisecond) {
+        return (i - 1);
+      }
+    }
+
+    return -1;
+  }
+
+
+  /**
+   * Apply new values to an Object.  If the new value for a given property is
+   * `null` or `undefined`, the property is deleted from the original Object.
+   * @param {Object} targetObject The Object to modify.
+   * @param {Object} augmentation The Object containing properties to modify
+   *    `targetObject` with.
+   */
+  function augmentObject (targetObject, augmentation) {
+    _.each(augmentation, function (newVal, name) {
+      if (newVal === undefined || newVal === null) {
+        delete targetObject[name];
+      } else {
+        targetObject[name] = newVal;
+      }
+    });
+  }
+
+
+  /**
+   * Compute a keyframe's positions and easing from all of the keyframes that
+   * came before it.
+   * @param {Actor} actor
+   * @param {number} keyframeId
+   * @returns {Object}
+   */
+  function composeKeyframe (actor, keyframeId) {
+    // TODO: This function is insanely slow and is a performance bottleneck.
+    // Make this suck less, somehow.
+    var keyframeList
+        ,keyframes
+        ,composedKeyframe
+        ,i;
+
+    keyframeList = actor._keyframeList;
+    keyframes = actor._keyframes;
+    composedKeyframe = {
+      'position': {}
+      ,'easing': {}
+    };
+
+    for (i = keyframeId; i >= 0; i--) {
+      _.defaults(composedKeyframe.position,
+          keyframes[keyframeList[i]].position);
+      _.defaults(composedKeyframe.easing, keyframes[keyframeList[i]].easing);
+    }
+
+    return composedKeyframe;
+  }
+
+
+  /**
+   * @param {Object} opt_config
+   * @returns {Actor.Kapi}
+   */
+  gk.Actor = function Actor (opt_config) {
+
+    opt_config = opt_config || {};
+
+    // Steal the `Tweenable` constructor.
+    this.constructor.call(this);
+
+    _.extend(this, {
+      '_keyframes': {}
+      ,'_keyframeList': []
+      ,'_data': {}
+      ,'_isShowing': false
+      ,'_isPersisting': false
+      ,'id': getUniqueActorId()
+      ,'setup': opt_config.setup || gk.util.noop
+      ,'draw': opt_config.draw || gk.util.noop
+      ,'teardown': opt_config.teardown || gk.util.noop
+    });
+
+    return this;
+  };
+
+
+  // Kind of a fun way to set up an inheritance chain.  `ActorMethods` prevents
+  // methods on `Actor.prototype` from polluting `Tweenable`'s prototype with
+  // `Actor` specific methods.
+  ActorMethods = function () {};
+  ActorMethods.prototype = Tweenable.prototype;
+  gk.Actor.prototype = new ActorMethods();
+  // But the magic doesn't stop here!  `Actor`'s constructor steals the
+  // `Tweenable` constructor.
+
+
+  /**
+   * @param {number} when
+   * @param {Object} position
+   * @param {string|Object} easing
+   * @returns {Kapi.Actor}
+   */
+  gk.Actor.prototype.keyframe = function keyframe (when, position, opt_easing) {
+    var originalEasingString;
+
+    // This code will be used.  Other work needs to be done beforehand, though.
+    if (!opt_easing) {
+      opt_easing = DEFAULT_EASING;
+    }
+
+    if (typeof opt_easing === 'string') {
+      originalEasingString = opt_easing;
+      opt_easing = {};
+      _.each(position, function (positionVal, positionName) {
+        opt_easing[positionName] = originalEasingString;
+      });
+    }
+
+    // If `opt_easing` was passed as an Object, this will fill in any missing
+    // opt_easing properties with the default equation.
+    _.each(position, function (positionVal, positionName) {
+      opt_easing[positionName] = opt_easing[positionName] || DEFAULT_EASING;
+    });
+
+    this._keyframes[when] = {
+      'position': position
+      ,'easing': opt_easing
+    };
+    this._keyframeList.push(when);
+    gk.util.sortNumerically(this._keyframeList);
+    this.kapi.updateInternalState();
+
+    return this;
+  };
+
+
+  /**
+   * @param {number} when
+   * @param {number} opt_source
+   * @returns {Kapi.Actor}
+   */
+  gk.Actor.prototype.liveCopy = function (when, opt_source) {
+    var sourceKeyframeData;
+
+    if (typeof opt_source === 'undefined') {
+      opt_source = _.last(this._keyframeList);
+    }
+
+    if (this._keyframes.hasOwnProperty(opt_source)) {
+      sourceKeyframeData = this._keyframes[opt_source];
+      this.keyframe(when, sourceKeyframeData.position,
+          sourceKeyframeData.easing);
+    }
+
+    return this;
+  };
+
+
+  /**
+   * @param {number} when
+   * @param {Object} stateModification
+   * @param {Object} opt_easingModification
+   */
+  gk.Actor.prototype.modifyKeyframe = function (when, stateModification,
+      opt_easingModification) {
+
+    var targetKeyframe;
+
+    targetKeyframe = this._keyframes[when];
+    augmentObject(targetKeyframe.position, stateModification);
+
+    if (opt_easingModification) {
+      augmentObject(targetKeyframe.easing, opt_easingModification);
+    }
+
+    return this;
+  };
+
+
+  /**
+   * @param {when} when
+   * @returns {Kapi.Actor}
+   */
+  gk.Actor.prototype.removeKeyframe = function (when) {
+    if (this._keyframeList.indexOf(when) !== -1) {
+      this._keyframeList = _.without(this._keyframeList, when);
+      delete this._keyframes[when];
+      this.kapi.updateInternalState();
+    }
+
+    return this;
+  };
+
+
+  /**
+   * @returns {Kapi.Actor}
+   */
+  gk.Actor.prototype.removeAllKeyframes = function () {
+    var keyframeListCopy;
+
+    keyframeListCopy = this._keyframeList.slice(0);
+
+    _.each(keyframeListCopy, function (when) {
+      this.removeKeyframe(when);
+    }, this);
+
+    return this;
+  };
+
+
+  /**
+   * @param {number} layer
+   * @returns {Kapi.Actor|undefined}
+   */
+  gk.Actor.prototype.moveToLayer = function (layer) {
+    return this.kapi.moveActorToLayer(this, layer);
+  };
+
+
+  /**
+   * @param {boolean} alsoPersist
+   * @returns {Kapi.Actor}
+   */
+  gk.Actor.prototype.show = function (alsoPersist) {
+    this._isShowing = true;
+    this._isPersisting = !!alsoPersist;
+
+    return this;
+  };
+
+
+  /**
+   * @param {boolean} alsoUnpersist
+   * @returns {Kapi.Actor}
+   */
+  gk.Actor.prototype.hide = function (alsoUnpersist) {
+    this._isShowing = false;
+
+    if (alsoUnpersist === true) {
+      this._isPersisting = false;
+    }
+
+    return this;
+  };
+
+
+  /**
+   * @returns {boolean}
+   */
+  gk.Actor.prototype.isShowing = function () {
+    return this._isShowing || this._isPersisting;
+  };
+
+
+  /**
+   * @param {number} millisecond
+   * @returns {Kapi.Actor}
+   */
+  gk.Actor.prototype.calculatePosition = function (millisecond) {
+    //TODO: This function is too long!  It needs to be broken out somehow.
+    var keyframeList
+        ,keyframes
+        ,delta
+        ,interpolatedPosition
+        ,startMs
+        ,endMs
+        ,timeRangeIndexStart
+        ,rangeFloor
+        ,rangeCeil
+        ,composedFrom
+        ,composedTo;
+
+    keyframeList = this._keyframeList;
+    startMs = _.first(keyframeList);
+    endMs = _.last(keyframeList);
+    this.hide();
+
+    if (startMs <= millisecond && millisecond <= endMs) {
+      this.show();
+      keyframes = this._keyframes;
+      timeRangeIndexStart = getKeyframeForMillisecond(this,
+          millisecond);
+      rangeFloor = keyframeList[timeRangeIndexStart];
+      rangeCeil = keyframeList[timeRangeIndexStart + 1];
+      delta = rangeCeil - rangeFloor;
+      interpolatedPosition = (millisecond - rangeFloor) / delta;
+      composedFrom = composeKeyframe(this,
+          timeRangeIndexStart);
+      composedTo = _.extend({},
+          keyframes[keyframeList[timeRangeIndexStart + 1]]);
+      _.defaults(composedTo.position, composedFrom.position);
+      _.defaults(composedTo.easing, composedFrom.easing);
+
+      this
+        .set(composedFrom.position)
+        .interpolate(composedTo.position,
+            interpolatedPosition,
+            composedTo.easing);
+    }
+
+    return this;
+  };
+
+
+  /**
+   * @returns {Array}
+   */
+  gk.Actor.prototype.keyframeList = function () {
+    return this._keyframeList;
+  };
+
+
+  /**
+   * @param {Object} opt_newData
+   * @returns {Object}
+   */
+  gk.Actor.prototype.data = function (opt_newData) {
+    if (opt_newData) {
+      this._data = opt_newData;
+    }
+
+    return this._data;
+  };
+
+
+  gk.Actor.prototype.exportKeyframeData = function () {
+    var exportedKeyframeData;
+
+    exportedKeyframeData = {
+      'keyframeList': this._keyframeList.slice(0)
+      ,'keyframes': _.extend({}, this._keyframes)
+    };
+
+    return exportedKeyframeData;
+  };
+
+
+
+  /**
+   * Start Shifty interoperability methods...
+   ******/
+
+  _.each(['tween', 'to'], function (shiftyMethodName) {
+    gk.Actor.prototype[shiftyMethodName] = function () {
+      this.show(true);
+      Tweenable.prototype[shiftyMethodName].apply(this, arguments);
+    }
+  }, this);
+
+  /******
+   * ...End Shifty interoperability methods.
+   */
+
+   _.extend(gk.util, {
+    'composeKeyframe': composeKeyframe
+   });
+
+} (this));
+;(function rekapiDOM (global) {
+  var gk
+      ,getStyle
+      ,transforms;
+
+  gk = global.Kapi;
+  transforms = [
+    'transform'
+    ,'webkitTransform'
+    ,'MozTransform'
+    ,'oTransform'
+    ,'msTransform'];
+
+  if (!global.getComputedStyle) {
+    return;
+  }
+
+  function getStyle (forElement, styleName) {
+    return global.getComputedStyle(forElement).getPropertyValue(styleName);
+  }
+
+  function setStyle (forElement, styleName, styleValue) {
+    forElement.style[styleName] = styleValue;
+  }
+
+  function hideElement (element) {
+    setStyle(element, 'display', 'none');
+  }
+
+  function showElement (element) {
+    setStyle(element, 'display', 'block');
+  }
+
+  /**
+   * @param {HTMLElement} element
+   * @returns {Kapi.DOMActor}
+   */
+  gk.DOMActor = function (element) {
+    var actor;
+
+    actor = new gk.Actor ({
+      'setup': function () {
+        if (getStyle(this.kapi.canvas_getContext(), 'position') === 'static') {
+          setStyle(this.kapi.canvas_getContext(), 'position', 'relative');
+        }
+
+        if (getStyle(element, 'position') === 'static') {
+          setStyle(element, 'position', 'absolute');
+        }
+      }
+
+      ,'draw': function (canvas_context, state) {
+        var isShowing;
+
+        isShowing = false;
+
+        _.each(state, function (styleValue, styleName) {
+          isShowing = true;
+
+          if (styleName === 'rotate') {
+            _.each(transforms, function (transform) {
+              setStyle(element, transform, 'rotate(' + styleValue + 'deg)')
+            });
+          } else {
+            setStyle(element, styleName, styleValue);
+          }
+        });
+
+        isShowing ? showElement(element) : hideElement(element);
+      }
+    });
+
+    actor.show = function (alsoPersist) {
+      gk.Actor.prototype.show.call(this, alsoPersist);
+      showElement(element);
+    };
+
+    actor.hide = function (alsoUnpersist) {
+      gk.Actor.prototype.hide.call(this, alsoUnpersist);
+      hideElement(element);
+    };
+
+    return actor;
+  };
+
+}(this));
+;(function rekapiCanvas (global) {
+
+  var gk,
+      contextTypes = {
+        'CANVAS': 'canvas'
+        ,'HTML_ELEMENT': 'HTMLElement'
+        ,'OTHER': 'other'
+      };
+
+  gk = global.Kapi;
+
+
+  /**
+   * Gets (and optionally sets) a style on a canvas.
+   * @param {HTMLCanvas|HTMLElement} canvas
+   * @param {string} dimension The dimension (either "height" or "width") to
+   *    get or set.
+   * @param {number} opt_new_size The new value to set for `dimension`.
+   * @returns {number}
+   */
+  function canvas_dimension (canvas, contextType, dimension, opt_new_size) {
+    if (typeof opt_new_size !== 'undefined') {
+      canvas[dimension] = opt_new_size;
+
+      if (!canvas.style) {
+        canvas.style = {};
+      }
+
+      canvas.style[dimension] = opt_new_size + 'px';
+    }
+
+    if (contextType === contextType.HTML_ELEMENT) {
+      return canvas.style[dimension]
+    }
+
+    return canvas[dimension];
+  }
+
+
+  /**
+   * @param {HTMLCanvas|HTMLElement|Object} canvas
+   * @returns {CanvasRenderingContext2D|HTMLElement|Object}
+   */
+  gk.prototype.canvas_setContext = function (canvas) {
+    var nodeName;
+
+    this._canvas = canvas;
+    nodeName = canvas.nodeName;
+
+    if (nodeName === undefined) {
+      // There isn't really canvas, just fake the context
+      this._context = {};
+      this._contextType = contextTypes.OTHER;
+    } else if (nodeName === 'CANVAS') {
+      this._context = canvas.getContext('2d');
+      this._contextType = contextTypes.CANVAS;
+    } else {
+      // The canvas is a non-<canvas> DOM element, make the element the canvas
+      this._context = canvas;
+      this._contextType = contextTypes.HTML_ELEMENT;
+    }
+
+    return this.canvas_getContext();
+  };
+
+
+  /**
+   * @returns {CanvasRenderingContext2D|HTMLElement|Object}
+   */
+  gk.prototype.canvas_getContext = function () {
+    return this._context;
+  };
+
+
+  /**
+   * @param {number} opt_height
+   * @returns {number}
+   */
+  gk.prototype.canvas_height = function (opt_height) {
+    return canvas_dimension(this.canvas, this._contextType, 'height',
+        opt_height);
+  };
+
+
+  /**
+   * @param {number} opt_width
+   * @returns {number}
+   */
+  gk.prototype.canvas_width = function (opt_width) {
+    return canvas_dimension(this.canvas, this._contextType, 'width',
+        opt_width);
+  };
+
+
+  /**
+   * @param {string} styleName
+   * @param {number|string} opt_styleValue
+   * @return {number|string}
+   */
+  gk.prototype.canvas_style = function (styleName, opt_styleValue) {
+    if (typeof opt_styleValue !== 'undefined'
+        && this.canvas.style) {
+       this.canvas.style[styleName] = opt_styleValue;
+    }
+
+    return this.canvas.style[styleName];
+  }
+
+
+  /**
+   * @returns {Kapi}
+   */
+  gk.prototype.canvas_clear = function () {
+    // Clearing only mades sense if Kapi is bound to a canvas
+    if (this._contextType === contextTypes.CANVAS) {
+      this.canvas_getContext().clearRect(0, 0, this.canvas_width(),
+          this.canvas_height());
+    }
+
+    return this;
+  };
+
+} (this));

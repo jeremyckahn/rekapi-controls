@@ -13,7 +13,7 @@ cat \
   lib/rekapi/lib/underscore/underscore-min.js \
   lib/rekapi/lib/shifty/builds/shifty.min.js \
   lib/rekapi/dist/rekapi.min.js \
-  > dist/rekapi-controls.rekapi-bundle.js
+  > dist/rekapi-controls.rekapi-bundle.min.js
 
 echo "Built Rekapi dependency bundle.  Gzipped size:"
 echo `cat dist/rekapi-controls.rekapi-bundle.js | gzip -9f | wc -c` "bytes"
@@ -23,7 +23,7 @@ cat \
   lib/rekapi/lib/underscore/underscore-min.js \
   lib/rekapi/lib/shifty/shifty.js \
   lib/rekapi/dist/rekapi.js \
-  > dist/rekapi-controls.rekapi-bundle.dev.js
+  > dist/rekapi-controls.rekapi-bundle.js
 
 
 cat \
