@@ -26,7 +26,7 @@ First, load the dependencies.  If you don't want to hunt down the source files f
 
 Create a Rekapi animation.  Please see the [documentation on Rekapi](https://github.com/jeremyckahn/rekapi/blob/master/README.md) for more information, but here's a quick, copy/paste-able example:
 
-````javascript
+````html
 <!DOCTYPE html>
 <html>
 <head>
