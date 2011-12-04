@@ -19,7 +19,7 @@ First, load the dependencies.  If you don't want to hunt down the source files f
 
 - dist/jquery.min.js
 - dist/rekapi-controls.jquery-ui.min.js
-- dist/rekapi-controls.rekapi-bundle.min.js
+- dist/rekapi.bundle.min.js
 - dist/rekapi-controls.min.js
 - dist/rekapi-controls.jquery-ui-bundle.css
 - dist/rekapi-controls.css
