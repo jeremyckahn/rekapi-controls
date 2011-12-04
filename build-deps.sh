@@ -31,3 +31,5 @@ cat \
   lib/jquery-ui/css/jquery.ui.theme.css \
   lib/jquery-ui/css/jquery.ui.slider.css \
   > dist/rekapi-controls.jquery-ui-bundle.css
+
+cp -r lib/jquery-ui/images/ dist/images/
