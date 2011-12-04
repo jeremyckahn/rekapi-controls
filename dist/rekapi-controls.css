@@ -1,0 +1,32 @@
+.rekapi-scrubber-wrapper {
+  /* overflow: auto here makes the scrubber partially disappear.*/
+  padding-bottom: 18px;
+}
+
+  .rekapi-scrubber {
+    float: left;
+  }
+
+    .rekapi-scrubber-button {
+      background: #ccc;
+      display: block;
+      float: left;
+    }
+
+    .rekapi-scrubber-play,
+    .rekapi-scrubber-pause {
+      margin-right: 6px;
+    }
+
+    .rekapi-scrubber-stop {
+      margin-left: 6px;
+    }
+
+    .rekapi-scrubber-timeline {
+      float: left;
+      margin: 0px 12px;
+    }
+
+    .rekapi-scrubber-timeline .ui-slider-handle {
+      outline: none;
+    }
