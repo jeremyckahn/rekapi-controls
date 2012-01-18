@@ -1,6 +1,5 @@
 ;(function (global) {
-  var gk,
-      $
+  var $
       SCRUBBER_TEMPLATE = [
         '<div class="rekapi-scrubber-wrapper">'
           ,'<div class="rekapi-scrubber">'
@@ -19,10 +18,9 @@
       ].join('');
 
   if (!jQuery || !Kapi) {
-    throw 'Rekapi, ans jQuery are needed for Rekapi Controls.';
+    throw 'Rekapi, and jQuery are needed for Rekapi Controls.';
   }
 
-  gk = global.Kapi;
   $ = jQuery;
 
 
