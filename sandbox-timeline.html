@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="dist/jquery.min.js"></script>
+  <script src="dist/rekapi-controls.jquery-ui.js"></script>
+  <script src="dist/rekapi.bundle.min.js"></script>
+  <script src="src/rekapi-timeline.js"></script>
+  <link rel="stylesheet" href="dist/rekapi-controls.jquery-ui-bundle.css">
+  <link rel="stylesheet" href="src/css/rekapi-timeline.css">
+</head>
+<body>
+  <canvas></canvas>
+  <script>
+  var canvas = document.getElementsByTagName('canvas')[0],
+      kapi = new Kapi(canvas, {
+              'fps': 30
+              ,'height': 300
+              ,'width': 400
+            });
+
+  kapi.canvas_style('background', '#ddd');
+
+  var actor = new Kapi.Actor({
+    // Draws a circle.
+    'draw': function (canvas_context, state) {
+      canvas_context.beginPath();
+      canvas_context.arc(
+        state.x || 50,
+        state.y || 50,
+        state.radius || 50,
+        0,
+        Math.PI*2,
+        true);
+      canvas_context.fillStyle = state.color || '#f0f';
+      canvas_context.fill();
+      canvas_context.closePath();
+    }
+  });
+
+  kapi.addActor(actor);
+
+  actor
+    .keyframe(0, {
+      x: 50
+      ,y: 50
+      ,radius: 50
+      ,color: '#f0f'
+    })
+    .keyframe(1000, {
+      x: 350
+      ,y: 250
+    }, 'easeOutExpo')
+    .keyframe(1500, {
+      x: 300
+      ,y: 200
+      ,radius: 100
+      ,color: '#0f0'
+    }, {
+      x: 'bounce'
+      ,y: 'bounce'
+      ,radius: 'bounce'
+      ,color: 'easeOutSine'
+    }).wait(2000);
+
+
+  kapi
+    .play();
+
+  //var controls = new RekapiScrubber(kapi);
+  //console.log(kapi, controls);
+
+  </script>
+</body>
+</html>
