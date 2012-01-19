@@ -7,17 +7,20 @@
     '<div class="rekapi-timeline-wrapper">'
       ,'<div class="rekapi-timeline-control-bar">'
       ,'</div>'
-      ,'<div class="rekapi-timeline-actor-headers">'
-      ,'</div>'
-      ,'<div class="rekapi-timeline-actor-timelines">'
-      ,'</div>'
+      ,'<ul class="rekapi-timeline-actor-headers">'
+      ,'</ul>'
+      ,'<ul class="rekapi-timeline-actor-timelines">'
+      ,'</ul>'
     ,'</div>'
-  ];
+  ].join('');
 
   var $ = jQuery;
 
   function RekapiTimeline (kapi) {
-
+    var wrapper = $(CONTAINER_TEMPLATE);
+    wrapper.appendTo(document.body);
   }
+
+  global.RekapiTimeline = RekapiTimeline;
 
 } (this));
