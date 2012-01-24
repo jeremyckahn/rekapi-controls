@@ -1,5 +1,5 @@
 /**
- * Rekapi Controls - UI controls for Rekapi animations. v0.1.1
+ * Rekapi Controls - UI controls for Rekapi animations. v0.1.2
  *   By Jeremy Kahn - jeremyckahn@gmail.com
  *   https://github.com/jeremyckahn/rekapi-controls
  *
@@ -8,8 +8,7 @@
  * MIT Lincense.  This code free to use, modify, distribute and enjoy.
  */
 ;(function (global) {
-  var gk,
-      $
+  var $
       SCRUBBER_TEMPLATE = [
         '<div class="rekapi-scrubber-wrapper">'
           ,'<div class="rekapi-scrubber">'
@@ -28,10 +27,9 @@
       ].join('');
 
   if (!jQuery || !Kapi) {
-    throw 'Rekapi, ans jQuery are needed for Rekapi Controls.';
+    throw 'Rekapi, and jQuery are needed for Rekapi Controls.';
   }
 
-  gk = global.Kapi;
   $ = jQuery;
 
 
