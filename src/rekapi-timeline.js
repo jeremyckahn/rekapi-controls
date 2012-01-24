@@ -17,9 +17,18 @@
   var $ = jQuery;
 
   function RekapiTimeline (kapi) {
-    var wrapper = $(CONTAINER_TEMPLATE);
-    wrapper.appendTo(document.body);
+    this.kapi = kapi;
+    this.wrapper = $(CONTAINER_TEMPLATE);
+    this.wrapper.appendTo(document.body);
+    this.render();
+
+    return this;
   }
+
+
+  RekapiTimeline.prototype.render = function () {
+
+  };
 
   global.RekapiTimeline = RekapiTimeline;
 
