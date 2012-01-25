@@ -3,6 +3,7 @@ cat \
   lib/jquery-ui/jquery.ui.widget.js \
   lib/jquery-ui/jquery.ui.mouse.js \
   lib/jquery-ui/jquery.ui.slider.js \
+  lib/jquery-ui/jquery.ui.draggable.js \
   > dist/rekapi-controls.jquery-ui.js
 
 echo "Built jQuery UI dependency bundle.  Gzipped size:"
