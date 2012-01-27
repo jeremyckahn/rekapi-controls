@@ -35,6 +35,7 @@
   background: #eee;
   border-top: solid 1px #222;
   bottom: 0;
+  font-family: 'Lucida Sans Unicode','Lucida Grande',sans-serif;
   left: 0;
   position: fixed;
   width: 100%;
@@ -49,6 +50,7 @@
   .rekapi-timeline-actor-headers,
   .rekapi-timeline-actor-timeline {
     float: left;
+    font-weight: bold;
     padding: 0px;
     margin: 0px;
   }
@@ -58,6 +60,13 @@
     min-height: 100px;
     width: 140px;
   }
+
+    .rekapi-timeline-actor-headers li {
+      border-bottom: 1px solid #bbb;
+      font-size: 14px;
+      padding: 10px;
+    }
+
 
   .rekapi-timeline-actor-timeline {
 
