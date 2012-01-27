@@ -47,25 +47,29 @@
   }
 
 
-  function RekapiTimeline (kapi) {
-    this.kapi = kapi;
-    var wrapper = $(CONTAINER_TEMPLATE);
-    wrapper.appendTo(document.body);
-    this.wrapper = $(document.body).children().last();
-    this.controlBar = this.wrapper.find('.' + CSS_NS + 'control-bar');
-    this.headers = this.wrapper.find('.' + CSS_NS + 'actor-headers');
-    this.timeline = this.wrapper.find('.' + CSS_NS + 'actor-timelines');
-    makeControlBarDraggable(this);
-    this.renderControl();
+  var RekapiTimelineView = Backbone.View.extend({
 
-    return this;
-  }
+    'initialize': function (opts) {
+      this.kapi = kapi;
+      var wrapper = $(CONTAINER_TEMPLATE);
+      wrapper.appendTo(document.body);
+      this.el = $(document.body).children().last();
+      this.controlBar = this.el.find('.' + CSS_NS + 'control-bar');
+      this.headers = this.el.find('.' + CSS_NS + 'actor-headers');
+      this.timeline = this.el.find('.' + CSS_NS + 'actor-timelines');
+      makeControlBarDraggable(this);
+      this.renderControls();
+    }
 
 
-  RekapiTimeline.prototype.renderControl = function () {
-    fillControls(this);
+    ,'renderControls': function () {
+      fillControls(this);
+    }
+  });
+
+
+  global.RekapiTimeline = function (opts) {
+    return new RekapiTimelineView(opts);
   };
-
-  global.RekapiTimeline = RekapiTimeline;
 
 } (this));
