@@ -37,8 +37,12 @@
 
 
   function makeControlBarDraggable (controls) {
-    controls.controlBar.on('click', function () {
+    controls.controlBar.on('mousedown', function () {
       controls.controlBar.addClass(CSS_NS + 'dragging');
+    });
+
+    controls.controlBar.on('mouseup', function () {
+      controls.controlBar.removeClass(CSS_NS + 'dragging');
     });
   }
 
@@ -51,6 +55,7 @@
     this.controlBar = this.wrapper.find('.' + CSS_NS + 'control-bar');
     this.headers = this.wrapper.find('.' + CSS_NS + 'actor-headers');
     this.timeline = this.wrapper.find('.' + CSS_NS + 'actor-timelines');
+    makeControlBarDraggable(this);
     this.renderControl();
 
     return this;
