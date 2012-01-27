@@ -49,16 +49,32 @@
 
   var RekapiTimelineView = Backbone.View.extend({
 
-    'initialize': function (opts) {
+    'events': {
+      'mousedown .rekapi-timeline-control-bar': 'mouseDownControlBar'
+      ,'mouseup .rekapi-timeline-control-bar': 'mouseUpControlBar'
+    }
+
+
+    ,'initialize': function (opts) {
       this.kapi = kapi;
       var wrapper = $(CONTAINER_TEMPLATE);
       wrapper.appendTo(document.body);
-      this.el = $(document.body).children().last();
-      this.controlBar = this.el.find('.' + CSS_NS + 'control-bar');
-      this.headers = this.el.find('.' + CSS_NS + 'actor-headers');
-      this.timeline = this.el.find('.' + CSS_NS + 'actor-timelines');
-      makeControlBarDraggable(this);
+      this.$el = $(document.body).children().last();
+      this.controlBar = this.$el.find('.' + CSS_NS + 'control-bar');
+      this.headers = this.$el.find('.' + CSS_NS + 'actor-headers');
+      this.timeline = this.$el.find('.' + CSS_NS + 'actor-timelines');
+      //makeControlBarDraggable(this);
       this.renderControls();
+    }
+
+
+    ,'mouseDownControlBar': function (evt) {
+      this.controlBar.addClass(CSS_NS + 'dragging');
+    }
+
+
+    ,'mouseUpControlBar': function (evt) {
+      this.controlBar.removeClass(CSS_NS + 'dragging');
     }
 
 
