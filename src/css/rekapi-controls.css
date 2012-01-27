@@ -31,7 +31,7 @@
       outline: none;
     }
 
-.rekapi-timeline-wrapper {
+.rt-wrapper {
   background: #eee;
   border-top: solid 1px #222;
   bottom: 0;
@@ -41,33 +41,33 @@
   width: 100%;
 }
 
-  .rekapi-timeline-control-bar {
+  .rt-control-bar {
     background: #ddd;
     border-bottom: solid 1px #222;
     height: 40px;
   }
 
-  .rekapi-timeline-actor-headers,
-  .rekapi-timeline-actor-timeline {
+  .rt-actor-headers,
+  .rt-actor-timeline {
     float: left;
     font-weight: bold;
     padding: 0px;
     margin: 0px;
   }
 
-  .rekapi-timeline-actor-headers {
+  .rt-actor-headers {
     border-right: solid 1px #222;
     min-height: 100px;
     width: 140px;
   }
 
-    .rekapi-timeline-actor-headers li {
+    .rt-actor-headers li {
       border-bottom: 1px solid #bbb;
       font-size: 14px;
       padding: 10px;
     }
 
 
-  .rekapi-timeline-actor-timeline {
+  .rt-actor-timeline {
 
   }

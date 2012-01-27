@@ -3,7 +3,7 @@
     throw 'Rekapi, and jQuery are needed for Rekapi Controls.';
   }
 
-  var CSS_NS = 'rekapi-timeline-'
+  var CSS_NS = 'rt-'
     ,CONTAINER_TEMPLATE =
       ['<div class="' + CSS_NS + 'wrapper">'
         ,'<div class="' + CSS_NS + 'control-bar">'
@@ -50,8 +50,9 @@
   var RekapiTimelineView = Backbone.View.extend({
 
     'events': {
-      'mousedown .rekapi-timeline-control-bar': 'mouseDownControlBar'
-      ,'mouseup .rekapi-timeline-control-bar': 'mouseUpControlBar'
+      'mousedown .rt-control-bar': 'mouseDownControlBar'
+      ,'mouseup .rt-control-bar': 'mouseUpControlBar'
+      ,'mousemove .rt-control-bar.rt-dragging': 'mouseMoveDraggingControlBar'
     }
 
 
@@ -63,7 +64,6 @@
       this.controlBar = this.$el.find('.' + CSS_NS + 'control-bar');
       this.headers = this.$el.find('.' + CSS_NS + 'actor-headers');
       this.timeline = this.$el.find('.' + CSS_NS + 'actor-timelines');
-      //makeControlBarDraggable(this);
       this.renderControls();
     }
 
@@ -80,6 +80,10 @@
 
     ,'renderControls': function () {
       fillControls(this);
+    }
+
+    ,'mouseMoveDraggingControlBar': function () {
+
     }
   });
 
