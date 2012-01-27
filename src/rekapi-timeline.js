@@ -3,16 +3,17 @@
     throw 'Rekapi, and jQuery are needed for Rekapi Controls.';
   }
 
-  var CONTAINER_TEMPLATE = [
-    '<div class="rekapi-timeline-wrapper">'
-      ,'<div class="rekapi-timeline-control-bar">'
+  var CSS_NS = 'rekapi-timeline-'
+    ,CONTAINER_TEMPLATE =
+      ['<div class="' + CSS_NS + 'wrapper">'
+        ,'<div class="' + CSS_NS + 'control-bar">'
+        ,'</div>'
+        ,'<ul class="' + CSS_NS + 'actor-headers">'
+        ,'</ul>'
+        ,'<ul class="' + CSS_NS + 'actor-timelines">'
+        ,'</ul>'
       ,'</div>'
-      ,'<ul class="rekapi-timeline-actor-headers">'
-      ,'</ul>'
-      ,'<ul class="rekapi-timeline-actor-timelines">'
-      ,'</ul>'
-    ,'</div>'
-  ].join('');
+    ].join('');
 
   var $ = jQuery;
 
@@ -35,14 +36,21 @@
   }
 
 
+  function makeControlBarDraggable (controls) {
+    controls.controlBar.on('click', function () {
+      controls.controlBar.addClass(CSS_NS + 'dragging');
+    });
+  }
+
+
   function RekapiTimeline (kapi) {
     this.kapi = kapi;
     var wrapper = $(CONTAINER_TEMPLATE);
     wrapper.appendTo(document.body);
     this.wrapper = $(document.body).children().last();
-    this.controlBar = this.wrapper.find('.rekapi-timeline-control-bar');
-    this.headers = this.wrapper.find('.rekapi-timeline-actor-headers');
-    this.timeline = this.wrapper.find('.rekapi-timeline-actor-timelines');
+    this.controlBar = this.wrapper.find('.' + CSS_NS + 'control-bar');
+    this.headers = this.wrapper.find('.' + CSS_NS + 'actor-headers');
+    this.timeline = this.wrapper.find('.' + CSS_NS + 'actor-timelines');
     this.renderControl();
 
     return this;
