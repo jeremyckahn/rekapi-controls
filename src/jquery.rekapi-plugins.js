@@ -10,9 +10,7 @@
   $.fn.split = function (args) {
     args = args || {};
 
-    var $handle = $(document.createElement('div'), {
-      'class': 'splitter'
-    });
+    var $handle = $(document.createElement('div'));
 
     $handle
       .css({
@@ -26,8 +24,10 @@
       .insertAfter(this.children(':eq(0)'));
 
     var $DOMhandle = this.children(':eq(1)');
-    $DOMhandle.data('$previousEl', $DOMhandle.prev());
-    $DOMhandle.css('left', $DOMhandle.data().$previousEl.width());
+    $DOMhandle
+      .data('$previousEl', $DOMhandle.prev())
+      .css('left', $DOMhandle.data().$previousEl.width())
+      .addClass('splitter');
 
     $DOMhandle.draggable({
       'axis': 'x'
@@ -53,9 +53,7 @@
   }
 
   $.fn.resizeDockable = function (args) {
-    var $handle = $(document.createElement('div'), {
-      'class': 'resize-handle'
-    });
+    var $handle = $(document.createElement('div'));
 
     $handle
       .css({
@@ -72,7 +70,8 @@
       .draggable({
         'axis': 'y'
         ,'drag': _.bind(onDockResizeHandleDrag, $DOMhandle)
-      }).data('$dockedEl', this);
+      }).data('$dockedEl', this)
+      .addClass('resize-handle');
     $win.on('resize', _.bind(onDockResizeWindowResize, $DOMhandle));
 
     return this;
