@@ -53,15 +53,9 @@
   }
 
   .rt-actor-headers,
-  .rt-actor-timelines,
-  .rt-pane-splitter {
-    /*float: left;*/
+  .rt-actor-timelines {
+    float: left;
     height: 100%;
-  }
-
-  .rt-pane-splitter {
-    cursor: ne-resize;
-    width: 25px;
   }
 
   .rt-actor-headers,

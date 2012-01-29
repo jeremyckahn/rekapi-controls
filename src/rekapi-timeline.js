@@ -37,9 +37,7 @@
 
 
   function initResizablePanes (controls) {
-    //controls.$el.resizable({
-      //'handles': 'n' // n is for "North"
-    //});
+    controls.$headersAndTimeline.split();
     controls.$el.resizeDockable();
   }
 
@@ -60,9 +58,6 @@
       this.bindToWindowEvents();
       initResizablePanes(this);
       $(window).trigger('resize.rt');
-
-
-      this.$headersAndTimeline.split();
     }
 
 
@@ -72,7 +67,6 @@
       this.$timeline = this.$el.find('.' + CSS_NS + 'actor-timelines');
       this.$headersAndTimeline =
           this.$el.find('.' + CSS_NS + 'headers-and-timelines');
-
     }
 
 
