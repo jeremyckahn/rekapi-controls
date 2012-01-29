@@ -31,18 +31,14 @@
       });
 
       actorHeader.html('Actor ' + actor.id);
-      actorHeader.appendTo(controls.headers)
+      actorHeader.appendTo(controls.$headers)
     });
   }
 
 
-  function makeControlBarDraggable (controls) {
-    controls.controlBar.on('mousedown', function () {
-      controls.controlBar.addClass(CSS_NS + 'dragging');
-    });
-
-    controls.controlBar.on('mouseup', function () {
-      controls.controlBar.removeClass(CSS_NS + 'dragging');
+  function initResizablePanes (controls) {
+    controls.$el.resizable({
+      'handles': 'n' // n is for "North"
     });
   }
 
@@ -50,31 +46,27 @@
   var RekapiTimelineView = Backbone.View.extend({
 
     'events': {
-      'mousedown .rt-control-bar': 'mouseDownControlBar'
-      ,'mouseup .rt-control-bar': 'mouseUpControlBar'
-      ,'mousemove .rt-control-bar.rt-dragging': 'mouseMoveDraggingControlBar'
     }
 
 
     ,'initialize': function (opts) {
       this.kapi = kapi;
-      var wrapper = $(CONTAINER_TEMPLATE);
-      wrapper.appendTo(document.body);
+      var $wrapper = $(CONTAINER_TEMPLATE);
+      $wrapper.appendTo(document.body);
       this.$el = $(document.body).children().last();
-      this.controlBar = this.$el.find('.' + CSS_NS + 'control-bar');
-      this.headers = this.$el.find('.' + CSS_NS + 'actor-headers');
-      this.timeline = this.$el.find('.' + CSS_NS + 'actor-timelines');
+      this.$controlBar = this.$el.find('.' + CSS_NS + 'control-bar');
+      this.$headers = this.$el.find('.' + CSS_NS + 'actor-headers');
+      this.$timeline = this.$el.find('.' + CSS_NS + 'actor-timelines');
       this.renderControls();
+      this.fitToWindow();
+      this.bindToWindow();
+
+      initResizablePanes(this);
     }
 
 
-    ,'mouseDownControlBar': function (evt) {
-      this.controlBar.addClass(CSS_NS + 'dragging');
-    }
-
-
-    ,'mouseUpControlBar': function (evt) {
-      this.controlBar.removeClass(CSS_NS + 'dragging');
+    ,'bindToWindow': function () {
+      $(window).on('resize', _.bind(this.fitToWindow, this));
     }
 
 
@@ -82,9 +74,15 @@
       fillControls(this);
     }
 
-    ,'mouseMoveDraggingControlBar': function () {
 
+    ,'fitToWindow': function () {
+      this.$el
+        .css({
+          'top': $(window).height() - this.$el.height()
+          ,'width': '' // Force the stylesheet rule - auto.
+        });
     }
+
   });
 
 

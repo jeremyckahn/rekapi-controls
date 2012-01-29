@@ -4,6 +4,7 @@ cat \
   lib/jquery-ui/jquery.ui.mouse.js \
   lib/jquery-ui/jquery.ui.slider.js \
   lib/jquery-ui/jquery.ui.draggable.js \
+  lib/jquery-ui/jquery.ui.resizable.js \
   > dist/rekapi-controls.jquery-ui.js
 
 echo "Built jQuery UI dependency bundle.  Gzipped size:"
@@ -18,6 +19,7 @@ cat \
   lib/jquery-ui/css/jquery.ui.core.css \
   lib/jquery-ui/css/jquery.ui.theme.css \
   lib/jquery-ui/css/jquery.ui.slider.css \
+  lib/jquery-ui/css/jquery.ui.resizable.css \
   > dist/rekapi-controls.jquery-ui-bundle.css
 
 cp -r lib/jquery-ui/images/ dist/images/

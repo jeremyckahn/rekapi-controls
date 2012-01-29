@@ -34,7 +34,6 @@
 .rt-wrapper {
   background: #eee;
   border-top: solid 1px #222;
-  bottom: 0;
   font-family: 'Lucida Sans Unicode','Lucida Grande',sans-serif;
   left: 0;
   position: fixed;
@@ -57,7 +56,6 @@
 
   .rt-actor-headers {
     border-right: solid 1px #222;
-    min-height: 100px;
     width: 140px;
   }
 
