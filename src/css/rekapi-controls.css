@@ -84,17 +84,8 @@
 
   }
 
-
 .rt-headers-and-timelines {
   height: 100%;
   position: relative;
   width: 100%;
-}
-.rt-headers-and-timelines div {
-  overflow: auto;
-
-}
-.vsplitbar {
-  width: 5px;
-  background: #aaa;
 }

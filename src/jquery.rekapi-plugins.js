@@ -32,6 +32,7 @@
     $DOMhandle.draggable({
       'axis': 'x'
       ,'drag': _.bind(onSplitterDrag, $DOMhandle)
+      ,'stop': _.bind(onSplitterDrag, $DOMhandle)
     });
 
     return this;
@@ -73,6 +74,7 @@
       .draggable({
         'axis': 'y'
         ,'drag': _.bind(onDockResizeHandleDrag, $DOMhandle)
+        ,'stop': _.bind(onDockResizeHandleDrag, $DOMhandle)
       }).data('$dockedEl', this)
       .addClass('resize-handle');
     $win.on('resize', _.bind(onDockResizeWindowResize, $DOMhandle));
