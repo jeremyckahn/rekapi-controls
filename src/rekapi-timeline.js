@@ -8,10 +8,10 @@
       ['<div class="' + CSS_NS + 'wrapper">'
         ,'<div class="' + CSS_NS + 'control-bar">'
         ,'</div>'
-        ,'<ul class="' + CSS_NS + 'actor-headers">'
-        ,'</ul>'
-        ,'<ul class="' + CSS_NS + 'actor-timelines">'
-        ,'</ul>'
+        ,'<div class="' + CSS_NS + 'headers-and-timelines">'
+          ,'<ul class="' + CSS_NS + 'actor-headers"></ul>'
+          ,'<ul class="' + CSS_NS + 'actor-timelines"></ul>'
+        ,'</div'
       ,'</div>'
     ].join('');
 
@@ -54,19 +54,28 @@
       var $wrapper = $(CONTAINER_TEMPLATE);
       $wrapper.appendTo(document.body);
       this.$el = $(document.body).children().last();
-      this.$controlBar = this.$el.find('.' + CSS_NS + 'control-bar');
-      this.$headers = this.$el.find('.' + CSS_NS + 'actor-headers');
-      this.$timeline = this.$el.find('.' + CSS_NS + 'actor-timelines');
+      this.bindDomToView();
       this.renderControls();
-      this.fitToWindow();
-      this.bindToWindow();
-
+      this.bindToWindowEvents();
       initResizablePanes(this);
+      $(window).trigger('resize.rt');
+
+      this.$headersAndTimeline.split();
     }
 
 
-    ,'bindToWindow': function () {
-      $(window).on('resize', _.bind(this.fitToWindow, this));
+    ,'bindDomToView': function () {
+      this.$controlBar = this.$el.find('.' + CSS_NS + 'control-bar');
+      this.$headers = this.$el.find('.' + CSS_NS + 'actor-headers');
+      this.$timeline = this.$el.find('.' + CSS_NS + 'actor-timelines');
+      this.$headersAndTimeline =
+          this.$el.find('.' + CSS_NS + 'headers-and-timelines');
+
+    }
+
+
+    ,'bindToWindowEvents': function () {
+      $(window).on('resize.rt', _.bind(this.fitToWindow, this));
     }
 
 

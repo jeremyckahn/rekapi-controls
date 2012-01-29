@@ -46,9 +46,20 @@
     height: 40px;
   }
 
+  .rt-headers-and-timelines {
+    height: 100%;
+    overflow: hidden;
+  }
+
   .rt-actor-headers,
-  .rt-actor-timeline {
+  .rt-actor-timelines,
+  .rt-pane-splitter {
     float: left;
+    height: 100%;
+  }
+
+  .rt-actor-headers,
+  .rt-actor-timelines {
     font-weight: bold;
     height: 100%;
     padding: 0px;
@@ -57,16 +68,23 @@
 
   .rt-actor-headers {
     border-right: solid 1px #222;
+    overflow: hidden;
     width: 140px;
   }
 
     .rt-actor-headers li {
       border-bottom: 1px solid #bbb;
       font-size: 14px;
+      min-width: 140px;
       padding: 10px;
     }
 
 
-  .rt-actor-timeline {
+  .rt-actor-timelines {
 
   }
+
+.rt-headers-and-timelines {
+  height: 100%;
+  width: 100%;
+}
