@@ -37,9 +37,10 @@
 
 
   function initResizablePanes (controls) {
-    controls.$el.resizable({
-      'handles': 'n' // n is for "North"
-    });
+    //controls.$el.resizable({
+      //'handles': 'n' // n is for "North"
+    //});
+    controls.$el.resizeDockable();
   }
 
 
@@ -59,6 +60,7 @@
       this.bindToWindowEvents();
       initResizablePanes(this);
       $(window).trigger('resize.rt');
+
 
       this.$headersAndTimeline.split();
     }
@@ -87,8 +89,7 @@
     ,'fitToWindow': function () {
       this.$el
         .css({
-          'top': $(window).height() - this.$el.height()
-          ,'width': '' // Force the stylesheet rule - auto.
+          'width': '' // Force the stylesheet rule - auto.
         });
     }
 

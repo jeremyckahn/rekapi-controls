@@ -38,6 +38,7 @@
   left: 0;
   position: fixed;
   width: 100%;
+  bottom: 0px;
 }
 
   .rt-control-bar {
@@ -54,8 +55,13 @@
   .rt-actor-headers,
   .rt-actor-timelines,
   .rt-pane-splitter {
-    float: left;
+    /*float: left;*/
     height: 100%;
+  }
+
+  .rt-pane-splitter {
+    cursor: ne-resize;
+    width: 25px;
   }
 
   .rt-actor-headers,
@@ -68,7 +74,7 @@
 
   .rt-actor-headers {
     border-right: solid 1px #222;
-    overflow: hidden;
+    overflow: auto;
     width: 140px;
   }
 
@@ -84,7 +90,17 @@
 
   }
 
+
 .rt-headers-and-timelines {
   height: 100%;
+  position: relative;
   width: 100%;
+}
+.rt-headers-and-timelines div {
+  overflow: auto;
+
+}
+.vsplitbar {
+  width: 5px;
+  background: #aaa;
 }
