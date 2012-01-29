@@ -42,8 +42,11 @@
   // Start resize
 
   function onDockResizeHandleDrag (evt) {
+    var handleDistanceFromTop =
+        $win.height() - (this.position().top + this.height());
+
     this.data('$dockedEl').height(
-        $win.height() - (this.position().top + this.height()));
+        Math.min($win.height(), handleDistanceFromTop));
   }
 
 
