@@ -4,7 +4,11 @@
 
   // Begin $.fn.split
   function onSplitterDrag (evt) {
-    this.data().$previousEl.width(this.position().left);
+    var leftWidth = this.position().left;
+    var rightWidth = this.data('$parentEl').width() - leftWidth;
+
+    this.data().$previousEl.width(leftWidth);
+    this.data().$nextEl.width(rightWidth);
   }
 
   $.fn.split = function (args) {
@@ -25,15 +29,18 @@
 
     var $DOMhandle = this.children(':eq(1)');
     $DOMhandle
-      .data('$previousEl', $DOMhandle.prev())
-      .css('left', $DOMhandle.data().$previousEl.width())
+      .data({
+        '$previousEl': $DOMhandle.prev()
+        ,'$nextEl': $DOMhandle.next()
+        ,'$parentEl': this
+      }).css('left', $DOMhandle.data().$previousEl.width())
       .addClass('splitter');
 
-    $DOMhandle.draggable({
-      'axis': 'x'
-      ,'drag': _.bind(onSplitterDrag, $DOMhandle)
-      ,'stop': _.bind(onSplitterDrag, $DOMhandle)
-    });
+    $DOMhandle
+      .draggable({ 'axis': 'x' })
+      .bind('drag', _.bind(onSplitterDrag, $DOMhandle))
+      .bind('stop', _.bind(onSplitterDrag, $DOMhandle))
+      .trigger('drag');
 
     return this;
   };
@@ -71,12 +78,14 @@
     this.prepend($handle);
     var $DOMhandle = this.children(':eq(0)');
     $DOMhandle
-      .draggable({
-        'axis': 'y'
-        ,'drag': _.bind(onDockResizeHandleDrag, $DOMhandle)
-        ,'stop': _.bind(onDockResizeHandleDrag, $DOMhandle)
-      }).data('$dockedEl', this)
+      .draggable({ 'axis': 'y' })
+      .bind('drag', _.bind(onDockResizeHandleDrag, $DOMhandle))
+      .bind('stop', _.bind(onDockResizeHandleDrag, $DOMhandle))
+      .data('$dockedEl', this)
+      .trigger('drag')
       .addClass('resize-handle');
+
+    $DOMhandle.trigger('drag');
     $win.on('resize', _.bind(onDockResizeWindowResize, $DOMhandle));
 
     return this;
