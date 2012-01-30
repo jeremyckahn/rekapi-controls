@@ -48,8 +48,6 @@
 
     ,'initialize': function (opts) {
       this.kapi = kapi;
-      this.actorHeaderViews = {};
-      this.actorTimelineViews = {};
       var $wrapper = $(CONTAINER_TEMPLATE);
       $wrapper.appendTo(document.body);
       this.$el = $(document.body).children(':last');
@@ -58,6 +56,11 @@
       fillControls(this);
       initResizablePanes(this);
       $(window).trigger('resize.rt');
+    }
+
+
+    ,'initActors': function () {
+
     }
 
 
