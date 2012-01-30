@@ -52,11 +52,11 @@
       this.actorTimelineViews = {};
       var $wrapper = $(CONTAINER_TEMPLATE);
       $wrapper.appendTo(document.body);
-      this.$el = $(document.body).children().last();
-      this .bindDomToView();
+      this.$el = $(document.body).children(':last');
+      this.bindDomToView();
       this.render();
-      initResizablePanes(this);
       fillControls(this);
+      initResizablePanes(this);
       $(window).trigger('resize.rt');
     }
 

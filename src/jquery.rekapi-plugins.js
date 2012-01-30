@@ -34,7 +34,7 @@
         '$previousEl': $DOMhandle.prev()
         ,'$nextEl': $DOMhandle.next()
         ,'$parentEl': this
-      }).css('left', $DOMhandle.data().$previousEl.width())
+      }).css('left', $DOMhandle.data().$previousEl.outerWidth(true))
       .addClass('splitter');
 
     $DOMhandle
