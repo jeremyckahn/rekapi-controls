@@ -40,7 +40,7 @@
   }
 
 
-  var RekapiTimelineView = Backbone.View.extend({
+  var RekapiView = Backbone.View.extend({
 
     'events': {
     }
@@ -106,11 +106,11 @@
   });
 
 
-  var ACTOR_TIMELINE_TEMPLATE = [
+  var ACTOR_TEMPLATE = [
       '<li class="' + CSS_NS + 'actor-timeline"></li>'
     ].join('');
 
-  var RekapiActorTimelineView = Backbone.View.extend({
+  var RekapiActorView = Backbone.View.extend({
     'events': {}
 
 
@@ -118,7 +118,7 @@
       this.$parentList = opts.$parentList;
       this.actor = opts.actor;
 
-      var $el = $(ACTOR_TIMELINE_TEMPLATE);
+      var $el = $(ACTOR_TEMPLATE);
       $el.appendTo(this.$parentList);
       this.$el = this.$parentList.children(':last');
 
@@ -133,7 +133,7 @@
   });
 
 
-  var RekapiActorTimelineModel = Backbone.Model.extend({
+  var RekapiActorModel = Backbone.Model.extend({
 
     'initialize': function (opts) {
       this.actor = opts.actor;
@@ -147,13 +147,14 @@
         this.tracks[trackName] = [];
       }, this);
 
+      return this;
     }
 
   });
 
 
   global.RekapiTimeline = function (opts) {
-    return new RekapiTimelineView(opts);
+    return new RekapiView(opts);
   };
 
 } (this));
