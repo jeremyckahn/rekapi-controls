@@ -93,5 +93,4 @@
   };
   // End resize
 
-
 }(jQuery));
