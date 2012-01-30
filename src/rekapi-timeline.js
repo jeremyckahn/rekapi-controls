@@ -129,6 +129,26 @@
     ,'render': function () {
 
     }
+
+  });
+
+
+  var RekapiActorTimelineModel = Backbone.Model.extend({
+
+    'initialize': function (opts) {
+      this.actor = opts.actor;
+      this.id = this.actor.id;
+
+      _.extend(this, {
+        'tracks': {}
+      });
+
+      _.each(this.actor.getTrackNames(), function (trackName) {
+        this.tracks[trackName] = [];
+      }, this);
+
+    }
+
   });
 
 
