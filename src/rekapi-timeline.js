@@ -23,15 +23,13 @@
   }
 
 
-  function fillHeader (controls) {
-    var actors = controls.kapi.getAllActors();
+  function fillHeader (rekapiTimelineView) {
+    var actors = rekapiTimelineView.kapi.getAllActors();
     _.each(actors, function (actor, actorId) {
-      var actorHeader = $(document.createElement('li'), {
-        'id': actorId
+      rekapiTimelineView[actorId] = new RekapiActorHeaderView({
+        'actor': actor
+        ,'$parentList': rekapiTimelineView.$headers
       });
-
-      actorHeader.html('Actor ' + actor.id);
-      actorHeader.appendTo(controls.$headers)
     });
   }
 
@@ -50,12 +48,12 @@
 
     ,'initialize': function (opts) {
       this.kapi = kapi;
-      this.actorHeaderViews = [];
-      this.actorTimelineViews = [];
+      this.actorHeaderViews = {};
+      this.actorTimelineViews = {};
       var $wrapper = $(CONTAINER_TEMPLATE);
       $wrapper.appendTo(document.body);
       this.$el = $(document.body).children().last();
-      this.bindDomToView();
+      this .bindDomToView();
       this.render();
       initResizablePanes(this);
       fillControls(this);
@@ -90,13 +88,21 @@
     ,'initialize': function (opts) {
       this.$parentList = opts.$parentList;
       this.actor = opts.actor;
+      this.id = this.actor.id;
 
       var $el = $(ACTOR_HEADER_TEMPLATE);
       $el.appendTo(this.$parentList);
       this.$el = this.$parentList.children(':last');
+      this.render();
 
       return this;
     }
+
+
+    ,'render': function () {
+      this.$el.html('Actor ' + this.id);
+    }
+
   });
 
 
