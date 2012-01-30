@@ -116,7 +116,7 @@
 
     ,'initialize': function (opts) {
       this.$parentList = opts.$parentList;
-      this.actor = opts.actor;
+      this.model = opts.rekapiActorModel;
 
       var $el = $(ACTOR_TEMPLATE);
       $el.appendTo(this.$parentList);
@@ -133,6 +133,17 @@
   });
 
 
+  var RekapiActorCollection = Backbone.Collection.extend({
+
+    'model': RekapiActorModel
+
+
+    ,'initialize': function () {
+
+    }
+  });
+
+
   var RekapiActorModel = Backbone.Model.extend({
 
     'initialize': function (opts) {
@@ -144,8 +155,45 @@
       });
 
       _.each(this.actor.getTrackNames(), function (trackName) {
-        this.tracks[trackName] = [];
+        var rekapiKeyframePropertyArray = [];
+        var trackLength = this.actor.getTrackLength(trackName);
+        var i, keyframePropertyModel;
+
+        for (i = 0; 0 < trackLength; trackLength++) {
+          keyframePropertyModel = new RekapiKeyframePropertyModel({
+            'keyframeProperty': this.getKeyframeProperty(trackName, i)
+          });
+          rekapiKeyframePropertyArray.push(keyframePropertyModel);
+        }
+
+        this.tracks[trackName] =
+            new RekapiKeyframePropertyCollection(rekapiKeyframePropertyArray);
+
       }, this);
+
+      return this;
+    }
+
+  });
+
+
+  var RekapiKeyframePropertyCollection = Backbone.Collection.extend({
+
+    'model': RekapiKeyframePropertyModel
+
+
+    ,'initialize': function () {
+
+    }
+
+  });
+
+
+  var RekapiKeyframePropertyModel = Backbone.Model.extend({
+
+    'initialize': function (opts) {
+      this.keyframeProperty = opts.keyframeProperty;
+      this.id = this.keyframeProperty.id;
 
       return this;
     }
