@@ -6,6 +6,20 @@
 
   var RekapiModel = Backbone.Model.extend({
 
+    'initialize': function (opts) {
+      var sourceActors = _.values(opts.source.getAllActors());
+      var modelParams = [];
+
+      _.each(sourceActors, function (actor) {
+        modelParams.push({
+          'source': actor
+        });
+      });
+
+      this.set('actors',
+          new RekapiActorCollection(modelParams));
+    }
+
   });
 
 
@@ -55,9 +69,9 @@
 
 
     ,'__fillHeader': function () {
-      var actors = this.model.attributes.getAllActors();
+      var actors = this.model.attributes.source.getAllActors();
       _.each(actors, function (actor, actorId) {
-        this[actorId] = new RekapiActorHeaderView({
+        new RekapiActorHeaderView({
           'model': new RekapiActorModel(actor)
           ,'$parentList': this.$headers
         });
@@ -76,7 +90,7 @@
     'model': RekapiActorModel
 
 
-    ,'initialize': function () {
+    ,'initialize': function (opts) {
 
     }
 
@@ -132,7 +146,7 @@
 
   global.RekapiTimeline = function (kapi) {
     return new RekapiView({
-      'model': new RekapiModel(kapi)
+      'model': new RekapiModel({ 'source': kapi })
     });
   };
 
