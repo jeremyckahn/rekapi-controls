@@ -79,29 +79,21 @@
   });
 
 
-  var RekapiActorHeaderModel = Backbone.Model.extend({
-
-    'initialize': function (attrs) {
-    }
-
-  });
-
-
-  var ACTOR_HEADER_TEMPLATE = [
-      '<li class="' + CSS_NS + 'actor-header"></li>'
-    ].join('');
-
-
   var RekapiActorHeaderView = Backbone.View.extend({
 
     'events': {}
+
+
+    ,'ACTOR_HEADER_TEMPLATE': [
+        '<li class="' + CSS_NS + 'actor-header"></li>'
+      ].join('')
 
 
     ,'initialize': function (opts) {
       this.$parentList = opts.$parentList;
       this.id = this.model.get('id');
 
-      var $el = $(ACTOR_HEADER_TEMPLATE);
+      var $el = $(this.ACTOR_HEADER_TEMPLATE);
       $el.appendTo(this.$parentList);
       this.$el = this.$parentList.children(':last');
       this.render();
@@ -117,33 +109,6 @@
   });
 
 
-  var ACTOR_TEMPLATE = [
-      '<li class="' + CSS_NS + 'actor-timeline"></li>'
-    ].join('');
-
-  var RekapiActorView = Backbone.View.extend({
-    'events': {}
-
-
-    ,'initialize': function (opts) {
-      this.$parentList = opts.$parentList;
-      this.model = opts.rekapiActorModel;
-
-      var $el = $(ACTOR_TEMPLATE);
-      $el.appendTo(this.$parentList);
-      this.$el = this.$parentList.children(':last');
-
-      return this;
-    }
-
-
-    ,'render': function () {
-
-    }
-
-  });
-
-
   var RekapiActorCollection = Backbone.Collection.extend({
 
     'model': RekapiActorModel
@@ -152,34 +117,11 @@
     ,'initialize': function () {
 
     }
+
   });
 
 
   var RekapiActorModel = Backbone.Model.extend({
-
-  });
-
-
-  var RekapiKeyframePropertyCollection = Backbone.Collection.extend({
-
-    'model': RekapiKeyframePropertyModel
-
-
-    ,'initialize': function () {
-
-    }
-
-  });
-
-
-  var RekapiKeyframePropertyModel = Backbone.Model.extend({
-
-    'initialize': function (attrs) {
-      this.keyframeProperty = attrs.keyframeProperty;
-      this.id = this.keyframeProperty.id;
-
-      return this;
-    }
 
   });
 
