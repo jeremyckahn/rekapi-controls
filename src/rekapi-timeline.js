@@ -79,6 +79,15 @@
   });
 
 
+  var RekapiActorHeaderModel = Backbone.Model.extend({
+
+    'initialize': function (attrs) {
+
+    }
+
+  });
+
+
   var ACTOR_HEADER_TEMPLATE = [
       '<li class="' + CSS_NS + 'actor-header"></li>'
     ].join('');
@@ -149,8 +158,8 @@
 
   var RekapiActorModel = Backbone.Model.extend({
 
-    'initialize': function (opts) {
-      this.actor = opts.actor;
+    'initialize': function (attrs) {
+      this.actor = attrs.actor;
       this.id = this.actor.id;
 
       _.extend(this, {
@@ -194,8 +203,8 @@
 
   var RekapiKeyframePropertyModel = Backbone.Model.extend({
 
-    'initialize': function (opts) {
-      this.keyframeProperty = opts.keyframeProperty;
+    'initialize': function (attrs) {
+      this.keyframeProperty = attrs.keyframeProperty;
       this.id = this.keyframeProperty.id;
 
       return this;
