@@ -27,7 +27,7 @@
     var actors = rekapiTimelineView.kapi.getAllActors();
     _.each(actors, function (actor, actorId) {
       rekapiTimelineView[actorId] = new RekapiActorHeaderView({
-        'actor': actor
+        'model': new RekapiActorModel(actor)
         ,'$parentList': rekapiTimelineView.$headers
       });
     });
@@ -82,7 +82,6 @@
   var RekapiActorHeaderModel = Backbone.Model.extend({
 
     'initialize': function (attrs) {
-
     }
 
   });
@@ -94,13 +93,13 @@
 
 
   var RekapiActorHeaderView = Backbone.View.extend({
+
     'events': {}
 
 
     ,'initialize': function (opts) {
       this.$parentList = opts.$parentList;
-      this.actor = opts.actor;
-      this.id = this.actor.id;
+      this.id = this.model.get('id');
 
       var $el = $(ACTOR_HEADER_TEMPLATE);
       $el.appendTo(this.$parentList);
@@ -157,34 +156,6 @@
 
 
   var RekapiActorModel = Backbone.Model.extend({
-
-    'initialize': function (attrs) {
-      this.actor = attrs.actor;
-      this.id = this.actor.id;
-
-      _.extend(this, {
-        'tracks': {}
-      });
-
-      _.each(this.actor.getTrackNames(), function (trackName) {
-        var rekapiKeyframePropertyArray = [];
-        var trackLength = this.actor.getTrackLength(trackName);
-        var i, keyframePropertyModel;
-
-        for (i = 0; 0 < trackLength; trackLength++) {
-          keyframePropertyModel = new RekapiKeyframePropertyModel({
-            'keyframeProperty': this.getKeyframeProperty(trackName, i)
-          });
-          rekapiKeyframePropertyArray.push(keyframePropertyModel);
-        }
-
-        this.tracks[trackName] =
-            new RekapiKeyframePropertyCollection(rekapiKeyframePropertyArray);
-
-      }, this);
-
-      return this;
-    }
 
   });
 
