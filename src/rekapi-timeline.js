@@ -1,21 +1,7 @@
 ;(function (global) {
-  if (!jQuery || !Kapi) {
-    throw 'Rekapi, and jQuery are needed for Rekapi Controls.';
-  }
 
   var CSS_NS = 'rt-'
-    ,CONTAINER_TEMPLATE =
-      ['<div class="' + CSS_NS + 'wrapper">'
-        ,'<div class="' + CSS_NS + 'control-bar">'
-        ,'</div>'
-        ,'<div class="' + CSS_NS + 'headers-and-timelines">'
-          ,'<ul class="' + CSS_NS + 'actor-headers"></ul>'
-          ,'<ul class="' + CSS_NS + 'actor-timelines"></ul>'
-        ,'</div'
-      ,'</div>'
-    ].join('');
-
-  var $ = jQuery;
+      ,$ = jQuery;
 
 
   function fillControls (controls) {
@@ -34,33 +20,40 @@
   }
 
 
-  function initResizablePanes (controls) {
-    controls.$headersAndTimeline.split();
-    controls.$el.resizeDockable();
-  }
-
-
   var RekapiView = Backbone.View.extend({
 
     'events': {
     }
 
 
+    ,'TEMPLATE':
+      ['<div class="' + CSS_NS + 'wrapper">'
+          ,'<div class="' + CSS_NS + 'control-bar">'
+          ,'</div>'
+          ,'<div class="' + CSS_NS + 'headers-and-timelines">'
+            ,'<ul class="' + CSS_NS + 'actor-headers"></ul>'
+            ,'<ul class="' + CSS_NS + 'actor-timelines"></ul>'
+          ,'</div'
+        ,'</div>'
+      ].join('')
+
+
     ,'initialize': function (opts) {
       this.kapi = kapi;
-      var $wrapper = $(CONTAINER_TEMPLATE);
+      var $wrapper = $(this.TEMPLATE);
       $wrapper.appendTo(document.body);
       this.$el = $(document.body).children(':last');
       this.bindDomToView();
       this.render();
       fillControls(this);
-      initResizablePanes(this);
+      this._initPanes();
       $(window).trigger('resize.rt');
     }
 
 
-    ,'initActors': function () {
-
+    ,'_initPanes': function () {
+      this.$headersAndTimeline.split();
+      this.$el.resizeDockable();
     }
 
 
