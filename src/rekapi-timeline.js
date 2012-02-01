@@ -28,7 +28,6 @@
 
 
     ,'initialize': function (opts) {
-      this.kapi = kapi;
       var $wrapper = $(this.TEMPLATE);
       $wrapper.appendTo(document.body);
       this.$el = $(document.body).children(':last');
@@ -56,7 +55,7 @@
 
 
     ,'__fillHeader': function () {
-      var actors = this.kapi.getAllActors();
+      var actors = this.model.attributes.getAllActors();
       _.each(actors, function (actor, actorId) {
         this[actorId] = new RekapiActorHeaderView({
           'model': new RekapiActorModel(actor)
