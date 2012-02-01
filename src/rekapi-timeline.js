@@ -79,6 +79,23 @@
   });
 
 
+  var RekapiActorCollection = Backbone.Collection.extend({
+
+    'model': RekapiActorModel
+
+
+    ,'initialize': function () {
+
+    }
+
+  });
+
+
+  var RekapiActorModel = Backbone.Model.extend({
+
+  });
+
+
   var RekapiActorHeaderView = Backbone.View.extend({
 
     'events': {}
@@ -109,19 +126,14 @@
   });
 
 
-  var RekapiActorCollection = Backbone.Collection.extend({
+  var RekapiActorTimelineView = Backbone.View.extend({
 
-    'model': RekapiActorModel
+    'events': {}
 
 
-    ,'initialize': function () {
+    ,'initialize': function (opts) {
 
     }
-
-  });
-
-
-  var RekapiActorModel = Backbone.Model.extend({
 
   });
 
