@@ -4,20 +4,9 @@
       ,$ = jQuery;
 
 
-  function fillControls (controls) {
-    fillHeader(controls);
-  }
+  var RekapiModel = Backbone.Model.extend({
 
-
-  function fillHeader (rekapiTimelineView) {
-    var actors = rekapiTimelineView.kapi.getAllActors();
-    _.each(actors, function (actor, actorId) {
-      rekapiTimelineView[actorId] = new RekapiActorHeaderView({
-        'model': new RekapiActorModel(actor)
-        ,'$parentList': rekapiTimelineView.$headers
-      });
-    });
-  }
+  });
 
 
   var RekapiView = Backbone.View.extend({
@@ -43,11 +32,20 @@
       var $wrapper = $(this.TEMPLATE);
       $wrapper.appendTo(document.body);
       this.$el = $(document.body).children(':last');
-      this.bindDomToView();
+      this._cacheEls();
       this.render();
-      fillControls(this);
+      this.__fillHeader();
       this._initPanes();
       $(window).trigger('resize.rt');
+    }
+
+
+    ,'_cacheEls': function () {
+      this.$controlBar = this.$el.find('.' + CSS_NS + 'control-bar');
+      this.$headers = this.$el.find('.' + CSS_NS + 'actor-headers');
+      this.$timeline = this.$el.find('.' + CSS_NS + 'actor-timelines');
+      this.$headersAndTimeline =
+          this.$el.find('.' + CSS_NS + 'headers-and-timelines');
     }
 
 
@@ -57,12 +55,14 @@
     }
 
 
-    ,'bindDomToView': function () {
-      this.$controlBar = this.$el.find('.' + CSS_NS + 'control-bar');
-      this.$headers = this.$el.find('.' + CSS_NS + 'actor-headers');
-      this.$timeline = this.$el.find('.' + CSS_NS + 'actor-timelines');
-      this.$headersAndTimeline =
-          this.$el.find('.' + CSS_NS + 'headers-and-timelines');
+    ,'__fillHeader': function () {
+      var actors = this.kapi.getAllActors();
+      _.each(actors, function (actor, actorId) {
+        this[actorId] = new RekapiActorHeaderView({
+          'model': new RekapiActorModel(actor)
+          ,'$parentList': this.$headers
+        });
+      }, this);
     }
 
 
@@ -131,8 +131,10 @@
   });
 
 
-  global.RekapiTimeline = function (opts) {
-    return new RekapiView(opts);
+  global.RekapiTimeline = function (kapi) {
+    return new RekapiView({
+      'model': new RekapiModel(kapi)
+    });
   };
 
 } (this));
