@@ -119,7 +119,9 @@
 
   var RekapiActorHeaderView = Backbone.View.extend({
 
-    'events': {}
+    'events': {
+      'click': 'onClick'
+    }
 
 
     ,'ACTOR_HEADER_TEMPLATE': [
@@ -129,13 +131,19 @@
 
     ,'initialize': function (opts) {
       this.$el = $(this.ACTOR_HEADER_TEMPLATE);
+      this.$el.html('Actor ' + this.model.get('source').id);
 
       return this;
     }
 
 
+    ,'onClick': function (evt) {
+
+    }
+
+
     ,'render': function () {
-      this.$el.html('Actor ' + this.model.get('source').id);
+
     }
 
   });
@@ -143,7 +151,9 @@
 
   var RekapiActorTimelineView = Backbone.View.extend({
 
-    'events': {}
+    'events': {
+
+    }
 
 
     ,'initialize': function (opts) {
