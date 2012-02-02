@@ -8,16 +8,16 @@
 
     'initialize': function (opts) {
       var sourceActors = _.values(opts.source.getAllActors());
-      var modelParams = [];
+      var actorModels = [];
 
       _.each(sourceActors, function (actor) {
-        modelParams.push({
+        actorModels.push(new RekapiActorModel({
           'source': actor
-        });
+        }));
       });
 
       this.set('actors',
-          new RekapiActorCollection(modelParams));
+          new RekapiActorCollection(actorModels));
     }
 
   });
@@ -46,9 +46,8 @@
       $wrapper.appendTo(document.body);
       this.$el = $(document.body).children(':last');
       this._cacheEls();
-      this.render();
-      this.__fillHeader();
       this._initPanes();
+      this.render();
       $(window).trigger('resize.rt');
     }
 
@@ -68,18 +67,27 @@
     }
 
 
-    ,'__fillHeader': function () {
-      var actors = this.model.attributes.source.getAllActors();
-      _.each(actors, function (actor, actorId) {
-        new RekapiActorHeaderView({
-          'model': new RekapiActorModel(actor)
-          ,'$parentList': this.$headers
-        });
-      }, this);
+    //,'__fillHeader': function () {
+      //var actors = this.model.attributes.source.getAllActors();
+      //_.each(actors, function (actor, actorId) {
+        //new RekapiActorHeaderView({
+          //'model': new RekapiActorModel(actor)
+          //,'$parentList': this.$headers
+        //});
+      //}, this);
+    //}
+
+
+    ,'renderHeader': function () {
+      this.model.get('actors').each(function (actor) {
+
+      });
+
     }
 
 
     ,'render': function () {
+      this.renderHeader();
     }
 
   });
@@ -99,6 +107,16 @@
 
   var RekapiActorModel = Backbone.Model.extend({
 
+    'initialize': function (opts) {
+      this.headerView = new RekapiActorHeaderView({
+        'model': this
+      });
+
+      this.timelineView = new RekapiActorTimelineView({
+        'model': this
+      });
+    }
+
   });
 
 
@@ -113,13 +131,13 @@
 
 
     ,'initialize': function (opts) {
-      this.$parentList = opts.$parentList;
-      this.id = this.model.get('id');
+      //this.$parentList = opts.$parentList;
+      //this.id = this.model.get('id');
 
-      var $el = $(this.ACTOR_HEADER_TEMPLATE);
-      $el.appendTo(this.$parentList);
-      this.$el = this.$parentList.children(':last');
-      this.render();
+      this.$el = $(this.ACTOR_HEADER_TEMPLATE);
+      //$el.appendTo(this.$parentList);
+      //this.$el = this.$parentList.children(':last');
+      //this.render();
 
       return this;
     }
