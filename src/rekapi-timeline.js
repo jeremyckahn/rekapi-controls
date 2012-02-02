@@ -75,16 +75,22 @@
     ,'renderHeader': function () {
       this.$headers.children().remove();
       this.model.get('actors').each(function (actor) {
-        console.log(actor)
-        actor.headerView.render();
-        this.$headers.append(actor.headerView.$el);
+        this.$headers.append(actor.headerView.render());
       }, this);
+    }
 
+
+    ,'renderTimeline': function () {
+      this.$timeline.children().remove();
+      this.model.get('actors').each(function (actor) {
+        this.$timeline.append(actor.timelineView.render());
+      }, this);
     }
 
 
     ,'render': function () {
       this.renderHeader();
+      this.renderTimeline();
     }
 
   });
@@ -124,13 +130,13 @@
     }
 
 
-    ,'ACTOR_HEADER_TEMPLATE': [
+    ,'TEMPLATE': [
         '<li class="' + CSS_NS + 'actor-header"></li>'
       ].join('')
 
 
     ,'initialize': function (opts) {
-      this.$el = $(this.ACTOR_HEADER_TEMPLATE);
+      this.$el = $(this.TEMPLATE);
       this.$el.html('Actor ' + this.model.get('source').id);
 
       return this;
@@ -143,7 +149,7 @@
 
 
     ,'render': function () {
-
+      return this.$el;
     }
 
   });
@@ -155,9 +161,20 @@
 
     }
 
+    ,'TEMPLATE': [
+      '<li class="' + CSS_NS + 'actor-timeline"></li>'
+    ].join('')
+
 
     ,'initialize': function (opts) {
+      //this.$el = $(this.TEMPLATE);
 
+      return this;
+    }
+
+
+    ,'render': function () {
+      return this.$el;
     }
 
   });

@@ -4,12 +4,9 @@
 
   // Begin $.fn.split
   function onSplitterDrag (evt) {
-    var leftWidth = this.position().left;
-    var rightWidth =
-        this.data('$parentEl').width() - this.data('$previousEl').outerWidth();
-
-    this.data().$previousEl.width(leftWidth);
-    this.data().$nextEl.width(rightWidth);
+    var position = this.position();
+    this.data().$previousEl.width(position.left);
+    this.data().$nextEl.width(position.right);
   }
 
   $.fn.split = function (args) {
