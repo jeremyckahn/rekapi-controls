@@ -6,8 +6,8 @@
   function onSplitterDrag (evt) {
     var position = this.position();
     this.data().$previousEl.width(position.left);
-    this.data().$nextEl.width(
-      this.data().$previousEl.outerWidth() - position.left);
+    this.data().$nextEl.width(this.data().$parentEl.innerWidth() 
+        - this.data().$previousEl.outerWidth());
   }
 
   $.fn.split = function (args) {
@@ -38,7 +38,7 @@
     $DOMhandle
       .draggable({ 'axis': 'x' })
       .bind('drag', _.bind(onSplitterDrag, $DOMhandle))
-      .bind('stop', _.bind(onSplitterDrag, $DOMhandle))
+      .bind('dragstop', _.bind(onSplitterDrag, $DOMhandle))
       .trigger('drag');
 
     return this;
