@@ -10,6 +10,7 @@ extend('RekapiTimeline.view.actorTimeline', Backbone.View.extend({
 
 
   ,'initialize': function (opts) {
+    this.$el = $(this.TEMPLATE);
 
     return this;
   }

@@ -6,7 +6,8 @@
   function onSplitterDrag (evt) {
     var position = this.position();
     this.data().$previousEl.width(position.left);
-    this.data().$nextEl.width(position.right);
+    this.data().$nextEl.width(
+      this.data().$previousEl.outerWidth() - position.left);
   }
 
   $.fn.split = function (args) {
