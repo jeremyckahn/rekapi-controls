@@ -43,12 +43,14 @@
       .bind('dragstop', _.bind(onSplitterDrag, $handle))
       .trigger('drag');
 
+    $win.on('resize', _.bind(onSplitterDrag, $handle));
+
     return this;
   };
   // End $.fn.split
 
 
-  // Start resize
+  // Start $.fn.resizeDockable
 
   function onDockResizeHandleDrag (evt) {
     var handleDistanceFromTop =
@@ -77,20 +79,19 @@
 
     $handle.css('top', this.position().top - $handle.height());
     this.prepend($handle);
-    var $DOMhandle = this.children(':eq(0)');
-    $DOMhandle
+    $handle
       .draggable({ 'axis': 'y' })
-      .bind('drag', _.bind(onDockResizeHandleDrag, $DOMhandle))
-      .bind('stop', _.bind(onDockResizeHandleDrag, $DOMhandle))
+      .bind('drag', _.bind(onDockResizeHandleDrag, $handle))
+      .bind('stop', _.bind(onDockResizeHandleDrag, $handle))
       .data('$dockedEl', this)
       .trigger('drag')
-      .addClass('resize-handle');
+      .addClass('resize-handle')
+      .trigger('drag');
 
-    $DOMhandle.trigger('drag');
-    $win.on('resize', _.bind(onDockResizeWindowResize, $DOMhandle));
+    $win.on('resize', _.bind(onDockResizeWindowResize, $handle));
 
     return this;
   };
-  // End resize
+  // End $.fn.resizeDockable
 
 }(jQuery));
