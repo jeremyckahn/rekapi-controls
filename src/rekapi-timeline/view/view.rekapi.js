@@ -52,7 +52,7 @@ extend('RekapiTimeline.view.rekapi', Backbone.View.extend({
 
 
   ,'_initPanes': function () {
-    //this.$actors.split();
+    this.$actors.split();
     this.$el.resizeDockable();
   }
 

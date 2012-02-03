@@ -5,9 +5,10 @@
   // Begin $.fn.split
   function onSplitterDrag (evt) {
     var position = this.position();
-    this.data().$previousEl.width(position.left);
-    this.data().$nextEl.width(this.data().$parentEl.innerWidth() 
-        - this.data().$previousEl.outerWidth());
+    var $left = $('.split-left', this.data().$parentEl);
+    var $right = $('.split-right', this.data().$parentEl);
+    $left.width(position.left);
+    $right.width(this.data().$parentEl.innerWidth() - $left.outerWidth());
   }
 
   $.fn.split = function (args) {
@@ -24,21 +25,18 @@
         ,'top': 0
         ,'cursor': 'ew-resize'
       })
-      .insertAfter(this.children(':eq(0)'));
+      .prependTo(this)
 
-    var $DOMhandle = this.children(':eq(1)');
-    $DOMhandle
+    $handle
       .data({
-        '$previousEl': $DOMhandle.prev()
-        ,'$nextEl': $DOMhandle.next()
-        ,'$parentEl': this
-      }).css('left', $DOMhandle.data().$previousEl.outerWidth(true))
+        '$parentEl': this
+      }).css('left', this.find('.splitter-left:first').outerWidth(true))
       .addClass('splitter');
 
-    $DOMhandle
+    $handle
       .draggable({ 'axis': 'x' })
-      .bind('drag', _.bind(onSplitterDrag, $DOMhandle))
-      .bind('dragstop', _.bind(onSplitterDrag, $DOMhandle))
+      .bind('drag', _.bind(onSplitterDrag, $handle))
+      .bind('dragstop', _.bind(onSplitterDrag, $handle))
       .trigger('drag');
 
     return this;

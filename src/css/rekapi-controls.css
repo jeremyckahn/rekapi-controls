@@ -66,10 +66,14 @@
 
   .rt-actor-header {
     border-right: solid 1px #222;
-    font-size: 14px;
-    min-width: 140px;
-    padding: 10px;
+    width: 140px;
   }
+
+    .rt-actor-header .rt-actor-id {
+      font-size: 14px;
+      margin: 0;
+      padding: 10px;
+    }
 
 .rt-actors {
   height: 100%;
@@ -77,4 +81,9 @@
   padding: 0;
   position: relative;
   width: 100%;
+}
+
+.rt-wrapper .splitter {
+  border-left: solid 1px #222;
+  left: 140px;
 }
