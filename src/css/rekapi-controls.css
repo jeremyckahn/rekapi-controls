@@ -48,45 +48,33 @@
     height: 40px;
   }
 
-  .rt-headers-and-timelines {
-    height: 100%;
+  .rt-actor {
+    border-bottom: 1px solid #222;
+    list-style: none;
     overflow: hidden;
   }
 
-  .rt-actor-headers,
-  .rt-actor-timelines {
+  .rt-actor-header,
+  .rt-actor-timeline {
+    font-weight: bold;
     float: left;
     height: 100%;
-  }
-
-  .rt-actor-headers,
-  .rt-actor-timelines {
-    font-weight: bold;
-    list-style: none;
     height: 100%;
     padding: 0px;
     margin: 0px;
   }
 
-  .rt-actor-headers {
+  .rt-actor-header {
     border-right: solid 1px #222;
-    overflow: auto;
+    font-size: 14px;
+    min-width: 140px;
+    padding: 10px;
   }
 
-    .rt-actor-headers li {
-      border-bottom: 1px solid #bbb;
-      font-size: 14px;
-      min-width: 140px;
-      padding: 10px;
-    }
-
-
-  .rt-actor-timelines {
-
-  }
-
-.rt-headers-and-timelines {
+.rt-actors {
   height: 100%;
+  margin: 0;
+  padding: 0;
   position: relative;
   width: 100%;
 }

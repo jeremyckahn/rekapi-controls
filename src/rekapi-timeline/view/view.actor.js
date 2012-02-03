@@ -5,7 +5,7 @@ extend('RekapiTimeline.view.actor', Backbone.View.extend({
   }
 
   ,'TEMPLATE': [
-    '<li class="' + RekapiTimeline.constant.CSS_NS + 'actors"></li>'
+    '<li class="' + RekapiTimeline.constant.CSS_NS + 'actor"></li>'
   ].join('')
 
 
