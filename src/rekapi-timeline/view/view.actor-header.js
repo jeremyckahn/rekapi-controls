@@ -6,7 +6,8 @@ extend('RekapiTimeline.view.actorHeader', Backbone.View.extend({
 
 
   ,'TEMPLATE': [
-      '<li class="' + RekapiTimeline.constant.CSS_NS + 'actor-header"></li>'
+      '<div class="'
+          + RekapiTimeline.constant.CSS_NS + 'actor-header split-left"></div>'
     ].join('')
 
 

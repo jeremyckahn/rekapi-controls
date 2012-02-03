@@ -5,12 +5,14 @@ extend('RekapiTimeline.view.actorTimeline', Backbone.View.extend({
   }
 
   ,'TEMPLATE': [
-    '<li class="' + RekapiTimeline.constant.CSS_NS + 'actor-timeline"></li>'
+    '<div class="'
+        + RekapiTimeline.constant.CSS_NS + 'actor-timeline split-right"></div>'
   ].join('')
 
 
   ,'initialize': function (opts) {
     this.$el = $(this.TEMPLATE);
+    this.$el.html('Lorem Ipsum');
 
     return this;
   }
