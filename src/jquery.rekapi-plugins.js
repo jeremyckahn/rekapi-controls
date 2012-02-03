@@ -5,8 +5,12 @@
   // Begin $.fn.split
   function onSplitterDrag (evt) {
     var position = this.position();
-    var $left = $('.split-left', this.data().$parentEl);
-    var $right = $('.split-right', this.data().$parentEl);
+    var $parentEl = this.data().$parentEl;
+    var $left = $('.split-left', $parentEl);
+    var $right = $('.split-right', $parentEl);
+    position.left = Math.max(position.left, 0);
+    position.left = Math.min(position.left, $parentEl.width() - this.width());
+    this.css('left', position.left);
     $left.width(position.left);
     $right.width(this.data().$parentEl.innerWidth() - $left.outerWidth());
   }
