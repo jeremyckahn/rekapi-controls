@@ -26,10 +26,11 @@
         ,'width': '8px' || args.width
         ,'background': args.background
         ,'position': 'absolute'
-        ,'top': 0
+        //,'top': 0
+        ,'z-index': 20
         ,'cursor': 'ew-resize'
       })
-      .prependTo(this)
+      .insertBefore(this)
 
     $handle
       .data({
