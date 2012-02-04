@@ -1,6 +1,10 @@
 extend('RekapiTimeline.model.rekapi', Backbone.Model.extend({
 
-  'initialize': function (opts) {
+  'defaults': {
+    'scale': 1
+  }
+
+  ,'initialize': function (opts) {
     var sourceActors = _.values(opts.source.getAllActors());
     var actorModels = [];
 
