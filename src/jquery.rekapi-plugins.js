@@ -37,13 +37,14 @@
       }).css('left', this.find('.splitter-left:first').outerWidth(true))
       .addClass('splitter');
 
+    var boundHandler = _.bind(onSplitterDrag, $handle);
     $handle
       .draggable({ 'axis': 'x' })
-      .bind('drag', _.bind(onSplitterDrag, $handle))
-      .bind('dragstop', _.bind(onSplitterDrag, $handle))
+      .bind('drag', boundHandler)
+      .bind('dragstop', boundHandler)
       .trigger('drag');
 
-    $win.on('resize', _.bind(onSplitterDrag, $handle));
+    $win.on('resize', boundHandler);
 
     return this;
   };

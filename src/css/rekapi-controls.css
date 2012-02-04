@@ -86,3 +86,8 @@
   border-left: solid 1px #222;
   left: 140px;
 }
+
+.rt-wrapper .rt-tickmarks {
+  position: absolute;
+  right: 0;
+}
