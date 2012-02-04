@@ -6,8 +6,6 @@ extend('RekapiTimeline.view.rekapi', Backbone.View.extend({
 
   ,'TEMPLATE':
     ['<div class="' + RekapiTimeline.constant.CSS_NS + 'wrapper">'
-        ,'<div class="' + RekapiTimeline.constant.CSS_NS + 'control-bar">'
-        ,'</div>'
         ,'<ul class="' + RekapiTimeline.constant.CSS_NS + 'actors">'
         ,'</ul>'
       ,'</div>'
@@ -19,6 +17,7 @@ extend('RekapiTimeline.view.rekapi', Backbone.View.extend({
     $wrapper.appendTo(document.body);
     this.$el = $(document.body).children(':last');
     this._cacheEls();
+    this._setupHelperViews();
     this._initPanes();
     this.render();
     $(window).trigger('resize.rt');
@@ -26,10 +25,15 @@ extend('RekapiTimeline.view.rekapi', Backbone.View.extend({
 
 
   ,'_cacheEls': function () {
-    this.$controlBar = this.$el.find(
-        '.' + RekapiTimeline.constant.CSS_NS + 'control-bar');
     this.$actors = this.$el.find(
         '.' + RekapiTimeline.constant.CSS_NS + 'actors');
+  }
+
+
+  ,'_setupHelperViews': function () {
+    this.controlBarView = new RekapiTimeline.view.controlBar({
+      'owner': this
+    });
   }
 
 
@@ -40,6 +44,7 @@ extend('RekapiTimeline.view.rekapi', Backbone.View.extend({
 
 
   ,'render': function () {
+    this.controlBarView.render();
     this.model.get('actors').each(function (actor) {
       this.$actors.append(actor.view.render());
     }, this);
