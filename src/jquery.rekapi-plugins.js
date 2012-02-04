@@ -33,7 +33,7 @@
 
     $handle
       .data({
-        '$parentEl': this
+        '$parentEl': this.parent()
       }).css('left', this.find('.splitter-left:first').outerWidth(true))
       .addClass('splitter');
 

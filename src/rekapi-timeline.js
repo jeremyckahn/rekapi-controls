@@ -5,7 +5,10 @@
       'model': new RekapiTimeline.model.rekapi({ 'source': kapi })
     });
   };
-  
-  extend('RekapiTimeline.constant.CSS_NS', 'rt-');
+
+  extend('RekapiTimeline.constant', {
+    'CSS_NS': 'rt-'
+    ,'PIXEL_SCALE': 100
+  });
 
 } (this));
