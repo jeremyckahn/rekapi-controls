@@ -18,8 +18,6 @@ extend('RekapiTimeline.view.rekapi', Backbone.View.extend({
     this.$el = $(document.body).children(':last');
     this._cacheEls();
     this._setupHelperViews();
-    var dummyActor = this._makeDummyActor();
-    this._destroyDummyActor(dummyActor);
     this._initPanes();
     this.render();
     $(window).trigger('resize.rt');
@@ -32,17 +30,12 @@ extend('RekapiTimeline.view.rekapi', Backbone.View.extend({
   }
 
 
-  ,'_makeDummyActor': function () {
+  ,'_addDummyActor': function () {
     var dummyActor = new RekapiTimeline.model.actor({
       'source': { 'id': -1 }
     });
     this.model.get('actors').add(dummyActor);
     return dummyActor;
-  }
-
-
-  ,'_destroyDummyActor': function (dummyActor) {
-    this.model.get('actors').remove(dummyActor);
   }
 
 
@@ -54,8 +47,22 @@ extend('RekapiTimeline.view.rekapi', Backbone.View.extend({
 
 
   ,'_initPanes': function () {
+    var dummyActor;
+    this.render();
+    var actors = this.model.get('actors');
+
+    if (actors.length === 0) {
+      dummyActor = this._addDummyActor();
+    }
+
     this.$actors.split();
+
+    if (actors.length === 0) {
+      this.model.get('actors').remove(dummyActor);
+    }
+
     this.$el.resizeDockable();
+
   }
 
 

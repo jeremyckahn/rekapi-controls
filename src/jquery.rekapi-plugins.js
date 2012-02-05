@@ -83,7 +83,7 @@
     $handle
       .draggable({ 'axis': 'y' })
       .bind('drag', _.bind(onDockResizeHandleDrag, $handle))
-      .bind('stop', _.bind(onDockResizeHandleDrag, $handle))
+      .bind('dragstop', _.bind(onDockResizeHandleDrag, $handle))
       .data('$dockedEl', this)
       .trigger('drag')
       .addClass('resize-handle')

@@ -90,4 +90,7 @@
 .rt-wrapper .rt-tickmarks {
   position: absolute;
   right: 0;
+  /* There's gotta be a better way to position this that hardcoding a static
+   * top. */
+  top: 22px;
 }
