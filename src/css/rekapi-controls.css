@@ -111,3 +111,9 @@
     overflow: visible;
     width: 0;
   }
+
+  .rt-summary-block {
+    background: #555;
+    cursor: move;
+    height: 60px;
+  }

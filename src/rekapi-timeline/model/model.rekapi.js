@@ -11,8 +11,9 @@ extend('RekapiTimeline.model.rekapi', Backbone.Model.extend({
     _.each(sourceActors, function (actor) {
       actorModels.push(new RekapiTimeline.model.actor({
         'source': actor
+        ,'owner': this
       }));
-    });
+    }, this);
 
     this.set('actors',
         new RekapiTimeline.collection.actor(actorModels));

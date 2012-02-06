@@ -23,16 +23,18 @@ extend('RekapiTimeline.view.rekapiTickmarks', Backbone.View.extend({
   ,'render': function () {
     this.$list.empty();
     var animationLength = this.model.get('source').animationLength();
-    // Not sure if the math below is right?
+    // Not sure if the math below is correct?
     var steps = Math.ceil((animationLength / 1000) / this.tickGranularity) + 1;
     var tickPoints = _.range(
         0, steps * this.tickGranularity, this.tickGranularity);
 
     _.each(tickPoints, function (tick) {
       var renderedTick = $(this.TICK_TEMPLATE);
+      var spacing =
+          this.model.get('scale')
+            * RekapiTimeline.constant.PIXEL_SCALE * this.tickGranularity;
       renderedTick
-        .css('margin-right',
-              this.model.get('scale') * RekapiTimeline.constant.PIXEL_SCALE)
+        .css('margin-right', spacing)
         .html(tick);
       this.$list.append(renderedTick);
     }, this);

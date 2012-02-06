@@ -8,7 +8,7 @@
 
   extend('RekapiTimeline.constant', {
     'CSS_NS': 'rt-'
-    ,'PIXEL_SCALE': 100
+    ,'PIXEL_SCALE': 250
   });
 
 } (this));
