@@ -93,12 +93,17 @@
 }
 
 .rt-tickmarks {
+  overflow: hidden;
   position: absolute;
   right: 0;
   /* There's gotta be a better way to position this that hardcoding a static
    * top. */
   top: 22px;
 }
+
+  .rt-tickmarks ul {
+    width: 999em;
+  }
 
   .rt-tickmarks .rt-tickmark {
     float: left;
