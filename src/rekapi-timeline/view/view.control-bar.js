@@ -10,8 +10,9 @@ extend('RekapiTimeline.view.controlBar', Backbone.View.extend({
     this.owner = opts.owner;
     this.tickmarksView = new RekapiTimeline.view.rekapiTickmarks({
       'owner': this
+      ,'model': this.model
     });
-    this.owner.$el.prepend(this.render());
+    this.owner.$el.prepend(this.$el);
   }
 
   ,'render': function () {

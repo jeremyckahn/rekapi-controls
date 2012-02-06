@@ -19,7 +19,6 @@ extend('RekapiTimeline.view.rekapi', Backbone.View.extend({
     this._cacheEls();
     this._setupHelperViews();
     this._initPanes();
-    this.render();
     $(window).trigger('resize.rt');
   }
 
@@ -42,6 +41,7 @@ extend('RekapiTimeline.view.rekapi', Backbone.View.extend({
   ,'_setupHelperViews': function () {
     this.controlBarView = new RekapiTimeline.view.controlBar({
       'owner': this
+      ,'model': this.model
     });
   }
 
