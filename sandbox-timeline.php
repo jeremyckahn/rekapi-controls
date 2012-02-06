@@ -6,20 +6,25 @@
   <script src="dist/rekapi.bundle.min.js"></script>
   <script src="lib/backbone.js"></script>
   <script src="lib/extend.js"></script>
-  <script src="src/jquery.rekapi-plugins.js"></script>
+  <script src="src/jquery.rekapi-plugins.js"></script><?php
+    function writeScriptTags ($forDir) {
+      if ($dirRef = opendir(getcwd() . '/' . $forDir)) {
+        while (false !== ($fileName = readdir($dirRef))) {
+          if (strlen($fileName) > 2)
+            echo("\n  <script src=\"" . $forDir . $fileName . '"></script>');
+        }
 
-  <script src="src/rekapi-timeline/rekapi-timeline.js"></script>
-  <script src="src/rekapi-timeline/model/model.rekapi.js"></script>
-  <script src="src/rekapi-timeline/model/model.actor.js"></script>
-  <script src="src/rekapi-timeline/view/view.control-bar.js"></script>
-  <script src="src/rekapi-timeline/view/view.rekapi.js"></script>
-  <script src="src/rekapi-timeline/view/view.rekapi-tickmarks.js"></script>
-  <script src="src/rekapi-timeline/view/view.actor.js"></script>
-  <script src="src/rekapi-timeline/view/view.actor-header.js"></script>
-  <script src="src/rekapi-timeline/view/view.actor-timeline.js"></script>
-  <script src="src/rekapi-timeline/view/view.actor-summary.js"></script>
-  <script src="src/rekapi-timeline/view/view.keyprop.js"></script>
-  <script src="src/rekapi-timeline/collection/collection.actor.js"></script>
+        closedir($dirRef);
+      }
+    }
+
+  ?>
+
+  <script src="src/rekapi-timeline/rekapi-timeline.js"></script><?php
+      writeScriptTags('src/rekapi-timeline/model/');
+      writeScriptTags('src/rekapi-timeline/view/');
+      writeScriptTags('src/rekapi-timeline/collection/');
+    ?>
 
   <link rel="stylesheet" href="dist/rekapi-controls.jquery-ui-bundle.css">
   <link rel="stylesheet" href="src/css/rekapi-controls.css">
