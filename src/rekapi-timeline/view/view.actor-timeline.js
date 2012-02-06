@@ -12,7 +12,6 @@ extend('RekapiTimeline.view.actorTimeline', Backbone.View.extend({
 
   ,'initialize': function (opts) {
     this.$el = $(this.TEMPLATE);
-    this.$summaryBlock = $(this.SUMMARY_BLOCK_TEMPLATE);
     this.summaryView = new RekapiTimeline.view.actorSummary({
       'model': this.model
     });
