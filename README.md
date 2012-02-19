@@ -24,6 +24,8 @@ First, load the dependencies.  If you don't want to hunt down the source files f
 - dist/rekapi-controls.jquery-ui-bundle.css
 - dist/rekapi-controls.css
 
+You will also need the `dist/images` directory, but the files above will do the loading for you.
+
 Create a Rekapi animation.  Please see the [documentation on Rekapi](https://github.com/jeremyckahn/rekapi/blob/master/README.md) for more information, but here's a quick, copy/paste-able example:
 
 ````html
