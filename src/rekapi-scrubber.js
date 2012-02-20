@@ -159,16 +159,7 @@
 
 
   RekapiScrubber.prototype.updateScrubber = function () {
-    var animationLength
-        ,timeSinceStart
-        ,currentLoopPosition
-        ,loopCompletionPercent;
-
-    timeSinceStart = Kapi.util.calculateTimeSinceStart(this.kapi);
-    currentLoopPosition = Kapi.util.calculateLoopPosition(
-        this.kapi, timeSinceStart, -1);
-    animationLength = this.kapi._animationLength;
-    loopCompletionPercent = 100 * (currentLoopPosition / animationLength);
+    var loopCompletionPercent = 100 * this.kapi.lastPositionRendered();
     this.$timeline.slider('value', loopCompletionPercent);
   };
 
