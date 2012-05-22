@@ -32,18 +32,16 @@
   <link rel="stylesheet" href="src/css/rekapi-controls.css">
 </head>
 <body>
-  <canvas></canvas>
+  <canvas style="background: #ddd;"></canvas>
   <script>
   var canvas = document.getElementsByTagName('canvas')[0],
-      kapi = new Kapi(canvas, {
-              'fps': 30
+      kapi = new Kapi({
+              'context': canvas
               ,'height': 300
               ,'width': 400
             });
 
-  kapi.canvas_style('background', '#ddd');
-
-  var actor = new Kapi.Actor({
+  var actor = new Kapi.CanvasActor({
     // Draws a circle.
     'draw': function (canvas_context, state) {
       canvas_context.beginPath();

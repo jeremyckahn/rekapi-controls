@@ -1,5 +1,5 @@
 /**
- * Rekapi Controls - UI controls for Rekapi animations. v0.1.4
+ * Rekapi Controls - UI controls for Rekapi animations. v0.2.0
  *   By Jeremy Kahn - jeremyckahn@gmail.com
  *   https://github.com/jeremyckahn/rekapi-controls
  *
@@ -40,7 +40,7 @@
    * @returns {number}
    */
   function computeTimelineWidth (kapi, $container) {
-    return kapi.canvas_width() - $container.find('.rekapi-scrubber').width();
+    return kapi.canvasWidth() - $container.find('.rekapi-scrubber').width();
   }
 
 
@@ -110,7 +110,7 @@
 
     self = this;
     this.kapi = kapi;
-    $canvas = $(kapi.canvas);
+    $canvas = $(kapi.context);
     $container = $(SCRUBBER_TEMPLATE);
     $canvas.after($container);
 
@@ -123,7 +123,7 @@
     });
     this.$timeline = $timeline;
     this.$timelineHandle = $timeline.find('.ui-slider-handle');
-    $container.width(kapi.canvas_width());
+    $container.width(kapi.canvasWidth());
     this.syncPlayStateButtons();
     $timeline.width(computeTimelineWidth(kapi, $container));
     bindControlsToDOM(this);
