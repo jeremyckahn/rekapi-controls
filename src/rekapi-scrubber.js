@@ -69,15 +69,15 @@
       kapi.stop(true);
     });
 
-    kapi.bind('onPlayStateChange', function () {
+    kapi.bind('playStateChange', function () {
       rekapiScrubber.syncPlayStateButtons();
     });
 
-    kapi.bind('onStop', function () {
+    kapi.bind('stop', function () {
       rekapiScrubber.resetScrubber();
     });
 
-    kapi.bind('onFrameRender', function () {
+    kapi.bind('frameRender', function () {
       rekapiScrubber.updateScrubber();
     });
 

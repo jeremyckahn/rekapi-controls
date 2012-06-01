@@ -20,7 +20,7 @@
 
   var actor = new Kapi.CanvasActor({
     // Draws a circle.
-    'draw': function (canvas_context, state) {
+    'render': function (canvas_context, state) {
       canvas_context.beginPath();
       canvas_context.arc(
         state.x || 50,
@@ -45,8 +45,8 @@
       ,color: '#f0f'
     })
     .keyframe(1000, {
-      x: 350
-      ,y: 250
+      x: 300
+      ,y: 200
     }, 'easeOutExpo')
     .keyframe(1500, {
       x: 300
