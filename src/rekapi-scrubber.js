@@ -69,19 +69,19 @@
       kapi.stop(true);
     });
 
-    kapi.bind('playStateChange', function () {
+    kapi.on('playStateChange', function () {
       rekapiScrubber.syncPlayStateButtons();
     });
 
-    kapi.bind('stop', function () {
+    kapi.on('stop', function () {
       rekapiScrubber.resetScrubber();
     });
 
-    kapi.bind('frameRender', function () {
+    kapi.on('frameRender', function () {
       rekapiScrubber.updateScrubber();
     });
 
-    $timeline.bind('slide', function (evt, ui) {
+    $timeline.on('slide', function (evt, ui) {
       kapi.pause();
       rekapiScrubber.syncAnimationToPercent(ui.value);
     });
