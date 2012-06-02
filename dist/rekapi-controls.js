@@ -1,5 +1,5 @@
 /**
- * Rekapi Controls - UI controls for Rekapi animations. v0.2.1
+ * Rekapi Controls - UI controls for Rekapi animations. v0.2.2
  *   By Jeremy Kahn - jeremyckahn@gmail.com
  *   https://github.com/jeremyckahn/rekapi-controls
  *
@@ -78,19 +78,19 @@
       kapi.stop(true);
     });
 
-    kapi.bind('playStateChange', function () {
+    kapi.on('playStateChange', function () {
       rekapiScrubber.syncPlayStateButtons();
     });
 
-    kapi.bind('stop', function () {
+    kapi.on('stop', function () {
       rekapiScrubber.resetScrubber();
     });
 
-    kapi.bind('frameRender', function () {
+    kapi.on('frameRender', function () {
       rekapiScrubber.updateScrubber();
     });
 
-    $timeline.bind('slide', function (evt, ui) {
+    $timeline.on('slide', function (evt, ui) {
       kapi.pause();
       rekapiScrubber.syncAnimationToPercent(ui.value);
     });
