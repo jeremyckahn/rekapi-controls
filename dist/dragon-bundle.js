@@ -30,7 +30,7 @@
    * @return {number}
    */
   function getInnerSliderWidth ($slider, $handle) {
-    return $slider.width() - $handle.width();
+    return $slider.width() - $handle.outerWidth();
   }
 
 
@@ -358,6 +358,8 @@
   // Yep, you only get to bind one event handler.  Much faster this way.
   function fire (event, $el, evt) {
     var handler = $el.data('dragon-opts')[event];
+    // Patch the proxied Event Object
+    evt.target = $el[0];
     handler && handler(evt);
   }
 
