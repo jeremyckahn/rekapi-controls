@@ -12,7 +12,7 @@ echo \
  *   https://github.com/jeremyckahn/rekapi-controls
  *
  * Make Rekapi animations interactive and fun.
- * Dependencies: Rekapi (https://github.com/jeremyckahn/rekapi), Underscore.js (https://github.com/documentcloud/underscore), Shifty.js (https://github.com/jeremyckahn/shifty), jQuery (https://github.com/jquery/jquery), jQuery UI (https://github.com/jquery/jquery-ui)
+ * Dependencies: Rekapi (https://github.com/jeremyckahn/rekapi), Underscore.js (https://github.com/documentcloud/underscore), Shifty.js (https://github.com/jeremyckahn/shifty), jQuery (https://github.com/jquery/jquery)
  * MIT Lincense.  This code free to use, modify, distribute and enjoy.
  */" | cat > /tmp/rekapi-controls.header.js
 
@@ -22,23 +22,6 @@ cat /tmp/rekapi-controls.header.js \
 
 in=dist/rekapi-controls.js
 out=/tmp/rekapi-controls.compiled.js
-
-# If a local path to the Closure compiler was specified, use that.
-if [ $2 ]; then
-  java -jar ${2} --js=$in --js_output_file=$out
-else
-  # Otherwise curl out to Google's.
-  curl -s \
-    -d compilation_level=SIMPLE_OPTIMIZATIONS \
-    -d output_format=text \
-    -d output_info=compiled_code \
-    --data-urlencode "js_code@${in}" \
-    http://closure-compiler.appspot.com/compile \
-     > $out
-fi
-
-in=dist/rekapi-controls.jquery-ui.js
-out=dist/rekapi-controls.jquery-ui.min.js
 
 # If a local path to the Closure compiler was specified, use that.
 if [ $2 ]; then

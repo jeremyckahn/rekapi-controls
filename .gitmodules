@@ -1,3 +1,6 @@
 [submodule "lib/rekapi"]
 	path = lib/rekapi
 	url = git@github.com:jeremyckahn/rekapi.git
+[submodule "lib/dragon"]
+	path = lib/dragon
+	url = git@github.com:jeremyckahn/dragon.git

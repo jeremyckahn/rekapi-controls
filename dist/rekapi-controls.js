@@ -1,15 +1,14 @@
 /**
- * Rekapi Controls - UI controls for Rekapi animations. v0.2.2
+ * Rekapi Controls - UI controls for Rekapi animations. v0.3.1
  *   By Jeremy Kahn - jeremyckahn@gmail.com
  *   https://github.com/jeremyckahn/rekapi-controls
  *
  * Make Rekapi animations interactive and fun.
- * Dependencies: Rekapi (https://github.com/jeremyckahn/rekapi), Underscore.js (https://github.com/documentcloud/underscore), Shifty.js (https://github.com/jeremyckahn/shifty), jQuery (https://github.com/jquery/jquery), jQuery UI (https://github.com/jquery/jquery-ui)
+ * Dependencies: Rekapi (https://github.com/jeremyckahn/rekapi), Underscore.js (https://github.com/documentcloud/underscore), Shifty.js (https://github.com/jeremyckahn/shifty), jQuery (https://github.com/jquery/jquery)
  * MIT Lincense.  This code free to use, modify, distribute and enjoy.
  */
 ;(function (global) {
-  var $
-      SCRUBBER_TEMPLATE = [
+  var SCRUBBER_TEMPLATE = [
         '<div class="rekapi-scrubber-wrapper">'
           ,'<div class="rekapi-scrubber">'
             ,'<a class="rekapi-scrubber-button rekapi-scrubber-play ui-corner-all" href="#">'
@@ -26,11 +25,7 @@
         ,'</div>'
       ].join('');
 
-  if (!jQuery || !Kapi) {
-    throw 'Rekapi, and jQuery are needed for Rekapi Controls.';
-  }
-
-  $ = jQuery;
+  var $ = jQuery;
 
 
   /**
@@ -40,7 +35,17 @@
    * @returns {number}
    */
   function computeTimelineWidth (kapi, $container) {
-    return kapi.canvasWidth() - $container.find('.rekapi-scrubber').width();
+    var timelineWidth = kapi.canvasWidth();
+    var $dragonEl = $container.find('.dragon-slider');
+    timelineWidth -= parseInt($dragonEl.css('border-left-width'), 10);
+    timelineWidth -= parseInt($dragonEl.css('border-right-width'), 10);
+    timelineWidth -= $dragonEl.find('.dragon-slider-handle').outerWidth();
+
+    $container.find('.rekapi-scrubber-button').each(function (i, el) {
+      timelineWidth -= $(el).outerWidth();
+    });
+
+    return timelineWidth;
   }
 
 
@@ -89,11 +94,6 @@
     kapi.on('frameRender', function () {
       rekapiScrubber.updateScrubber();
     });
-
-    $timeline.on('slide', function (evt, ui) {
-      kapi.pause();
-      rekapiScrubber.syncAnimationToPercent(ui.value);
-    });
   }
 
 
@@ -118,14 +118,19 @@
     $container = $canvas.next();
     this.$container = $container;
     $timeline = $container.find('.rekapi-scrubber-timeline');
-    $timeline.slider({
-      'step': 0.1
+    $timeline.dragonSlider({
+
+      // TODO: Move the event binding to bindControlsToDOM
+      'drag': $.proxy(function (val) {
+        kapi.pause();
+        this.syncAnimationToPercent(val);
+      }, this)
+
     });
     this.$timeline = $timeline;
-    this.$timelineHandle = $timeline.find('.ui-slider-handle');
     $container.width(kapi.canvasWidth());
-    this.syncPlayStateButtons();
     $timeline.width(computeTimelineWidth(kapi, $container));
+    this.syncPlayStateButtons();
     bindControlsToDOM(this);
 
     return this;
@@ -168,32 +173,27 @@
 
 
   RekapiScrubber.prototype.updateScrubber = function () {
-    var loopCompletionPercent = 100 * this.kapi.lastPositionRendered();
-    this.$timeline.slider('value', loopCompletionPercent);
+    this.$timeline.dragonSliderSet(this.kapi.lastPositionRendered(), false);
   };
 
 
   RekapiScrubber.prototype.resetScrubber = function () {
-    this.$timeline.slider('value', 0);
+    this.$timeline.dragonSliderSet(0, false);
   };
 
 
   RekapiScrubber.prototype.syncAnimationToScrubber = function () {
-    this.syncAnimationToPercent(this.$timeline.slider('value'));
+    this.syncAnimationToPercent(this.$timeline.dragonSliderGet());
   }
 
 
   RekapiScrubber.prototype.syncAnimationToPercent = function (percent) {
-    var desiredMillisecond;
-
-    desiredMillisecond = parseInt(
-        (percent / 100) * this.kapi._animationLength);
-    this.syncAnimationToMillisecond(desiredMillisecond);
+    this.syncAnimationToMillisecond(percent * this.kapi.animationLength());
   };
 
 
   RekapiScrubber.prototype.syncAnimationToMillisecond =
-    function (millisecond) {
+      function (millisecond) {
     var now;
 
     now = Tweenable.util.now();
