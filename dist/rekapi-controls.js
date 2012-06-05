@@ -1,5 +1,5 @@
 /**
- * Rekapi Controls - UI controls for Rekapi animations. v0.3.3
+ * Rekapi Controls - UI controls for Rekapi animations. v0.3.4
  *   By Jeremy Kahn - jeremyckahn@gmail.com
  *   https://github.com/jeremyckahn/rekapi-controls
  *
@@ -35,7 +35,7 @@
    * @returns {number}
    */
   function computeTimelineWidth (kapi, $container, $contextEl) {
-    var timelineWidth = $contextEl;
+    var timelineWidth = $contextEl.width();
     var $dragonEl = $container.find('.dragon-slider');
     timelineWidth -= parseInt($dragonEl.css('border-left-width'), 10);
     timelineWidth -= parseInt($dragonEl.css('border-right-width'), 10);

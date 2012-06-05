@@ -26,7 +26,7 @@
    * @returns {number}
    */
   function computeTimelineWidth (kapi, $container, $contextEl) {
-    var timelineWidth = $contextEl;
+    var timelineWidth = $contextEl.width();
     var $dragonEl = $container.find('.dragon-slider');
     timelineWidth -= parseInt($dragonEl.css('border-left-width'), 10);
     timelineWidth -= parseInt($dragonEl.css('border-right-width'), 10);
