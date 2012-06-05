@@ -1,5 +1,5 @@
 /**
- * Rekapi Controls - UI controls for Rekapi animations. v0.3.2
+ * Rekapi Controls - UI controls for Rekapi animations. v0.3.3
  *   By Jeremy Kahn - jeremyckahn@gmail.com
  *   https://github.com/jeremyckahn/rekapi-controls
  *
@@ -34,8 +34,8 @@
    * @param {jQuery} $container
    * @returns {number}
    */
-  function computeTimelineWidth (kapi, $container) {
-    var timelineWidth = kapi.canvasWidth();
+  function computeTimelineWidth (kapi, $container, $contextEl) {
+    var timelineWidth = $contextEl;
     var $dragonEl = $container.find('.dragon-slider');
     timelineWidth -= parseInt($dragonEl.css('border-left-width'), 10);
     timelineWidth -= parseInt($dragonEl.css('border-right-width'), 10);
@@ -102,7 +102,7 @@
    * @param {Kapi} kapi
    * @returns {RekapiScrubber}
    */
-  function RekapiScrubber (kapi) {
+  function RekapiScrubber (kapi, contextEl) {
     var self
         ,$canvas
         ,$container
@@ -110,6 +110,7 @@
 
     self = this;
     this.kapi = kapi;
+    this.$contextEl = $(contextEl);
     $canvas = $(kapi.context);
     $container = $(SCRUBBER_TEMPLATE);
     $canvas.after($container);
@@ -128,8 +129,8 @@
 
     });
     this.$timeline = $timeline;
-    $container.width(kapi.canvasWidth());
-    $timeline.width(computeTimelineWidth(kapi, $container));
+    $container.width(this.$contextEl.width());
+    $timeline.width(computeTimelineWidth(kapi, $container, this.$contextEl));
     this.syncPlayStateButtons();
     bindControlsToDOM(this);
 
