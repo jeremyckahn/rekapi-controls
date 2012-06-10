@@ -21,7 +21,7 @@
 
   var actor = new Kapi.CanvasActor({
     // Draws a circle.
-    'render': function (canvas_context, state) {
+    'draw': function (canvas_context, state) {
       canvas_context.beginPath();
       canvas_context.arc(
         state.x || 50,
@@ -62,8 +62,7 @@
     }).wait(2000);
 
 
-  kapi
-    .play();
+  kapi.play();
 
   var controls = new RekapiScrubber(kapi, canvas);
   console.log(kapi, controls);

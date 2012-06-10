@@ -82,7 +82,7 @@
       rekapiScrubber.resetScrubber();
     });
 
-    kapi.on('frameRender', function () {
+    kapi.on('afterUpdate', function () {
       rekapiScrubber.updateScrubber();
     });
   }
@@ -165,7 +165,7 @@
 
 
   RekapiScrubber.prototype.updateScrubber = function () {
-    this.$timeline.dragonSliderSet(this.kapi.lastPositionRendered(), false);
+    this.$timeline.dragonSliderSet(this.kapi.lastPositionUpdated(), false);
   };
 
 
@@ -189,7 +189,7 @@
     var now;
 
     now = Tweenable.util.now();
-    this.kapi.render(millisecond);
+    this.kapi.update(millisecond);
     this.kapi._loopTimestamp = now - millisecond;
     this.kapi._pausedAtTime = now;
   };
