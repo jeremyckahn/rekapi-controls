@@ -38,17 +38,18 @@ Create a Rekapi animation.  Please see the [documentation on Rekapi](https://git
   <script src="dist/rekapi.bundle.min.js"></script>
   <script src="dist/rekapi-controls.min.js"></script>
   <script src="dist/dragon-bundle.js"></script>
-  <link rel="stylesheet" href="dist/rekapi-controls.jquery-ui-bundle.css">
   <link rel="stylesheet" href="dist/rekapi-controls.css">
   <link rel="stylesheet" href="dist/jquery.dragon-slider.css">
 </head>
 <body>
   <canvas></canvas>
   <script>
-  var canvas = document.getElementsByTagName('canvas')[0],
-      kapi = new Kapi(canvas);
+  var canvas = document.getElementsByTagName('canvas')[0];
+  var kapi = new Kapi({
+    context: canvas
+  });
 
-  var actor = new Kapi.Actor({
+  var actor = new Kapi.CanvasActor({
     // Draws a circle.
     'draw': function (canvas_context, state) {
       canvas_context.beginPath();
@@ -85,7 +86,7 @@ Create a Rekapi animation.  Please see the [documentation on Rekapi](https://git
 
 ````
 
-Assuming that `kapi` is out Kapi instance, add an interactive scrubber to it like so:
+Assuming that `kapi` is our Kapi instance, add an interactive scrubber to it like so:
 
 ````javascript
 var controls = new RekapiScrubber(kapi);
