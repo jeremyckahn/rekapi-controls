@@ -11,17 +11,19 @@ Dependencies for Rekapi Controls:
 - [Rekapi](https://github.com/jeremyckahn/rekapi/)
   - [Underscore](https://github.com/documentcloud/underscore)
   - [Shifty](https://github.com/jeremyckahn/shifty)
-- [jQuery UI](http://jqueryui.com/) (Prepared bundles are included in this repo, but all it requires is the [Slider](http://jqueryui.com/demos/slider/) and it's dependencies.)
+- [jQuery Dragon](https://github.com/jeremyckahn/dragon)
+
+All dependencies can be found in `dist/`.
 
 ## Using Rekapi Controls
 
 First, load the dependencies.  If you don't want to hunt down the source files for everything, you can just use the minified dependency files:
 
 - dist/jquery.min.js
-- dist/rekapi-controls.jquery-ui.min.js
 - dist/rekapi.bundle.min.js
 - dist/rekapi-controls.min.js
-- dist/rekapi-controls.jquery-ui-bundle.css
+- dist/dragon-bundle.js
+- dist/jquery.dragon-slider.css
 - dist/rekapi-controls.css
 
 You will also need the `dist/images` directory, but the files above will do the loading for you.
@@ -33,19 +35,21 @@ Create a Rekapi animation.  Please see the [documentation on Rekapi](https://git
 <html>
 <head>
   <script src="dist/jquery.min.js"></script>
-  <script src="dist/rekapi-controls.jquery-ui.min.js"></script>
   <script src="dist/rekapi.bundle.min.js"></script>
   <script src="dist/rekapi-controls.min.js"></script>
-  <link rel="stylesheet" href="dist/rekapi-controls.jquery-ui-bundle.css">
+  <script src="dist/dragon-bundle.js"></script>
   <link rel="stylesheet" href="dist/rekapi-controls.css">
+  <link rel="stylesheet" href="dist/jquery.dragon-slider.css">
 </head>
 <body>
   <canvas></canvas>
   <script>
-  var canvas = document.getElementsByTagName('canvas')[0],
-      kapi = new Kapi(canvas);
+  var canvas = document.getElementsByTagName('canvas')[0];
+  var kapi = new Kapi({
+    context: canvas
+  });
 
-  var actor = new Kapi.Actor({
+  var actor = new Kapi.CanvasActor({
     // Draws a circle.
     'draw': function (canvas_context, state) {
       canvas_context.beginPath();
@@ -82,7 +86,7 @@ Create a Rekapi animation.  Please see the [documentation on Rekapi](https://git
 
 ````
 
-Assuming that `kapi` is out Kapi instance, add an interactive scrubber to it like so:
+Assuming that `kapi` is our Kapi instance, add an interactive scrubber to it like so:
 
 ````javascript
 var controls = new RekapiScrubber(kapi);

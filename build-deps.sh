@@ -9,4 +9,5 @@ cp lib/rekapi/dist/rekapi.bundle.min.js dist/
 echo "Rekapi bundle size, gzipped:"
 echo `cat dist/rekapi.bundle.min.js | gzip -9f | wc -c` "bytes"
 
+cp lib/dragon/src/css/jquery.dragon-slider.css dist/
 cp -r src/css/images/ dist/images/
