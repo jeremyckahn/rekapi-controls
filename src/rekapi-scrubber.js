@@ -188,7 +188,7 @@
       function (millisecond) {
     var now;
 
-    now = Tweenable.util.now();
+    now = Tweenable.now();
     this.kapi.update(millisecond);
     this.kapi._loopTimestamp = now - millisecond;
     this.kapi._pausedAtTime = now;
