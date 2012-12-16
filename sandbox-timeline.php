@@ -30,6 +30,7 @@
 
   <link rel="stylesheet" href="dist/rekapi-controls.jquery-ui-bundle.css">
   <link rel="stylesheet" href="src/css/rekapi-controls.css">
+  <link rel="stylesheet" href="src/css/rekapi-controls-timeline.css">
 </head>
 <body>
   <canvas style="background: #ddd;"></canvas>

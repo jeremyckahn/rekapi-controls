@@ -1,0 +1,86 @@
+.rt-wrapper {
+  background: #eee;
+  border-top: solid 1px #222;
+  font-family: 'Lucida Sans Unicode','Lucida Grande',sans-serif;
+  height: 140px; /* Initial style, gets overridden with JavaScript. */
+  left: 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+}
+
+  .rt-wrapper ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .rt-control-bar {
+    background: #ddd;
+    border-bottom: solid 1px #222;
+    height: 40px;
+  }
+
+  .rt-actor {
+    border-bottom: 1px solid #222;
+    overflow: hidden;
+  }
+
+  .rt-actor-header,
+  .rt-actor-timeline {
+    font-weight: bold;
+    float: left;
+    height: 100%;
+    overflow: hidden;
+    padding: 0px;
+    margin: 0px;
+  }
+
+  .rt-actor-header {
+    width: 140px;
+  }
+
+    .rt-actor-header .rt-actor-id {
+      font-size: 14px;
+      margin: 0;
+      padding: 10px;
+    }
+
+.rt-actors {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+
+.rt-wrapper .splitter {
+  border-left: solid 1px #222;
+  left: 140px;
+}
+
+.rt-tickmarks {
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  /* There's gotta be a better way to position this than hardcoding a static
+   * top. */
+  top: 22px;
+}
+
+  .rt-tickmarks ul {
+    width: 999em;
+  }
+
+  .rt-tickmarks .rt-tickmark {
+    float: left;
+    font-size: .5em;
+    overflow: visible;
+    width: 0;
+  }
+
+  .rt-summary-block {
+    background: #555;
+    cursor: move;
+    height: 60px;
+  }

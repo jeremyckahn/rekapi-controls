@@ -12,6 +12,7 @@ Dependencies for Rekapi Controls:
   - [Underscore](https://github.com/documentcloud/underscore)
   - [Shifty](https://github.com/jeremyckahn/shifty)
 - [jQuery Dragon](https://github.com/jeremyckahn/dragon)
+- [Font Awesome](http://fortawesome.github.com/Font-Awesome/)
 
 All dependencies can be found in `dist/`.
 
@@ -25,8 +26,9 @@ First, load the dependencies.  If you don't want to hunt down the source files f
 - dist/dragon-bundle.js
 - dist/jquery.dragon-slider.css
 - dist/rekapi-controls.css
+- dist/font-awesome/css/font-awesome.css
 
-You will also need the `dist/images` directory, but the files above will do the loading for you.
+There are a few asset files that are required, but the above files will load those for you.
 
 Create a Rekapi animation.  Please see the [documentation on Rekapi](https://github.com/jeremyckahn/rekapi/blob/master/README.md) for more information, but here's a quick, copy/paste-able example:
 
@@ -38,8 +40,9 @@ Create a Rekapi animation.  Please see the [documentation on Rekapi](https://git
   <script src="dist/rekapi.bundle.min.js"></script>
   <script src="dist/rekapi-controls.min.js"></script>
   <script src="dist/dragon-bundle.js"></script>
-  <link rel="stylesheet" href="dist/rekapi-controls.css">
   <link rel="stylesheet" href="dist/jquery.dragon-slider.css">
+  <link rel="stylesheet" href="dist/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="dist/rekapi-controls.css">
 </head>
 <body>
   <canvas></canvas>
@@ -93,5 +96,3 @@ var controls = new RekapiScrubber(kapi);
 ````
 
 Poof!  That's all there is to it.  You can now control the animation with your mouse.
-
-__More controls are in the works.__

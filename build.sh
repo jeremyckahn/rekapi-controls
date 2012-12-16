@@ -39,6 +39,7 @@ fi
 
 cat /tmp/rekapi-controls.header.js /tmp/rekapi-controls.compiled.js > dist/rekapi-controls.min.js
 cp src/css/rekapi-controls.css dist/
+cp -r lib/font-awesome/ dist/font-awesome
 
 echo 'Happy day!  Rekapi Controls were built.  The file size, minified and gzipped, is:'
 echo `cat dist/rekapi-controls.min.js | gzip -9f | wc -c` "bytes"

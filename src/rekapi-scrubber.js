@@ -2,15 +2,15 @@
   var SCRUBBER_TEMPLATE = [
         '<div class="rekapi-scrubber-wrapper">'
           ,'<div class="rekapi-scrubber">'
-            ,'<a class="rekapi-scrubber-button rekapi-scrubber-play ui-corner-all" href="#">'
-              ,'<span class="ui-icon ui-icon-play"></span>'
+            ,'<a class="rekapi-scrubber-button rekapi-scrubber-play" href="#">'
+              ,'<span class="icon icon-play"></span>'
             ,'</a>'
-            ,'<a class="rekapi-scrubber-button rekapi-scrubber-pause ui-corner-all" href="#">'
-              ,'<span class="ui-icon ui-icon-pause"></span>'
+            ,'<a class="rekapi-scrubber-button rekapi-scrubber-pause" href="#">'
+              ,'<span class="icon icon-pause"></span>'
             ,'</a>'
             ,'<div class="rekapi-scrubber-timeline"></div>'
-            ,'<a class="rekapi-scrubber-button rekapi-scrubber-stop ui-corner-all" href="#">'
-              ,'<span class="ui-icon ui-icon-stop"></span>'
+            ,'<a class="rekapi-scrubber-button rekapi-scrubber-stop" href="#">'
+              ,'<span class="icon icon-stop"></span>'
             ,'</a>'
           ,'</div>'
         ,'</div>'
@@ -31,10 +31,8 @@
     timelineWidth -= parseInt($dragonEl.css('border-left-width'), 10);
     timelineWidth -= parseInt($dragonEl.css('border-right-width'), 10);
     timelineWidth -= $dragonEl.find('.dragon-slider-handle').outerWidth();
-
-    $container.find('.rekapi-scrubber-button').each(function (i, el) {
-      timelineWidth -= $(el).outerWidth();
-    });
+    var $buttonSample = $container.find('.rekapi-scrubber-button:eq(0)');
+    timelineWidth -= $buttonSample.outerWidth() * 2;
 
     return timelineWidth;
   }
