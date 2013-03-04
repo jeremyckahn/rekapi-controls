@@ -1,5 +1,5 @@
 /**
- * Rekapi Controls - UI controls for Rekapi animations. v
+ * Rekapi Controls - UI controls for Rekapi animations. v0.3.7
  *   By Jeremy Kahn - jeremyckahn@gmail.com
  *   https://github.com/jeremyckahn/rekapi-controls
  *
@@ -26,25 +26,6 @@
       ].join('');
 
   var $ = jQuery;
-
-
-  /**
-   * Calculate how wide (in pixels) the timeline DOM element should be.
-   * @param {Kapi} kapi
-   * @param {jQuery} $container
-   * @returns {number}
-   */
-  function computeTimelineWidth (kapi, $container, $contextEl) {
-    var timelineWidth = $contextEl.width();
-    var $dragonEl = $container.find('.dragon-slider');
-    timelineWidth -= parseInt($dragonEl.css('border-left-width'), 10);
-    timelineWidth -= parseInt($dragonEl.css('border-right-width'), 10);
-    timelineWidth -= $dragonEl.find('.dragon-slider-handle').outerWidth();
-    var $buttonSample = $container.find('.rekapi-scrubber-button:eq(0)');
-    timelineWidth -= $buttonSample.outerWidth() * 2;
-
-    return timelineWidth;
-  }
 
 
   /**
@@ -128,7 +109,6 @@
     });
     this.$timeline = $timeline;
     $container.width(this.$contextEl.width());
-    $timeline.width(computeTimelineWidth(kapi, $container, this.$contextEl));
     this.syncPlayStateButtons();
     bindControlsToDOM(this);
 
