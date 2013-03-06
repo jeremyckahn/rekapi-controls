@@ -1,5 +1,5 @@
 /**
- * Rekapi Controls - UI controls for Rekapi animations. v0.3.8
+ * Rekapi Controls - UI controls for Rekapi animations. v0.3.9
  *   By Jeremy Kahn - jeremyckahn@gmail.com
  *   https://github.com/jeremyckahn/rekapi-controls
  *

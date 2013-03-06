@@ -1,6 +1,6 @@
 {
   "name": "rekapi-controls",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "main": "./dist/rekapi-controls.min.js",
   "dependencies": {
     "jquery-dragon": "~0.1.3"
