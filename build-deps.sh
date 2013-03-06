@@ -1,4 +1,8 @@
 cat \
+  components/jquery/jquery.min.js \
+  > dist/jquery.js
+
+cat \
   components/jquery-dragon/src/*.js \
   > dist/dragon-bundle.js
 
