@@ -50,7 +50,8 @@
 
     $stop.on('click', function (evt) {
       evt.preventDefault();
-      kapi.stop(true);
+      kapi.stop();
+      kapi.update(0);
     });
 
     kapi.on('playStateChange', function () {

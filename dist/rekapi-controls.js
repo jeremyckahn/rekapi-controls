@@ -1,5 +1,5 @@
 /**
- * Rekapi Controls - UI controls for Rekapi animations. v0.3.10
+ * Rekapi Controls - UI controls for Rekapi animations. v0.3.11
  *   By Jeremy Kahn - jeremyckahn@gmail.com
  *   https://github.com/jeremyckahn/rekapi-controls
  *
@@ -59,7 +59,8 @@
 
     $stop.on('click', function (evt) {
       evt.preventDefault();
-      kapi.stop(true);
+      kapi.stop();
+      kapi.update(0);
     });
 
     kapi.on('playStateChange', function () {
