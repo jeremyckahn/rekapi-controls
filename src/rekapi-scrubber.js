@@ -1,4 +1,5 @@
-;(function (global) {
+/* global jQuery:true */
+;(function (global, $) {
   var SCRUBBER_TEMPLATE = [
         '<div class="rekapi-scrubber-wrapper">'
           ,'<div class="rekapi-scrubber">'
@@ -15,9 +16,6 @@
           ,'</div>'
         ,'</div>'
       ].join('');
-
-  var $ = jQuery;
-
 
   /**
    * Bind all interaction events for a RekapiScrubber.
@@ -105,7 +103,7 @@
     bindControlsToDOM(this);
 
     return this;
-  };
+  }
 
 
   /**
@@ -115,7 +113,7 @@
   RekapiScrubber.prototype.syncPlayStateButtons = function () {
     var kapi
         ,$play
-        ,$pause
+        ,$pause;
 
     kapi = this.kapi;
     $play = this.$container.find('.rekapi-scrubber-play');
@@ -155,7 +153,7 @@
 
   RekapiScrubber.prototype.syncAnimationToScrubber = function () {
     this.syncAnimationToPercent(this.$timeline.dragonSliderGet());
-  }
+  };
 
 
   RekapiScrubber.prototype.syncAnimationToPercent = function (percent) {
@@ -173,6 +171,22 @@
     this.kapi._pausedAtTime = now;
   };
 
-  global.RekapiScrubber = RekapiScrubber;
 
-} (this));
+  var Kapi;
+  var Tweenable;
+
+  if (typeof define === 'function' && define.amd) {
+    define(['shifty', 'rekapi'], function (_Tweenable, _Kapi) {
+      Kapi = _Kapi;
+      Tweenable = _Tweenable;
+      return RekapiScrubber;
+    });
+  } else {
+    Kapi = global.Kapi;
+    Tweenable = global.Tweenable;
+    global.RekapiScrubber = RekapiScrubber;
+  }
+
+
+
+} (this, jQuery));

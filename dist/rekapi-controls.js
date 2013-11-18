@@ -1,5 +1,5 @@
 /**
- * Rekapi Controls - UI controls for Rekapi animations. v0.3.11
+ * Rekapi Controls - UI controls for Rekapi animations. v0.3.12
  *   By Jeremy Kahn - jeremyckahn@gmail.com
  *   https://github.com/jeremyckahn/rekapi-controls
  *
@@ -7,7 +7,8 @@
  * Dependencies: Rekapi (https://github.com/jeremyckahn/rekapi), Underscore.js (https://github.com/documentcloud/underscore), Shifty.js (https://github.com/jeremyckahn/shifty), jQuery (https://github.com/jquery/jquery)
  * MIT Lincense.  This code free to use, modify, distribute and enjoy.
  */
-;(function (global) {
+/* global jQuery:true */
+;(function (global, $) {
   var SCRUBBER_TEMPLATE = [
         '<div class="rekapi-scrubber-wrapper">'
           ,'<div class="rekapi-scrubber">'
@@ -24,9 +25,6 @@
           ,'</div>'
         ,'</div>'
       ].join('');
-
-  var $ = jQuery;
-
 
   /**
    * Bind all interaction events for a RekapiScrubber.
@@ -114,7 +112,7 @@
     bindControlsToDOM(this);
 
     return this;
-  };
+  }
 
 
   /**
@@ -124,7 +122,7 @@
   RekapiScrubber.prototype.syncPlayStateButtons = function () {
     var kapi
         ,$play
-        ,$pause
+        ,$pause;
 
     kapi = this.kapi;
     $play = this.$container.find('.rekapi-scrubber-play');
@@ -164,7 +162,7 @@
 
   RekapiScrubber.prototype.syncAnimationToScrubber = function () {
     this.syncAnimationToPercent(this.$timeline.dragonSliderGet());
-  }
+  };
 
 
   RekapiScrubber.prototype.syncAnimationToPercent = function (percent) {
@@ -182,6 +180,22 @@
     this.kapi._pausedAtTime = now;
   };
 
-  global.RekapiScrubber = RekapiScrubber;
 
-} (this));
+  var Kapi;
+  var Tweenable;
+
+  if (typeof define === 'function' && define.amd) {
+    define(['shifty', 'rekapi'], function (_Tweenable, _Kapi) {
+      Kapi = _Kapi;
+      Tweenable = _Tweenable;
+      return RekapiScrubber;
+    });
+  } else {
+    Kapi = global.Kapi;
+    Tweenable = global.Tweenable;
+    global.RekapiScrubber = RekapiScrubber;
+  }
+
+
+
+} (this, jQuery));
