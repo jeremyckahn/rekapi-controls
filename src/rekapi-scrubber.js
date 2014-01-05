@@ -23,7 +23,6 @@
    */
   function bindControlsToDOM (rekapiScrubber) {
     var kapi
-        ,$canvas
         ,$container
         ,$play
         ,$pause
@@ -72,20 +71,16 @@
    * @returns {RekapiScrubber}
    */
   function RekapiScrubber (kapi, contextEl) {
-    var self
-        ,$canvas
-        ,$container
-        ,$timeline;
+    var self, $container, $timeline;
 
     self = this;
     this.kapi = kapi;
     this.$contextEl = $(contextEl);
-    $canvas = $(kapi.context);
     $container = $(SCRUBBER_TEMPLATE);
-    $canvas.after($container);
+    this.$contextEl.after($container);
 
     // Update the reference to the element in the DOM
-    $container = $canvas.next();
+    $container = this.$contextEl.next();
     this.$container = $container;
     $timeline = $container.find('.rekapi-scrubber-timeline');
     $timeline.dragonSlider({
