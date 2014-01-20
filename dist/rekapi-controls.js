@@ -1,5 +1,5 @@
 /**
- * Rekapi Controls - UI controls for Rekapi animations. v0.3.13
+ * Rekapi Controls - UI controls for Rekapi animations. v0.4.0
  *   By Jeremy Kahn - jeremyckahn@gmail.com
  *   https://github.com/jeremyckahn/rekapi-controls
  *
@@ -146,7 +146,7 @@
 
 
   RekapiScrubber.prototype.updateScrubber = function () {
-    this.$timeline.dragonSliderSet(this.kapi.lastPositionUpdated(), false);
+    this.$timeline.dragonSliderSet(this.kapi.getLastPositionUpdated(), false);
   };
 
 
@@ -161,7 +161,7 @@
 
 
   RekapiScrubber.prototype.syncAnimationToPercent = function (percent) {
-    this.syncAnimationToMillisecond(percent * this.kapi.animationLength());
+    this.syncAnimationToMillisecond(percent * this.kapi.getAnimationLength());
   };
 
 
